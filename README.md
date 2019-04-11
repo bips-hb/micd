@@ -4,7 +4,8 @@ R functions based on the R package `pcalg` to handle multiple imputated data set
 At the moment, only PC and FCI algorithm for continuous data are supported. 
 
 ### Installation 
-To install, simply type in R
+Install the packages `graph` and `RBGL` from Bioconductor. 
+Then, simply type in R to install `micd`
 
 ```R
 devtools::install_github("bips-hb/micd")
