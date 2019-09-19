@@ -1,7 +1,7 @@
 Package: micd
 Type: Package
 Title: Multiple Imputation in Causal Graph Discovery
-Version: 0.1.0
+Version: 0.2.0
 Author: Ronja Foraita
 Maintainer: Ronja Foraita <foraita@leibniz-bips.de>
 Description: Contains modified functions of the package pcalg to run the PC and the FCI algorithm for constraint-based causal discovery in multiple imputed datasets
@@ -11,4 +11,4 @@ Suggests: MASS, Matrix, Rgraphviz, mvtnorm, huge
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 6.1.0
+RoxygenNote: 6.1.1

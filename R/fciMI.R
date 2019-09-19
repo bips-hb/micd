@@ -33,7 +33,6 @@
 #'
 #' @return See [functioname(pcalg::fci)] for details.
 #' @export
-#'
 #' @examples
 #' library(mice)
 #' daten <- windspeed[,1]

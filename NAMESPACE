@@ -10,5 +10,6 @@ export(pcMI)
 export(pdsepMI)
 export(skeletonMI)
 export(zStatMI)
+export(makeResiduals)
 importFrom(Rcpp,sourceCpp)
 

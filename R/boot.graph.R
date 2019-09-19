@@ -11,6 +11,7 @@
 #'               internally and should not be used!
 #' @param R      A positive integer number of bootstrap replications.
 #' @param seed   A positive integer that is used as argument for set.seed().
+#' @param quickpred   If true, mice uses quickpred to select predictors.
 #' @param ...    Further arguments passed to the imputation function `mice()`.
 #'
 #' @return List of objects of class `pcalgo` (see [functionname(pcalg::`pcAlgo-class`)])
@@ -43,7 +44,7 @@ boot.graph <- function(data, method = c("pcMI", "fciMI"), args, R, m = 10,
 
   for(g in 1:R)
   {
-    if(!qp){
+    if(!quickpred){
        imp <- mice(data[samples[[g]],], m = m, ...)
     } else {
        predictors <- quickpred(data)

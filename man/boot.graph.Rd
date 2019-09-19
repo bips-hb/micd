@@ -20,6 +20,8 @@ internally and should not be used!}
 
 \item{seed}{A positive integer that is used as argument for set.seed().}
 
+\item{quickpred}{If true, mice uses quickpred to select predictors.}
+
 \item{...}{Further arguments passed to the imputation function `mice()`.}
 }
 \value{

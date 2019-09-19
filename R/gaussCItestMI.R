@@ -34,11 +34,16 @@ gaussCItestMI <- function (x, y, S, data)
 {
   M <- data$m
   z <- vector(mode = "list", length = M)
-  n <- nrow(data$data)
+  n <- ifelse(is.mids(data), nrow(data$data), nrow(data$data[[1]]))
 
   for (i in 1:M)
   {
-    data.i <- mice::complete(data, i)
+   if(is.mids(data)){
+      data.i <- mice::complete(data, i)
+    } else if(is.list(data$data)) {
+      data.i <- data$data[[i]]
+    } else stop("data is neither a list nor a mids object")
+
     suffStat <- list(C = cor(data.i), n = nrow(data.i))
     z[[i]] <- zStatMI(x, y, S, C = suffStat$C, n = n)
   }
