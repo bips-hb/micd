@@ -26,7 +26,7 @@
 #' for (i in 1:10){
 #'  data.i <- mice::complete(imp, i)
 #'  residuals$data[[i]] <- makeResiduals(data.i,
-#'                           nodes = knoten, confounder = confounder)}
+#'                           v = knoten, confounder = confounder)}
 #'
 #' pc.res <- pcMI(data = residuals, p = ncol(residuals$data[[1]]), alpha = 0.05,
 #'                maj.rule = TRUE, solve.confl = TRUE)
