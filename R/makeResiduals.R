@@ -4,7 +4,7 @@
 #' @param v variable of integers referring to the location in the data set
 #' @param confounder variable of integers referring to the location in the data set
 #' @param scaled whether the variables should be scaled; default is TRUE.
-#'
+
 #' @return
 #' @export
 #'
@@ -36,17 +36,28 @@
 #' plot(pc.res)
 #' plot(fci.res)
 #'
-makeResiduals <- function(x, v, confounder, scaled = TRUE)
+makeResiduals <- function(x, v, confounder, scaled = TRUE, method = c("cc", "pd"))
 {
+  deletion.method <- match.arg(method)
   labels <- colnames(x)
+  rownames(x) <- 1:nrow(x)
   formeln <- paste0(labels[v],' ~ ', paste(labels[confounder], collapse = ' + '))
+
+  # complete case analyis
+  if(any(is.na(x[,c(v,confounder)]))) x.new <- na.omit(x)
+  if(deletion.method == "cc") x <- x.new
 
   daten <- matrix(ncol = length(v), nrow = nrow(x))
 
   for(node in 1:length(v))
   {
-    daten[, node] <- lm(as.formula(formeln[node]), data = x)$residuals
-  }
+    if(deletion.method == "pd"){
+      tmp <- lm(as.formula(formeln[node]), data = x)$residuals
+      daten[as.numeric(names(tmp)), node] <- tmp
+
+    } else {
+      daten[, node] <- lm(as.formula(formeln[node]), data = x)$residuals
+  }}
   colnames(daten) <- labels[v]
   if(scaled == TRUE){daten <- scale(daten)}
 }

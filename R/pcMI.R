@@ -101,7 +101,6 @@ pcMI <- function (data, alpha, labels, p, fixedGaps = NULL,
     if (conservative && maj.rule)
         stop("Choose either conservative PC or majority rule PC!")
 
-
     skel <- skeletonMI(data, alpha, labels = labels,
         method = skel.method, fixedGaps = fixedGaps, fixedEdges = fixedEdges,
         NAdelete = NAdelete, m.max = m.max, verbose = verbose)
