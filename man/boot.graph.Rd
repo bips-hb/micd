@@ -4,11 +4,14 @@
 \alias{boot.graph}
 \title{Bootstrap Resampling for the PC-MI- and the FCI-MI-algorithm}
 \usage{
-boot.graph(data, method = c("pcMI", "fciMI"), args, R, m = 10,
-  seed = NA, quickpred = FALSE, ...)
+boot.graph(data, select = NULL, method = c("pcMI", "fciMI"), args, R,
+  m = 10, args.residuals = NULL, seed = NA, quickpred = FALSE, ...)
 }
 \arguments{
 \item{data}{Data frame with missing values}
+
+\item{select}{variable of integers, indicating columns to select from a data frame;
+only continous variables can be included in the model selection}
 
 \item{method}{Character string specifying the algorithm for causal discovery
 from the package 'pcalg'.}
@@ -17,6 +20,12 @@ from the package 'pcalg'.}
 internally and should not be used!}
 
 \item{R}{A positive integer number of bootstrap replications.}
+
+\item{m}{Number of chains included in mice()`.}
+
+\item{args.residuals}{(optional) list containing vertices and confounders.
+May be specified when residuals for vertices should be calculated in each bootstrap
+data set. See [functioname(micd::makeResiduals)] for more information}
 
 \item{seed}{A positive integer that is used as argument for set.seed().}
 

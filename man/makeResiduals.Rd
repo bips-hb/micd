@@ -4,12 +4,12 @@
 \alias{makeResiduals}
 \title{Generate residuals based on variables in imputed data sets}
 \usage{
-makeResiduals(x, nodes, confounder, scaled = TRUE)
+makeResiduals(x, v, confounder, scaled = TRUE, method = c("cc", "pd"))
 }
 \arguments{
 \item{x}{mids object}
 
-\item{nodes}{variable of integers referring to the location in the data set}
+\item{v}{variable of integers referring to the location in the data set}
 
 \item{confounder}{variable of integers referring to the location in the data set}
 
@@ -36,7 +36,7 @@ residuals <- list(data = list(), m = 10)
 for (i in 1:10){
  data.i <- mice::complete(imp, i)
  residuals$data[[i]] <- makeResiduals(data.i,
-                          nodes = knoten, confounder = confounder)}
+                          v = knoten, confounder = confounder)}
 
 pc.res <- pcMI(data = residuals, p = ncol(residuals$data[[1]]), alpha = 0.05,
                maj.rule = TRUE, solve.confl = TRUE)
