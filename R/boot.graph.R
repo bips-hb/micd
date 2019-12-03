@@ -44,6 +44,7 @@ boot.graph <- function(data, select = NULL, method = c("pcMI", "fciMI"),
     n <- nrow(data)
     samples <- vector(mode = "list", length = R)
     graphs <- vector(mode = "list", length = R)
+
     for (r in 1:R) samples[[r]] <- sample(1:n, n, replace = TRUE)
     for (g in 1:R) {
         if (!quickpred) {
