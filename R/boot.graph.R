@@ -35,52 +35,48 @@
 #'             method = "pcMI",
 #'             args = "solve.confl = TRUE, alpha = 0.05",
 #'             R = 10)
-
 boot.graph <- function(data, select = NULL, method = c("pcMI", "fciMI"),
                        args, R, m = 10, args.residuals = NULL,
                        seed = NA, quickpred = FALSE, ...)
 {
-  if (!is.na(seed)) set.seed(seed)
-
-  n <- nrow(data)
-
-  samples <- vector(mode = "list", length = R)
-  graphs <- vector(mode = "list", length = R)
-
-  for(r in 1:R) samples[[r]] <- sample(1:n, n, replace = TRUE)
-
-  for(g in 1:R)
-  {
-    if(!quickpred){
-       data.imp <- mice::mice(data[samples[[g]],], m = m)
-    } else {
-       predictors <- mice::quickpred(data)
-         data.imp <- mice::mice(data[samples[[g]],], m = m, pred = predictors)
+    if (!is.na(seed))
+        set.seed(seed)
+    n <- nrow(data)
+    samples <- vector(mode = "list", length = R)
+    graphs <- vector(mode = "list", length = R)
+    for (r in 1:R) samples[[r]] <- sample(1:n, n, replace = TRUE)
+    for (g in 1:R) {
+        if (!quickpred) {
+            data.imp <- mice::mice(data[samples[[g]], ], m = m)
+        }
+        else {
+            predictors <- mice::quickpred(data)
+            data.imp <- mice::mice(data[samples[[g]], ], m = m,
+                pred = predictors)
+        }
+        if (!is.null(select)) {
+            data.imp <- getsubsetcol(data.imp, var = select)
+        }
+        if (!is.null(args.residuals) == TRUE) {
+            data.compl <- mice::complete(data.imp, "all", include = TRUE)
+            data.res <- list(data = list(), original = data.compl[[1]],
+                m = m)
+            for (ketten in 1:m) {
+                data.res$data[[ketten]] <- makeResiduals(data.compl[[ketten +
+                  1]], v = args.residuals$v, confounder = args.residuals$conf)
+            }
+            graphs[[g]] <- eval(parse(text = paste(method, "(data = data.res,",
+                args, ", labels = colnames(data.res$data[[1]]))",
+                sep = "")))
+        }
+        else {
+            GE.imp <- getsubsetcol(data.imp, var = c(1:5))
+            graphs[[g]] <- eval(parse(text = paste(method, "(data = GE.imp,",
+                args, ",\n                       labels = names(GE.imp$imp))",
+                sep = "")))
+        }
     }
-
-    if(!is.null(select)){data.imp <- getsubsetcol(data.imp, var = select)}
-
-    if(!is.null(args.residuals) == TRUE){
-      data.compl <- mice::complete(data.imp, "all", include = TRUE)
-      data.res <- list(data = list(), original = data.compl[[1]], m = m)
-
-      for (ketten in 1:m){
-        data.res$data[[ketten]] <- makeResiduals(data.compl[[ketten + 1]],
-                                     v = args.residuals$v,
-                                     confounder = args.residuals$conf)}
-
-      graphs[[g]] <- eval(parse(text = paste(method, "(data = data.res,", args,
-                        ", labels = colnames(data.res$data[[1]]))", sep = "")))
-
-    } else {
-      GE.imp <- getsubsetcol(data.imp, var = c(1:5))
-      graphs[[g]] <- eval(parse(text = paste(method, "(data = GE.imp,", args, ",
-                       labels = names(GE.imp$imp))", sep="")))
-      #graphs[[g]] <- eval(parse(text = paste(method, "(data = data.imp,", args,
-      #                  ", labels = names(data.imp$data))", sep = "")))
-    }
-  }
-  list(graphs = graphs, call = call)
+    list(graphs = graphs, call = call)
 }
 
 
