@@ -52,12 +52,12 @@ boot.graph <- function(data, select = NULL, method = c("pcMI", "fciMI"),
   for(g in 1:R)
   {
     if(!quickpred){
-       data.imp <- mice::mice(data[samples[[g]],], m = m, ...)
+       data.imp <- mice::mice(data[samples[[g]],], m = m)
     } else {
        predictors <- mice::quickpred(data)
-       data.imp <- mice::mice(data[samples[[g]],], m = m, pred = predictors, ...)
+         data.imp <- mice::mice(data[samples[[g]],], m = m, pred = predictors)
     }
-browser()
+
     if(!is.null(select)){data.imp <- getsubsetcol(data.imp, var = select)}
 
     if(!is.null(args.residuals) == TRUE){
@@ -67,19 +67,34 @@ browser()
       for (ketten in 1:m){
         data.res$data[[ketten]] <- makeResiduals(data.compl[[ketten + 1]],
                                      v = args.residuals$v,
-                                     confounder = args.residuals$conf)
-      }
+                                     confounder = args.residuals$conf)}
 
       graphs[[g]] <- eval(parse(text = paste(method, "(data = data.res,", args,
                         ", labels = colnames(data.res$data[[1]]))", sep = "")))
 
     } else {
-
-      graphs[[g]] <- eval(parse(text = paste(method, "(data = data.imp,", args,
-                        ", labels = names(data.imp$data))", sep = "")))
+      GE.imp <- getsubsetcol(data.imp, var = c(1:5))
+      graphs[[g]] <- eval(parse(text = paste(method, "(data = GE.imp,", args, ",
+                       labels = names(GE.imp$imp))", sep="")))
+      #graphs[[g]] <- eval(parse(text = paste(method, "(data = data.imp,", args,
+      #                  ", labels = names(data.imp$data))", sep = "")))
     }
   }
   list(graphs = graphs, call = call)
 }
 
 
+#' @export
+# extract subset out of the imputed data
+getsubsetcol <- function(daten, var)
+{
+  newlist <- list()
+  newlist$data <- daten$data[,var]
+  newlist$imp <- daten$imp[var]
+  newlist$m <- daten$m
+  newlist$where <- daten$where[, var]
+  newlist$nmis <- daten$nmis[var]
+
+  oldClass(newlist) <- "mids"
+  return(newlist)
+}
