@@ -2,7 +2,7 @@
 .Rhistory
 .RData
 .Ruserdata
-*.zip
-*.tar.gz
+.zip
+.tar.gz
 .Rbuildignore
-micd.Rproj
+.Rproj
