@@ -5,9 +5,20 @@
 \title{Estimate Final Skeleton in the FCI-MI algorithm for multiple imputed
 data sets of continuous data}
 \usage{
-pdsepMI(skel, data, p, sepset, alpha, pMax, m.max = Inf,
-  pdsep.max = Inf, NAdelete = TRUE, unfVect = NULL, biCC = FALSE,
-  verbose = FALSE)
+pdsepMI(
+  skel,
+  data,
+  p,
+  sepset,
+  alpha,
+  pMax,
+  m.max = Inf,
+  pdsep.max = Inf,
+  NAdelete = TRUE,
+  unfVect = NULL,
+  biCC = FALSE,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{skel}{Graph object returned by [functioname(micd::skeletonMI)]}

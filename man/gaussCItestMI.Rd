@@ -24,6 +24,7 @@ This function is a modification of [functioname(pcalg::gaussCItest)]
 to be used for multiple imputation.
 }
 \examples{
+\dontrun{
 library(mice)
 daten <- windspeed[,1]
 for(i in 2:ncol(windspeed)) daten <- c(daten, windspeed[,i])
@@ -38,5 +39,6 @@ gaussCItestMI(1,2,c(4,5), imp)
 gaussCItest(1,2,c(4,5), suffStat = list(C = cor(windspeed), n = nrow(windspeed)))
 gaussCItest(1,2,c(4,5), suffStat = list(C = cor(daten[complete.cases(daten),]),
             n = nrow(daten[complete.cases(daten),])))
+}
 
 }

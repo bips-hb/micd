@@ -5,8 +5,20 @@
 \title{Check Consistency of Conditional Independence for a Triple of Nodes
 used in FCI-MI for multiple imputed data sets of continuous data}
 \usage{
-checkTripleMI(a, b, c, nbrsA, nbrsC, data, sepsetA, sepsetC, alpha,
-  version.unf = c(NA, NA), maj.rule = FALSE, verbose = FALSE)
+checkTripleMI(
+  a,
+  b,
+  c,
+  nbrsA,
+  nbrsC,
+  data,
+  sepsetA,
+  sepsetC,
+  alpha,
+  version.unf = c(NA, NA),
+  maj.rule = FALSE,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{a, b, c}{(Integer) positions in adjacency matrix for nodes a, b, and c,

@@ -5,9 +5,18 @@
 \title{Estimate (Initial) Skeleton of a DAG using the PC Algorithm for multiple
 imputed data sets of continuous data}
 \usage{
-skeletonMI(data, alpha, labels, p, method = c("stable", "original"),
-  m.max = Inf, fixedGaps = NULL, fixedEdges = NULL,
-  NAdelete = TRUE, verbose = FALSE)
+skeletonMI(
+  data,
+  alpha,
+  labels,
+  p,
+  method = c("stable", "original"),
+  m.max = Inf,
+  fixedGaps = NULL,
+  fixedEdges = NULL,
+  NAdelete = TRUE,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{data}{An object of type mids, which stands for 'multiply imputed
@@ -56,10 +65,12 @@ This is a modified function of [functioname(pcalg::pc)]
       http://www.jstatsoft.org/v47/i11/).
 }
 \examples{
+\dontrun{
 data(gmG)
 n <- nrow    (gmG8$x)
 V <- colnames(gmG8$x) # labels aka node names
 ## estimate Skeleton
 skel.fit <- skeletonMI(data = gmG8$x, alpha = 0.01, labels = V, verbose = FALSE)
+}
 
 }

@@ -22,8 +22,10 @@
 #'
 #' @return List of objects of class `pcalgo` (see [functionname(pcalg::`pcAlgo-class`)])
 #'         or of `fcmialgo` (see [functionname(pcalg::`fciAlgo-class`)]).
+#' 
 #' @export
 #' @examples
+#' \dontrun{
 #' library(mice)
 #' daten <- windspeed[,1]
 #' for(i in 2:ncol(windspeed)) daten <- c(daten, windspeed[,i])
@@ -35,6 +37,7 @@
 #'             method = "pcMI",
 #'             args = "solve.confl = TRUE, alpha = 0.05",
 #'             R = 10)
+#' }
 boot.graph <- function(data, select = NULL, method = c("pcMI", "fciMI"),
                        args, R, m = 10, args.residuals = NULL,
                        seed = NA, quickpred = FALSE, ...)
@@ -81,7 +84,6 @@ boot.graph <- function(data, select = NULL, method = c("pcMI", "fciMI"),
 }
 
 
-#' @export
 # extract subset out of the imputed data
 getsubsetcol <- function(daten, var)
 {

@@ -1,7 +1,7 @@
 #' Estimate the Equivalence Class of a DAG using the PC-MI algorithm for multiple
 #' imputed data sets of continuous data
 #'
-#' This function is a modification of [functioname(pcalg::pc)]
+#' @description This function is a modification of [`pcalg::pc`] \code{\link[pcalg:pc]{pcalg::pc}}
 #' to be used for multiple imputation.
 #'
 #' @param data  An object of type mids, which stands for 'multiply imputed
@@ -39,7 +39,7 @@
 #' @param solve.confl See [functioname(pcalg::pc)] for more details.
 #' @param verbose If TRUE, detailed output is provided.
 #'
-#' @return An object of class "pcAlgo" (see pcAlgo) containing an estimate of
+#' @details An object of class "pcAlgo" (see pcAlgo) containing an estimate of
 #'         the equivalence class of the underlying DAG.
 #'
 #' @return See [functioname(pcalg::pc)] for more details.
@@ -48,12 +48,10 @@
 #'       from the package 'pcalg' (Kalisch et al., 2012;
 #'       http://www.jstatsoft.org/v47/i11/).
 #'
-#' @useDynLib micd
-#' @importFrom Rcpp sourceCpp
-#'
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' library(mice)
 #' daten <- windspeed[,1]
 #' for(i in 2:ncol(windspeed)) daten <- c(daten, windspeed[,i])
@@ -63,6 +61,7 @@
 #' ## Impute missing values
 #' imp <- mice(daten)
 #' pcMI(data = imp, label = colnames(imp$data), alpha = 0.01)
+#' }
 #'
 pcMI <- function (data, alpha, labels, p, fixedGaps = NULL,
         fixedEdges = NULL, NAdelete = TRUE, m.max = Inf, u2pd = c("relaxed",
@@ -107,14 +106,14 @@ pcMI <- function (data, alpha, labels, p, fixedGaps = NULL,
     skel@call <- cl
 
     if (!conservative && !maj.rule) {
-        switch(u2pd, rand = udag2pdag(skel), retry = udag2pdagSpecial(skel)$pcObj,
-            relaxed = udag2pdagRelaxed(skel, verbose = verbose,
+        switch(u2pd, rand = pcalg::udag2pdag(skel), retry = pcalg::udag2pdagSpecial(skel)$pcObj,
+            relaxed = pcalg::udag2pdagRelaxed(skel, verbose = verbose,
                 solve.confl = solve.confl))
     }
     else {
         pc. <- pc.cons.internMI(skel, data, alpha, version.unf = c(2, 1),
                               maj.rule = maj.rule, verbose = verbose)
-        udag2pdagRelaxed(pc.$sk, verbose = verbose, unfVect = pc.$unfTripl,
+        pcalg::udag2pdagRelaxed(pc.$sk, verbose = verbose, unfVect = pc.$unfTripl,
             solve.confl = solve.confl)
     }
 }

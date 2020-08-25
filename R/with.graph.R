@@ -9,41 +9,44 @@
 #' @param score Logical indicating whether a score-based or a constrained-based
 #'              algorithm is applied.
 #'              
+#'              
 #' @return A list object of S3 class \code{mira}.
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' library(mice)
 #' imp <- mice(windspeed)
-#'  out.pc <- with.graph(data = imp, 
+#'  out.pc <- with_graph(data = imp, 
 #'                       algo = "pc", 
 #'                       args = ", indepTest = gaussCItest, solve.confl = TRUE,
 #'                           labels = names(imp$imp), alpha = 0.05")
 #' 
-#'  out.fci <- with.graph(data = imp, 
+#'  out.fci <- with_graph(data = imp, 
 #'                        algo = "fciPlus", 
 #'                        args = ", indepTest = gaussCItest,
 #'                               labels = names(imp$imp), alpha = 0.01")
 #'                           
-#'  out.ges <- with.graph(data = imp, 
+#'  out.ges <- with_graph(data = imp, 
 #'                    algo = "ges", arg = NULL, 
 #'                                      score = TRUE)
-with.graph <- function(data, algo = c("pc", "fci", "fciPlus", "ges"), 
+#' }                                      
+with_graph <- function(data, algo = c("pc", "fci", "fciPlus", "ges"), 
                        args, score = FALSE)
 {
   call <- match.call()
   analyses <- vector(mode = "list", length = data$m)
 
   for (i in seq_along(analyses)) {
-    data.i <- complete(data, i)
+    data.i <- mice::complete(data, i)
  
     if(score)
     {
-      s <- new("GaussL0penObsScore", data.i)
+      s <- methods::new("GaussL0penObsScore", data.i)
       analyses[[i]] <- eval(parse(text = paste(algo,"(s", args, ")", sep="")))
 
     } else {
-      suff <- list(C = cor(data.i), n = nrow(data.i))
+      suff <- list(C = stats::cor(data.i), n = nrow(data.i))
       analyses[[i]] <- eval(parse(text = paste(algo,"(suff", args, ")", sep="")))
     }
   }

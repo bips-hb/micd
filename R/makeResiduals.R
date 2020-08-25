@@ -5,12 +5,12 @@
 #' @param confounder variable of integers referring to the location in the data set
 #' @param scaled whether the variables should be scaled; default is TRUE
 #' @param method default method 'res' uses residuals, 'cc' uses complete cases
-#'               and 'pd' uses pairwise deletion
+#'               and 'pd' uses pairwise deletion                            
 #'
-#' @return
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' library(mice)
 #' daten <- windspeed[,1]
 #' for(i in 2:ncol(windspeed)) daten <- c(daten, windspeed[,i])
@@ -37,6 +37,7 @@
 #' par(mfrow = c(1,2))
 #' plot(pc.res)
 #' plot(fci.res)
+#' }
 #'
 makeResiduals <- function (x, v, confounder, scaled = TRUE, method = c("res","cc", "pd"))
 {
@@ -46,18 +47,18 @@ makeResiduals <- function (x, v, confounder, scaled = TRUE, method = c("res","cc
   formeln <- paste0(labels[v], " ~ ", paste(labels[confounder],
                                             collapse = " + "))
   if (any(is.na(x[, c(v, confounder)])))
-    x.new <- na.omit(x)
+    x.new <- stats::na.omit(x)
   if (deletion.method == "cc")
     x <- x.new
 
   daten <- matrix(ncol = length(v), nrow = nrow(x))
   for (node in 1:length(v)) {
     if (deletion.method == "pd") {
-      tmp <- lm(as.formula(formeln[node]), data = x)$residuals
+      tmp <- stats::lm(stats::as.formula(formeln[node]), data = x)$residuals
       daten[as.numeric(names(tmp)), node] <- tmp
     }
     else {
-      daten[, node] <- lm(as.formula(formeln[node]), data = x)$residuals
+      daten[, node] <- stats::lm(stats::as.formula(formeln[node]), data = x)$residuals
     }
   }
   colnames(daten) <- labels[v]

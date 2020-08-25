@@ -4,7 +4,7 @@
 \alias{makeResiduals}
 \title{Generate residuals based on variables in imputed data sets}
 \usage{
-makeResiduals(x, v, confounder, scaled = TRUE, method = c("cc", "pd"))
+makeResiduals(x, v, confounder, scaled = TRUE, method = c("res", "cc", "pd"))
 }
 \arguments{
 \item{x}{mids object}
@@ -13,12 +13,16 @@ makeResiduals(x, v, confounder, scaled = TRUE, method = c("cc", "pd"))
 
 \item{confounder}{variable of integers referring to the location in the data set}
 
-\item{scaled}{whether the variables should be scaled; default is TRUE.}
+\item{scaled}{whether the variables should be scaled; default is TRUE}
+
+\item{method}{default method 'res' uses residuals, 'cc' uses complete cases
+and 'pd' uses pairwise deletion}
 }
 \description{
 Generate residuals based on variables in imputed data sets
 }
 \examples{
+\dontrun{
 library(mice)
 daten <- windspeed[,1]
 for(i in 2:ncol(windspeed)) daten <- c(daten, windspeed[,i])
@@ -45,5 +49,6 @@ fci.res <- fciMI(data = imp, p = ncol(residuals$data[[1]]), alpha = 0.05)
 par(mfrow = c(1,2))
 plot(pc.res)
 plot(fci.res)
+}
 
 }

@@ -25,12 +25,12 @@ pdsepMI <- function (skel, data, p, sepset, alpha, pMax,
     m.max = Inf, pdsep.max = Inf, NAdelete = TRUE, unfVect = NULL,
     biCC = FALSE, verbose = FALSE)
 {
-    G <- (as(skel, "matrix") != 0)
+    G <- (methods::as(skel, "matrix") != 0)
     n.edgetests <- rep(0, 1000)
     ord <- 0L
     allPdsep.tmp <- vector("list", p)
     if (biCC)
-        conn.comp <- lapply(biConnComp(skel), as.numeric)
+        conn.comp <- lapply(RBGL::biConnComp(skel), as.numeric)
     if (any(G)) {
         amat <- G
         ind <- which(G, arr.ind = TRUE)
@@ -50,8 +50,8 @@ pdsepMI <- function (skel, data, p, sepset, alpha, pMax,
                       cat("\n", x, "*->", y, "<-*", z, "\n")
                   }
                   else {
-                    if (!any(unfVect == triple2numb(p, x, y,
-                      z), na.rm = TRUE) && !any(unfVect == triple2numb(p,
+                    if (!any(unfVect == pcalg::triple2numb(p, x, y,
+                      z), na.rm = TRUE) && !any(unfVect == pcalg::triple2numb(p,
                       z, y, x), na.rm = TRUE)) {
                       amat[x, y] <- amat[z, y] <- 2
                       if (verbose)
@@ -61,7 +61,7 @@ pdsepMI <- function (skel, data, p, sepset, alpha, pMax,
                 }
             }
         }
-        allPdsep <- lapply(1:p, qreach, amat = amat)
+        allPdsep <- lapply(1:p, pcalg::qreach, amat = amat)
         allPdsep.tmp <- vector("list", p)
         for (x in 1:p) {
             if (verbose)
@@ -124,7 +124,7 @@ pdsepMI <- function (skel, data, p, sepset, alpha, pMax,
                         }
                       }
                       else {
-                        tmp.combn <- combn(tf, ord)
+                        tmp.combn <- utils::combn(tf, ord)
                         if (ord <= length(adj.x)) {
                           for (k in seq_len(ncol(tmp.combn))) {
                             S <- tmp.combn[, k]

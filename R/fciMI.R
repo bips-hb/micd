@@ -83,7 +83,7 @@ fciMI <- function (data, alpha, labels, p, skel.method = c("stable",
         method = skel.method, fixedGaps = fixedGaps, fixedEdges = fixedEdges,
         NAdelete = NAdelete, m.max = m.max, verbose = verbose)
     skel@call <- cl
-    G <- as(skel@graph, "matrix")
+    G <- methods::as(skel@graph, "matrix")
     sepset <- skel@sepset
     pMax <- skel@pMax
     n.edgetestsSKEL <- skel@n.edgetests
@@ -112,7 +112,7 @@ fciMI <- function (data, alpha, labels, p, skel.method = c("stable",
         if (conservative || maj.rule) {
             if (verbose)
                 cat("\nCheck v-structures conservatively\n=================================\n")
-            tmp.pdsep <- new("pcAlgo", graph = as(G, "graphNEL"),
+            tmp.pdsep <- methods::new("pcAlgo", graph = methods::as(G, "graphNEL"),
                 call = cl, n = integer(0), max.ord = as.integer(max.ordSKEL),
                 n.edgetests = n.edgetestsSKEL, sepset = sepset,
                 pMax = pMax, zMin = matrix(NA, 1, 1))
@@ -140,10 +140,10 @@ fciMI <- function (data, alpha, labels, p, skel.method = c("stable",
     if (verbose)
         cat("\nDirect egdes:\n=============\nUsing rules:", which(rules),
             "\nCompute collider:\n")
-    res <- udag2pag(pag = G, sepset, rules = rules, unfVect = tripleList,
+    res <- pcalg::udag2pag(pag = G, sepset, rules = rules, unfVect = tripleList,
         verbose = verbose)
     colnames(res) <- rownames(res) <- labels
-    new("fciAlgo", amat = res, call = cl, n = integer(0), max.ord = as.integer(max.ordSKEL),
+    methods::new("fciAlgo", amat = res, call = cl, n = integer(0), max.ord = as.integer(max.ordSKEL),
         max.ordPDSEP = as.integer(max.ordPD), n.edgetests = n.edgetestsSKEL,
         n.edgetestsPDSEP = n.edgetestsPD, sepset = sepset, pMax = pMax,
         allPdsep = allPdsep)

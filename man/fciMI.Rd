@@ -5,11 +5,25 @@
 \title{Estimate a PAG by the FCI-MI Algorithm for multiple
 imputed data sets of continuous data}
 \usage{
-fciMI(data, alpha, labels, p, skel.method = c("stable", "original"),
-  type = c("normal", "anytime", "adaptive"), fixedGaps = NULL,
-  fixedEdges = NULL, NAdelete = TRUE, m.max = Inf, pdsep.max = Inf,
-  rules = rep(TRUE, 10), doPdsep = TRUE, biCC = FALSE,
-  conservative = FALSE, maj.rule = FALSE, verbose = FALSE)
+fciMI(
+  data,
+  alpha,
+  labels,
+  p,
+  skel.method = c("stable", "original"),
+  type = c("normal", "anytime", "adaptive"),
+  fixedGaps = NULL,
+  fixedEdges = NULL,
+  NAdelete = TRUE,
+  m.max = Inf,
+  pdsep.max = Inf,
+  rules = rep(TRUE, 10),
+  doPdsep = TRUE,
+  biCC = FALSE,
+  conservative = FALSE,
+  maj.rule = FALSE,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{data}{An object of type mids, which stands for 'multiply imputed

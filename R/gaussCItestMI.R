@@ -15,6 +15,7 @@
 #'
 #' @export
 #' @examples
+#' \dontrun{
 #' library(mice)
 #' daten <- windspeed[,1]
 #' for(i in 2:ncol(windspeed)) daten <- c(daten, windspeed[,i])
@@ -29,23 +30,24 @@
 #' gaussCItest(1,2,c(4,5), suffStat = list(C = cor(windspeed), n = nrow(windspeed)))
 #' gaussCItest(1,2,c(4,5), suffStat = list(C = cor(daten[complete.cases(daten),]),
 #'             n = nrow(daten[complete.cases(daten),])))
+#' }
 #'
 gaussCItestMI <- function (x, y, S, data)
 {
   M <- data$m
   z <- vector(mode = "list", length = M)
-  n <- ifelse(is.mids(data), nrow(data$data), nrow(data$data[[1]]))
+  n <- ifelse(mice::is.mids(data), nrow(data$data), nrow(data$data[[1]]))
 
   for (i in 1:M)
   {
-   if(is.mids(data)){
+   if(mice::is.mids(data)){
       data.i <- mice::complete(data, i)
     } else if(is.list(data$data)) {
       data.i <- data$data[[i]]
     } else stop("data is neither a list nor a mids object")
 
     #suffStat <- list(C = cor(data.i), n = nrow(data.i))
-    suffStat <- list(C = cov(scale(data.i)), n = nrow(data.i))
+    suffStat <- list(C = stats::cov(scale(data.i)), n = nrow(data.i))
     z[[i]] <- zStatMI(x, y, S, C = suffStat$C, n = n)
   }
 
@@ -56,7 +58,8 @@ gaussCItestMI <- function (x, y, S, data)
   W <- 1 / (n - length(S) - 3)
 
   # 3. Between variance
-  B <- mean(sapply(z, function(x) (x - avgz)^2))
+  # Version 0.2.0: B.old <- mean(sapply(z, function(x) (x - avgz)^2))
+  B <- sum(sapply(z, function(x) (x - avgz)^2)) / (M - 1)
 
   # 4. Total variance
   TV <- W + (1 + 1 / M) * B
@@ -68,22 +71,22 @@ gaussCItestMI <- function (x, y, S, data)
   df <- (M - 1) * (1 + (W / B) * (M/(M + 1)))^2
 
   # 7. pvalue
-  2 * pt(abs(ts), df = df, lower.tail = FALSE)
+  2 * stats::pt(abs(ts), df = df, lower.tail = FALSE)
 
 }
 
 
 
-#' @export
+
 zStatMI <- function (x, y, S, C, n)
 {
     r <- pcalg::pcorOrder(x, y, S, C)
-    res <- 0.5 * log.q1pm(r)
+    res <- 0.5 * log_q1pm(r)
     if (is.na(res))
         0
     else res
 }
 
 
-#' @export
-log.q1pm <- function(r) log1p(2*r/(1-r))
+
+log_q1pm <- function(r) log1p(2 * r / (1 - r))

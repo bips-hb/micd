@@ -4,8 +4,18 @@
 \alias{boot.graph}
 \title{Bootstrap Resampling for the PC-MI- and the FCI-MI-algorithm}
 \usage{
-boot.graph(data, select = NULL, method = c("pcMI", "fciMI"), args, R,
-  m = 10, args.residuals = NULL, seed = NA, quickpred = FALSE, ...)
+boot.graph(
+  data,
+  select = NULL,
+  method = c("pcMI", "fciMI"),
+  args,
+  R,
+  m = 10,
+  args.residuals = NULL,
+  seed = NA,
+  quickpred = FALSE,
+  ...
+)
 }
 \arguments{
 \item{data}{Data frame with missing values}
@@ -42,6 +52,7 @@ Generate R bootstrap replicates for the PC or FCI algorithm for data with
 missing values.
 }
 \examples{
+\dontrun{
 library(mice)
 daten <- windspeed[,1]
 for(i in 2:ncol(windspeed)) daten <- c(daten, windspeed[,i])
@@ -53,4 +64,5 @@ boot.graph <- boot.graph(
             method = "pcMI",
             args = "solve.confl = TRUE, alpha = 0.05",
             R = 10)
+}
 }

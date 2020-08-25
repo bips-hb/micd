@@ -25,7 +25,7 @@
 pc.cons.internMI <- function (sk, data, alpha, version.unf = c(NA, NA),
                               maj.rule = FALSE, verbose = FALSE)
 {
-    g <- as(sk@graph, "matrix")
+    g <- methods::as(sk@graph, "matrix")
     stopifnot(all(g == t(g)))
     p <- as.numeric(dim(g)[1])
     unfTripl <- vers <- rep(NA, min(p * p, 1e+05))
@@ -77,13 +77,13 @@ pc.cons.internMI <- function (sk, data, alpha, version.unf = c(NA, NA),
                                        verbose = verbose)
                 if (r.abc$decision == 3) {
                   counter <- counter + 1
-                  unfTripl[counter] <- triple2numb(p, a, b, c)
+                  unfTripl[counter] <- pcalg::triple2numb(p, a, b, c)
                   vers[counter] <- r.abc$version
                 }
                 if ((version.unf[1] == 2) && (r.abc$version ==
                   2) && (r.abc$decision != 3)) {
                   counter <- counter + 1
-                  unfTripl[counter] <- triple2numb(p, a, b, c)
+                  unfTripl[counter] <- pcalg::triple2numb(p, a, b, c)
                   vers[counter] <- r.abc$version
                 }
                 sk@sepset[[a]][[c]] <- r.abc$SepsetA

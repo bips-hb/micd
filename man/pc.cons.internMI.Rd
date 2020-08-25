@@ -5,8 +5,14 @@
 \title{Utility for conservative and majority rule in PC-MI and FCI-MI
 applied for multiple imputed data sets of continuous data}
 \usage{
-pc.cons.internMI(sk, data, alpha, version.unf = c(NA, NA),
-  maj.rule = FALSE, verbose = FALSE)
+pc.cons.internMI(
+  sk,
+  data,
+  alpha,
+  version.unf = c(NA, NA),
+  maj.rule = FALSE,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{sk}{A skeleton object as returned from [functioname(micd::skeletonMI)]}

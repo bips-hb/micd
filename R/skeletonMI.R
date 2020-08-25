@@ -37,11 +37,13 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' data(gmG)
 #' n <- nrow    (gmG8$x)
 #' V <- colnames(gmG8$x) # labels aka node names
 #' ## estimate Skeleton
 #' skel.fit <- skeletonMI(data = gmG8$x, alpha = 0.01, labels = V, verbose = FALSE)
+#' }
 #'
 skeletonMI <- function (data, alpha, labels, p,
                         method = c("stable", "original"),
@@ -145,7 +147,7 @@ skeletonMI <- function (data, alpha, labels, p,
                   sepset[[x]][[y]] <- nbrs[S]
                   break
                 } else {
-                  nextSet <- getNextSet(length_nbrs, ord, S)
+                  nextSet <- pcalg::getNextSet(length_nbrs, ord, S)
                   if (nextSet$wasLast) break
                   S <- nextSet$nextSet
                 }
@@ -161,12 +163,12 @@ skeletonMI <- function (data, alpha, labels, p,
     }
   }
 
- Gobject <- if (sum(G) == 0){ new("graphNEL", nodes = labels)}
+ Gobject <- if (sum(G) == 0){methods::new("graphNEL", nodes = labels)}
             else {
               colnames(G) <- rownames(G) <- labels
-              as(G, "graphNEL")
+              methods::as(G, "graphNEL")
             }
- new("pcAlgo", graph = Gobject, call = cl, n = integer(0),
+ methods::new("pcAlgo", graph = Gobject, call = cl, n = integer(0),
       max.ord = as.integer(ord - 1), n.edgetests = n.edgetests,
       sepset = sepset, pMax = pMax, zMin = matrix(NA, 1, 1))
 }

@@ -5,10 +5,22 @@
 \title{Estimate the Equivalence Class of a DAG using the PC-MI algorithm for multiple
 imputed data sets of continuous data}
 \usage{
-pcMI(data, alpha, labels, p, fixedGaps = NULL, fixedEdges = NULL,
-  NAdelete = TRUE, m.max = Inf, u2pd = c("relaxed", "rand", "retry"),
-  skel.method = c("stable", "original"), conservative = FALSE,
-  maj.rule = FALSE, solve.confl = FALSE, verbose = FALSE)
+pcMI(
+  data,
+  alpha,
+  labels,
+  p,
+  fixedGaps = NULL,
+  fixedEdges = NULL,
+  NAdelete = TRUE,
+  m.max = Inf,
+  u2pd = c("relaxed", "rand", "retry"),
+  skel.method = c("stable", "original"),
+  conservative = FALSE,
+  maj.rule = FALSE,
+  solve.confl = FALSE,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{data}{An object of type mids, which stands for 'multiply imputed
@@ -60,14 +72,15 @@ than the conservative PC algorithm. For more information, see
 \item{verbose}{If TRUE, detailed output is provided.}
 }
 \value{
-An object of class "pcAlgo" (see pcAlgo) containing an estimate of
-        the equivalence class of the underlying DAG.
-
 See [functioname(pcalg::pc)] for more details.
 }
 \description{
-This function is a modification of [functioname(pcalg::pc)]
+This function is a modification of [`pcalg::pc`] \code{\link[pcalg:pc]{pcalg::pc}}
 to be used for multiple imputation.
+}
+\details{
+An object of class "pcAlgo" (see pcAlgo) containing an estimate of
+        the equivalence class of the underlying DAG.
 }
 \note{
 This is a modified function of [functioname(pcalg::pc)]
@@ -75,6 +88,7 @@ This is a modified function of [functioname(pcalg::pc)]
       http://www.jstatsoft.org/v47/i11/).
 }
 \examples{
+\dontrun{
 library(mice)
 daten <- windspeed[,1]
 for(i in 2:ncol(windspeed)) daten <- c(daten, windspeed[,i])
@@ -84,5 +98,6 @@ daten <- matrix(daten, ncol = 6)
 ## Impute missing values
 imp <- mice(daten)
 pcMI(data = imp, label = colnames(imp$data), alpha = 0.01)
+}
 
 }
