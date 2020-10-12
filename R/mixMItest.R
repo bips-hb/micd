@@ -1,15 +1,15 @@
 #' Likelihood Ratio Test for (Conditional) Independence between Mixed Variables 
 #' after Multiple Imputation
 #' 
-#' A version of \link{mixCItest}, to be used within \link[pcalg]{skeleton}, 
-#' \link[pcalg]{pc} or \link[pcalg]{fci} when multiply imputed data sets are available.
+#' A version of \code{\link{mixCItest}}, to be used within \code{pcalg::\link[pcalg]{skeleton}}, 
+#' \code{pcalg::\link[pcalg]{pc}} or \code{pcalg::\link[pcalg]{fci}} when multiply imputed data sets are available.
 #'
 #' @param x,y,S    (integer) position of variable X, Y and set of variables S, 
 #' respectively, in \code{suffStat}. It is tested whether X and Y are 
 #' conditionally independent given the subset S of the remaining variables.
 #' @param suffStat A list of \code{data.frame}s containing the multiply 
-#' imputed data sets. Usually obtained from a \code{\link[mice:mids-class]{mice:mids}} 
-#' object using \code{\link[mice:complete.mids]{complete}} with argument \code{action="all"}. 
+#' imputed data sets. Usually obtained from a \code{mice::\link[mice:mids-class]{mids}} 
+#' object using \code{mice::\link[mice:complete.mids]{complete}} with argument \code{action="all"}. 
 #' Discrete variables must be coded as factors.
 #'
 #' @details See \code{\link{mixCItest}} for details on the assumptions of the 
@@ -23,7 +23,36 @@
 #' @references Meng X.-L., Rubin D.B. (1992): Performing likelihood ratio tests 
 #' with multiply imputed data sets. \emph{Biometrika} 79(1):103-111.
 #' 
+#' @examples
+#' 
+#' ## load data (numeric and factor variables)
+#' dat <- toenail2[1:400, ]
+#' 
+#' ## delete some observations
+#' set.seed(123)
+#' dat[sample(400, 20), 2] <- NA
+#' dat[sample(400, 30), 4] <- NA
+#' 
+#' ## impute missing values using random forests
+#' imp <- mice(dat, method = "rf")
+#' idat <- complete(imp, action = "all")
+#' 
+#' ## analyse data
+#' # complete data:
+#' mixCItest(2, 3, 5, suffStat = toenail2[1:400, ])
+#' # multiple imputation:
+#' mixMItest(2, 3, 5, suffStat = idat)
+#' # test-wise deletion:
+#' mixCItwd(2, 3, 5, suffStat = dat)
+#' # list-wise deletion:
+#' suffStat <- dat[complete.cases(dat), ]
+#' mixCItest(2, 3, 5, suffStat = suffStat)
+#' 
 #' @export
+
+
+
+
 mixMItest <- function(x, y, S=NULL, suffStat) {
   # suffStat is a list of completed data sets
   
@@ -31,13 +60,13 @@ mixMItest <- function(x, y, S=NULL, suffStat) {
   M <- length(suffStat)
   
   # indices of discrete variables
-  A_xyS <- Rfast::which.is(suffStat[[1]][c(x,y,S)], "factor")
-  A_yS <- Rfast::which.is(suffStat[[1]][c(y,S)], "factor")
-  A_xS <- Rfast::which.is(suffStat[[1]][c(x,S)], "factor")
+  A_xyS <- which.is(suffStat[[1]][c(x,y,S)], "factor")
+  A_yS <- which.is(suffStat[[1]][c(y,S)], "factor")
+  A_xS <- which.is(suffStat[[1]][c(x,S)], "factor")
   # indeces of continuous variables
-  X_xyS <- Rfast::which.is(suffStat[[1]][c(x,y,S)], "numeric")
-  X_yS <- Rfast::which.is(suffStat[[1]][c(y,S)], "numeric")
-  X_xS <- Rfast::which.is(suffStat[[1]][c(x,S)], "numeric")
+  X_xyS <- which.is(suffStat[[1]][c(x,y,S)], "numeric")
+  X_yS <- which.is(suffStat[[1]][c(y,S)], "numeric")
+  X_xS <- which.is(suffStat[[1]][c(x,S)], "numeric")
   # number of continuous variables
   k_xyS <- length(X_xyS)
   k_yS <- length(X_yS)
@@ -51,9 +80,9 @@ mixMItest <- function(x, y, S=NULL, suffStat) {
   K <- df_xyS - df_yS - df_xS
   
   
-  if (length(S)>0) {
-    A_S <- Rfast::which.is(suffStat[[1]][S], "factor")
-    X_S <- Rfast::which.is(suffStat[[1]][S], "numeric")
+  if (!is.null(S)) {
+    A_S <- which.is(suffStat[[1]][S], "factor")
+    X_S <- which.is(suffStat[[1]][S], "numeric")
     k_S <- length(X_S)
     df_S <- dfCG(suffStat[[1]][S], A_S, k_S)
     K <- df_xyS - df_yS - df_xS + df_S
@@ -89,7 +118,7 @@ mixMItest <- function(x, y, S=NULL, suffStat) {
   av_Sigma_xS <- M1_xS[[4]]
   
   ### S
-  if (length(S)>0) {
+  if (!is.null(S)) {
     M1_S <- maxJoint(suffStat[[1]][c(S)], A_S, X_S, k_S, M)
     
     av_logL_S <- M1_S[[1]]
@@ -120,7 +149,7 @@ mixMItest <- function(x, y, S=NULL, suffStat) {
     av_Mu_xS <- listsum(av_Mu_xS, Mi_xS[[3]])
     av_Sigma_xS <- listsum(av_Sigma_xS, Mi_xS[[4]])
     
-    if (length(S)>0) {
+    if (!is.null(S)) {
       Mi_S <- maxJoint(suffStat[[i]][S], A_S, X_S, k_S, M)
       
       av_logL_S <- sum(av_logL_S, Mi_S[[1]])
@@ -134,24 +163,24 @@ mixMItest <- function(x, y, S=NULL, suffStat) {
   eval_xyS <- sapply(suffStat, evalJoint, c(x,y,S), A_xyS, X_xyS, k_xyS, av_Multinomial_xyS, av_Mu_xyS, av_Sigma_xyS)
   eval_yS  <- sapply(suffStat, evalJoint, c(y,S),   A_yS,  X_yS,  k_yS,  av_Multinomial_yS,  av_Mu_yS,  av_Sigma_yS)
   eval_xS  <- sapply(suffStat, evalJoint, c(x,S),   A_xS,  X_xS,  k_xS,  av_Multinomial_xS,  av_Mu_xS,  av_Sigma_xS)
-  if (length(S)>0) {
+  if (!is.null(S)) {
     eval_S   <- sapply(suffStat, evalJoint, S, A_S, X_S, k_S, av_Multinomial_S, av_Mu_S, av_Sigma_S)
   }
   
   
   
   ### mean log likelihood ratio statistic with individual parameters
-  if (length(S)>0) {
-    LR_bar <- 2* (av_logL_xyS - av_logL_yS - av_logL_xS + av_logL_S)
-  } else {
+  if (is.null(S)) {
     LR_bar <- 2* (av_logL_xyS - av_logL_yS - av_logL_xS)
+  } else {
+    LR_bar <- 2* (av_logL_xyS - av_logL_yS - av_logL_xS + av_logL_S)
   }
   
   ### mean log likelihood ratio statistic with averaged parameters
-  if (length(S)>0) {
-    LR_tilde <- 2* ( mean(eval_xyS) - mean(eval_yS) - mean(eval_xS) + mean(eval_S) )
-  } else {
+  if (is.null(S)) {
     LR_tilde <- 2* ( mean(eval_xyS) - mean(eval_yS) - mean(eval_xS) )
+  } else {
+    LR_tilde <- 2* ( mean(eval_xyS) - mean(eval_yS) - mean(eval_xS) + mean(eval_S) )
   }
   
   r3 <- ( M + 1 ) * ( LR_bar - LR_tilde )  / ( K * ( M - 1 ) )
@@ -167,30 +196,44 @@ mixMItest <- function(x, y, S=NULL, suffStat) {
   }
   
   # p value
-  stats::pf(D3, K, df, lower.tail=FALSE)
+  pvalue <- pf(D3, K, df, lower.tail=FALSE)
+  
+  return(pvalue)
 }
 
 
 
 
-# listsum
+### sum list elements
 listsum <- function(l1, l2) {
   mapply('+', l1, l2, SIMPLIFY=FALSE)
 }
 
 
-# dfCG
+
+
+### degrees of freedom
 dfCG <- function(dat, A, k) {
   fA <- f(A, dat)
   dof <-  fA * h(k) + fA
   return(dof)
 }
 
+# continuous variables
+h <- function(k){ k*(k+1) /2 }
+
+# discrete variables
+f <- function(A, dat) {
+  if (length(A)==0) {return(1)}
+  num_levels <- sapply(dat[A], function(i){length(levels(i))})
+  sum(num_levels)
+}
 
 
 
-
-
+### maximum log Likelihood (Gaussian and multivariate component) in all cells
+### 'Joint' because it is not conditional
+### devide by M to facilitate later averaging 
 maxJoint <- function(dat2, A, X, k, M) {
   
   N <- nrow(dat2)
@@ -198,7 +241,7 @@ maxJoint <- function(dat2, A, X, k, M) {
   if (length(A)==0) {
     # no discrete variables
     maxMultinomial <- list(0)
-    maxAll <- Rfast::mvnorm.mle(Rfast::data.frame.to_matrix(dat2))
+    maxAll <- mvnorm.mle(data.frame.to_matrix(dat2))
     maxMu <- list( maxAll$mu /M )
     logL <- maxAll$loglik /M
     maxSigma <- list( maxAll$sigma /M )
@@ -216,7 +259,8 @@ maxJoint <- function(dat2, A, X, k, M) {
 }
 
 
-
+### maximum log likelihood (Gaussian and multivariate component) in one cell
+### devide by M to facilitate later averaging 
 maxCell <- function(dat_cell, A, X, N, Sigma_all, k, M) {
   a <- nrow(dat_cell)
   
@@ -237,7 +281,7 @@ maxCell <- function(dat_cell, A, X, N, Sigma_all, k, M) {
       Sigma <- Sigma_all
     }
     
-    c2 <-sum(Rfast::dmvnorm(x = Rfast::data.frame.to_matrix(dat_cell[X]),
+    c2 <-sum( dmvnorm(x=data.frame.to_matrix(dat_cell[X]),
                       mu=apply(dat_cell[X], 2, mean),
                       sigma=matrix(Sigma, nrow=k),
                       logged=TRUE) ) /M
@@ -256,7 +300,7 @@ evalJoint <- function(dat2, vars, A, X, k, maxMultinomial, maxMu, maxSigma) {
   dat2 <- dat2[ ,vars, drop=FALSE]
   
   if (length(A)==0) {
-    logL <- sum(Rfast::dmvnorm(Rfast::data.frame.to_matrix(dat2[X]), mu=maxMu[[1]], sigma=maxSigma[[1]], log=TRUE) )
+    logL <- sum( dmvnorm(data.frame.to_matrix(dat2[X]), mu=maxMu[[1]], sigma=maxSigma[[1]], log=TRUE) )
   } else {
     # at least one discrete variable
     cells <- split(dat2[X], dat2[A], drop=FALSE)
@@ -283,13 +327,26 @@ evalCell <- function(dat_cell, k, maxMultinomial, maxMu, maxSigma) {
   
   c2 <- 0
   if (k > 0) {
-    c2 <- sum( log(Rfast::dmvnorm(Rfast::data.frame.to_matrix(dat_cell), mu=maxMu, sigma=matrix(maxSigma, nrow=k)) ) )
+    c2 <- sum( log( dmvnorm(data.frame.to_matrix(dat_cell), mu=maxMu, sigma=matrix(maxSigma, nrow=k)) ) )
   }
   
   return(c1+c2)
 }
 
 
+### maximum log likelihood multinomial component
+multinomialLikelihood <- function(a, N) {
+  log(a/N)
+}
 
+
+covm <- function(dat) {
+  n <- nrow(dat)
+  covm <- cova(data.frame.to_matrix(dat)) *(n-1)/n
+  if (anyNA(covm)) {
+    covm <- matrix(1)
+  }
+  return(covm)
+}
 
 

@@ -1,7 +1,7 @@
 #' Estimate (Initial) Skeleton of a DAG using the PC Algorithm for multiple
 #' imputed data sets of continuous data
 #'
-#' This function is a modification of [functioname(pcalg::skeleton)]
+#' This function is a modification of \code{pcalg::\link[pcalg]{skeleton}}
 #' to be used for multiple imputation.
 #'
 #' @param data  An object of type mids, which stands for 'multiply imputed
@@ -13,7 +13,7 @@
 #'               labels are not, in which case labels is set to 1:p.
 #' @param method  Character string specifying method; the default, "stable"
 #'                provides an order-independent skeleton, see
-#'                [functioname(pcalg::skeleton)] for details.
+#'                \code{pcalg::\link[pcalg]{skeleton}} for details.
 #' @param m.max  Maximal size of the conditioning sets that are considered in
 #'               the conditional independence tests.
 #' @param fixedGaps Logical symmetric matrix of dimension p*p. If entry [i,j]
@@ -28,23 +28,25 @@
 #'                 If it is true, the corresponding edge is deleted, otherwise not.
 #' @param verbose  If TRUE, detailed output is provided.
 #'
-#' @return See [functioname(pcalg::skeleton)] for more details.
+#' @return See \code{pcalg::\link[pcalg]{skeleton}} for more details.
 #'
-#' @note This is a modified function of [functioname(pcalg::pc)]
+#' @note This is a modified function of \code{pcalg::\link[pcalg]{skeleton}}
 #'       from the package 'pcalg' (Kalisch et al., 2012;
 #'       http://www.jstatsoft.org/v47/i11/).
 #'
 #' @export
 #'
 #' @examples
-#' \dontrun{
+#' 
 #' data(gmG)
-#' n <- nrow    (gmG8$x)
+#' n <- nrow(gmG8$x)
 #' V <- colnames(gmG8$x) # labels aka node names
 #' ## estimate Skeleton
-#' skel.fit <- skeletonMI(data = gmG8$x, alpha = 0.01, labels = V, verbose = FALSE)
-#' }
-#'
+#' data_mids <- mice(gmG8$x)
+#' (skel.fit <- skeletonMI(data = data_mids, alpha = 0.01, labels = V, verbose = FALSE))
+
+
+
 skeletonMI <- function (data, alpha, labels, p,
                         method = c("stable", "original"),
                         m.max = Inf, fixedGaps = NULL, fixedEdges = NULL,

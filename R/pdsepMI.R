@@ -1,24 +1,24 @@
 #' Estimate Final Skeleton in the FCI-MI algorithm for multiple imputed
 #' data sets of continuous data
 #'
-#' This function is a modification of [functioname(pcalg::pdsep)]
+#' This function is a modification of \code{pcalg::\link[pcalg]{pdsep}}
 #' to be used for multiple imputation.
 #'
 #' @param skel Graph object returned by [functioname(micd::skeletonMI)]
 #' @param data An object of type mids, which stands for 'multiply imputed
 #'              data set', typically created by a call to function mice()
 #' @param p Number of variables.
-#' @param sepset See [functioname(pcalg::pdsep)] for more details.
+#' @param sepset See \code{pcalg::\link[pcalg]{pdsep}} for more details.
 #' @param alpha Significance level for the individual conditional independence tests.
-#' @param pMax See [functioname(pcalg::pdsep)] for more details.
+#' @param pMax See \code{pcalg::\link[pcalg]{pdsep}} for more details.
 #' @param m.max Maximum size of the conditioning sets that are considered in the conditional independence tests.
-#' @param pdsep.max See [functioname(pcalg::pdsep)] for more details.
-#' @param NAdelete  See [functioname(pcalg::pdsep)] for more details.
-#' @param unfVect See [functioname(pcalg::pdsep)] for more details.
-#' @param biCC See [functioname(pcalg::pdsep)] for more details.
+#' @param pdsep.max See \code{pcalg::\link[pcalg]{pdsep}} for more details.
+#' @param NAdelete  See \code{pcalg::\link[pcalg]{pdsep}} for more details.
+#' @param unfVect See \code{pcalg::\link[pcalg]{pdsep}} for more details.
+#' @param biCC See \code{pcalg::\link[pcalg]{pdsep}} for more details.
 #' @param verbose Logical indicating that detailed output is to be provided.
 #'
-#' @return See [functioname(pcalg::pdsep)] for more details.
+#' @return See \code{pcalg::\link[pcalg]{pdsep}} for more details.
 #' @export
 #'
 pdsepMI <- function (skel, data, p, sepset, alpha, pMax,

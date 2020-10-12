@@ -1,9 +1,9 @@
 #' Creates a \code{formulas} Argument
 #' 
 #' This helper function creates a valid \code{formulas} object. 
-#' The \code{formulas} object is an argument to the \code{\link[mice]{mice}} function. 
+#' The \code{formulas} object is an argument to the \code{mice::\link[mice]{mice}} function. 
 #' It is a list of formulas that specifies the target variables and the predictors 
-#' by means of the standard ~ operator. In contrast to \code{\link[mice]{make.formulas}}, 
+#' by means of the standard ~ operator. In contrast to \code{mice::\link[mice]{make.formulas}}, 
 #' which creates main effects formulas, \code{make.formulas.saturated} 
 #' creates formulas including all possible interaction effects.
 #'
@@ -14,11 +14,22 @@
 #'
 #' @return A list of formulas.
 #' 
-#' @note A modification of \code{\link[mice]{make.formulas}} by Stef van Buuren et al.
+#' @note A modification of \code{mice::\link[mice]{make.formulas}} by Stef van Buuren et al.
 #' 
-#' @seealso \code{\link[mice]{make.formulas}}
+#' @seealso \code{mice::\link[mice]{make.formulas}}
+#' 
+#' @examples
+#' ## main effecs model:
+#' f1 <- make.formulas(nhanes)
+#' f1
+#' 
+#' ## saturated model:
+#' f2 <- make.formulas.saturated(nhanes)
+#' f2
 #' 
 #' @export
+
+
 make.formulas.saturated <- function (data, blocks = mice::make.blocks(data), 
                                      predictorMatrix = NULL) {
   #data <- mice:::check.dataform(data)

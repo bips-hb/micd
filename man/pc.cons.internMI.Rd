@@ -15,7 +15,7 @@ pc.cons.internMI(
 )
 }
 \arguments{
-\item{sk}{A skeleton object as returned from [functioname(micd::skeletonMI)]}
+\item{sk}{A skeleton object as returned from \code{\link{skeletonMI}}}
 
 \item{data}{An object of type mids, which stands for 'multiply imputed
 data set', typically created by a call to function mice().}
@@ -23,22 +23,22 @@ data set', typically created by a call to function mice().}
 \item{alpha}{Significance level for the conditional independence test.}
 
 \item{version.unf}{(Integer) vector of length two. See
-[functioname(pcalg::chekTriple)] for more details.}
+\code{pcalg::\link[pcalg]{checkTriple}} for more details.}
 
 \item{maj.rule}{Logical indicating how the majority rule is applied. See
-[functioname(pcalg::chekTriple)] for more details.}
+\code{pcalg::\link[pcalg]{checkTriple}} for more details.}
 
 \item{verbose}{Logical asking for detailed output of intermediate steps.}
 }
 \value{
-See [functioname(pcalg::pc.cons.intern)] for more details.
+See \code{pcalg::\link[pcalg]{pc.cons.intern}} for more details.
 }
 \description{
-This function is a modification of [functioname(pcalg::pc.cons.intern)]
+This function is a modification of \code{pcalg::\link[pcalg]{pc}}
 to be used for multiple imputation.
 }
 \note{
-This is a modified function of [functioname(pcalg::pc)]
+This is a modified function of \code{pcalg::\link[pcalg]{pc.cons.intern}}
       from the package 'pcalg' (Kalisch et al., 2012;
       http://www.jstatsoft.org/v47/i11/).
 }

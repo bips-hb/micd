@@ -10,8 +10,7 @@
 #' @export
 #'
 #' @examples
-#' \dontrun{
-#' library(mice)
+#' 
 #' daten <- windspeed[,1]
 #' for(i in 2:ncol(windspeed)) daten <- c(daten, windspeed[,i])
 #' daten[sample(1:length(daten), 260)] <- NA
@@ -37,7 +36,6 @@
 #' par(mfrow = c(1,2))
 #' plot(pc.res)
 #' plot(fci.res)
-#' }
 #'
 makeResiduals <- function (x, v, confounder, scaled = TRUE, method = c("res","cc", "pd"))
 {

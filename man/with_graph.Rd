@@ -20,14 +20,13 @@ vector starting with comma, i.e. ", ..."}
 algorithm is applied.}
 }
 \value{
-A list object of S3 class \code{mira}.
+A list object of S3 class \code{mice::\link[mice]{mira-class}}.
 }
 \description{
 Evaluate causal graph discovery algorithm in multiple imputed datasets
 }
 \examples{
-\dontrun{
-library(mice)
+
 imp <- mice(windspeed)
  out.pc <- with_graph(data = imp, 
                       algo = "pc", 
@@ -42,5 +41,5 @@ imp <- mice(windspeed)
  out.ges <- with_graph(data = imp, 
                    algo = "ges", arg = NULL, 
                                      score = TRUE)
-}                                      
+                                     
 }

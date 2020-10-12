@@ -15,18 +15,17 @@
 #' @param m      Number of chains included in mice()`.
 #' @param args.residuals (optional) list containing vertices and confounders.
 #'               May be specified when residuals for vertices should be calculated in each bootstrap
-#'               data set. See [functioname(micd::makeResiduals)] for more information
+#'               data set. See \code{\link{makeResiduals}} for more information
 #' @param seed   A positive integer that is used as argument for set.seed().
 #' @param quickpred   If true, mice uses quickpred to select predictors.
 #' @param ...    Further arguments passed to the imputation function `mice()`.
 #'
-#' @return List of objects of class `pcalgo` (see [functionname(pcalg::`pcAlgo-class`)])
-#'         or of `fcmialgo` (see [functionname(pcalg::`fciAlgo-class`)]).
+#' @return List of objects of class `pcalgo` (see \code{pcalg::\link[pcalg]{pcAlgo-class}})
+#'         or of `fcmialgo` (see \code{pcalg::\link[pcalg]{fciAlgo-class}}).
 #' 
 #' @export
 #' @examples
-#' \dontrun{
-#' library(mice)
+#' 
 #' daten <- windspeed[,1]
 #' for(i in 2:ncol(windspeed)) daten <- c(daten, windspeed[,i])
 #' daten[sample(1:length(daten), 260)] <- NA
@@ -37,7 +36,8 @@
 #'             method = "pcMI",
 #'             args = "solve.confl = TRUE, alpha = 0.05",
 #'             R = 10)
-#' }
+
+
 boot.graph <- function(data, select = NULL, method = c("pcMI", "fciMI"),
                        args, R, m = 10, args.residuals = NULL,
                        seed = NA, quickpred = FALSE, ...)

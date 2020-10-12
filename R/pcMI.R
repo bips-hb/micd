@@ -1,7 +1,7 @@
 #' Estimate the Equivalence Class of a DAG using the PC-MI algorithm for multiple
 #' imputed data sets of continuous data
 #'
-#' @description This function is a modification of [`pcalg::pc`] \code{\link[pcalg:pc]{pcalg::pc}}
+#' @description This function is a modification of \code{pcalg::\link[pcalg]{pc}}
 #' to be used for multiple imputation.
 #'
 #' @param data  An object of type mids, which stands for 'multiply imputed
@@ -29,30 +29,29 @@
 #'              information when trying to orient edges (see details below).
 #' @param skel.method Character string specifying method; the default, "stable"
 #'                provides an order-independent skeleton, see
-#'                [functioname(pcalg::skeleton)] for details.
+#'                \code{pcalg::\link[pcalg]{skeleton}} for details.
 #' @param conservative Logical indicating if the conservative PC is used. See
-#'                [functioname(pcalg::pc)] for details.
+#'                \code{pcalg::\link[pcalg]{pc}} for details.
 #' @param maj.rule Logical indicating that the triples shall be checked for
 #'                 ambiguity using a majority rule idea, which is less strict
 #'                 than the conservative PC algorithm. For more information, see
-#'                 [functioname(pcalg::pc)].
-#' @param solve.confl See [functioname(pcalg::pc)] for more details.
+#'                 \code{pcalg::\link[pcalg]{pc}}.
+#' @param solve.confl See \code{pcalg::\link[pcalg]{pc}} for more details.
 #' @param verbose If TRUE, detailed output is provided.
 #'
 #' @details An object of class "pcAlgo" (see pcAlgo) containing an estimate of
 #'         the equivalence class of the underlying DAG.
 #'
-#' @return See [functioname(pcalg::pc)] for more details.
+#' @return See \code{pcalg::\link[pcalg]{pc}} for more details.
 #'
-#' @note This is a modified function of [functioname(pcalg::pc)]
+#' @note This is a modified function of \code{pcalg::\link[pcalg]{pc}}
 #'       from the package 'pcalg' (Kalisch et al., 2012;
 #'       http://www.jstatsoft.org/v47/i11/).
 #'
 #' @export
 #'
 #' @examples
-#' \dontrun{
-#' library(mice)
+#' 
 #' daten <- windspeed[,1]
 #' for(i in 2:ncol(windspeed)) daten <- c(daten, windspeed[,i])
 #' daten[sample(1:length(daten), 260)] <- NA
@@ -61,7 +60,7 @@
 #' ## Impute missing values
 #' imp <- mice(daten)
 #' pcMI(data = imp, label = colnames(imp$data), alpha = 0.01)
-#' }
+#'
 #'
 pcMI <- function (data, alpha, labels, p, fixedGaps = NULL,
         fixedEdges = NULL, NAdelete = TRUE, m.max = Inf, u2pd = c("relaxed",

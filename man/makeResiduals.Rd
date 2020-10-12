@@ -22,8 +22,7 @@ and 'pd' uses pairwise deletion}
 Generate residuals based on variables in imputed data sets
 }
 \examples{
-\dontrun{
-library(mice)
+
 daten <- windspeed[,1]
 for(i in 2:ncol(windspeed)) daten <- c(daten, windspeed[,i])
 daten[sample(1:length(daten), 260)] <- NA
@@ -49,6 +48,5 @@ fci.res <- fciMI(data = imp, p = ncol(residuals$data[[1]]), alpha = 0.05)
 par(mfrow = c(1,2))
 plot(pc.res)
 plot(fci.res)
-}
 
 }

@@ -10,27 +10,24 @@
 #'              algorithm is applied.
 #'              
 #'              
-#' @return A list object of S3 class \code{mira}.
+#' @return A list object of S3 class \code{mice::\link[mice]{mira-class}}.
 #' @export
 #'
 #' @examples
-#' \dontrun{
-#' library(mice)
+#' 
 #' imp <- mice(windspeed)
 #'  out.pc <- with_graph(data = imp, 
 #'                       algo = "pc", 
 #'                       args = ", indepTest = gaussCItest, solve.confl = TRUE,
-#'                           labels = names(imp$imp), alpha = 0.05")
+#'                       labels = names(imp$imp), alpha = 0.05")
 #' 
 #'  out.fci <- with_graph(data = imp, 
 #'                        algo = "fciPlus", 
 #'                        args = ", indepTest = gaussCItest,
-#'                               labels = names(imp$imp), alpha = 0.01")
+#'                        labels = names(imp$imp), alpha = 0.01")
 #'                           
-#'  out.ges <- with_graph(data = imp, 
-#'                    algo = "ges", arg = NULL, 
-#'                                      score = TRUE)
-#' }                                      
+#'  out.ges <- with_graph(data = imp, algo = "ges", arg = NULL, score = TRUE)
+#'                                      
 with_graph <- function(data, algo = c("pc", "fci", "fciPlus", "ges"), 
                        args, score = FALSE)
 {

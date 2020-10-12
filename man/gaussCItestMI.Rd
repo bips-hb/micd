@@ -20,25 +20,30 @@ data set', typically created by a call to function mice()}
 Returns the p-value of the test
 }
 \description{
-This function is a modification of [functioname(pcalg::gaussCItest)]
+This function is a modification of \code{pcalg::\link[pcalg:condIndFisherZ]{gaussCItest}}
 to be used for multiple imputation.
 }
 \examples{
-\dontrun{
-library(mice)
-daten <- windspeed[,1]
-for(i in 2:ncol(windspeed)) daten <- c(daten, windspeed[,i])
-daten[sample(1:length(daten), 260)] <- NA
-daten <- matrix(daten, ncol = 6)
+## load data (numeric variables)
+dat <- as.matrix(windspeed)
 
-## Impute missing values
-imp <- mice(daten)
+## delete some observations
+set.seed(123)
+dat[sample(1:length(dat), 260)] <- NA
+
+## Impute missing values under normal model
+imp <- mice(dat, method = "norm")
 
 ## analyse data
-gaussCItestMI(1,2,c(4,5), imp)
-gaussCItest(1,2,c(4,5), suffStat = list(C = cor(windspeed), n = nrow(windspeed)))
-gaussCItest(1,2,c(4,5), suffStat = list(C = cor(daten[complete.cases(daten),]),
-            n = nrow(daten[complete.cases(daten),])))
-}
+# complete data:
+suffStat <- list( C = cor(windspeed), n = nrow(windspeed) )
+gaussCItest(1, 2, c(4,5), suffStat = suffStat)
+# multiple imputation:
+gaussCItestMI(1, 2, c(4,5), data = imp)
+# test-wise deletion:
+gaussCItwd(1, 2, c(4,5), suffStat = dat)
+# list-wise deletion:
+suffStat <- list( C = cor(dat[complete.cases(dat), ]), n = sum(complete.cases(dat)) )
+gaussCItest(1, 2, c(4,5), suffStat = suffStat)
 
 }

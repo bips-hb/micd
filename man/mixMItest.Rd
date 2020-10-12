@@ -13,22 +13,48 @@ respectively, in \code{suffStat}. It is tested whether X and Y are
 conditionally independent given the subset S of the remaining variables.}
 
 \item{suffStat}{A list of \code{data.frame}s containing the multiply 
-imputed data sets. Usually obtained from a \code{\link[mice:mids-class]{mice:mids}} 
-object using \code{\link[mice:complete.mids]{complete}} with argument \code{action="all"}. 
+imputed data sets. Usually obtained from a \code{mice::\link[mice:mids-class]{mids}} 
+object using \code{mice::\link[mice:complete.mids]{complete}} with argument \code{action="all"}. 
 Discrete variables must be coded as factors.}
 }
 \value{
 A p-value.
 }
 \description{
-A version of \link{mixCItest}, to be used within \link[pcalg]{skeleton}, 
-\link[pcalg]{pc} or \link[pcalg]{fci} when multiply imputed data sets are available.
+A version of \code{\link{mixCItest}}, to be used within \code{pcalg::\link[pcalg]{skeleton}}, 
+\code{pcalg::\link[pcalg]{pc}} or \code{pcalg::\link[pcalg]{fci}} when multiply imputed data sets are available.
 }
 \details{
 See \code{\link{mixCItest}} for details on the assumptions of the 
 Conditional Gaussian likelihood ratio test. \code{CGtestMI} applies this test 
 to each \code{data.frame} in \code{suffStat}, then combines the results using 
 the rules in Meng & Rubin (1992).
+}
+\examples{
+
+## load data (numeric and factor variables)
+dat <- toenail2[1:400, ]
+
+## delete some observations
+set.seed(123)
+dat[sample(400, 20), 2] <- NA
+dat[sample(400, 30), 4] <- NA
+
+## impute missing values using random forests
+imp <- mice(dat, method="rf")
+idat <- complete(imp, action="all")
+
+## analyse data
+# complete data:
+mixCItest(2, 3, 5, suffStat=toenail2[1:400, ])
+# multiple imputation:
+mixMItest(2, 3, 5, suffStat = idat)
+# test-wise deletion:
+mixCItwd(2, 3, 5, suffStat = dat)
+# list-wise deletion:
+suffStat <- dat[complete.cases(dat), ]
+mixCItest(2, 3, 5, suffStat = suffStat)
+
 }
 \references{
 Meng X.-L., Rubin D.B. (1992): Performing likelihood ratio tests 

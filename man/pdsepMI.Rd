@@ -28,28 +28,28 @@ data set', typically created by a call to function mice()}
 
 \item{p}{Number of variables.}
 
-\item{sepset}{See [functioname(pcalg::pdsep)] for more details.}
+\item{sepset}{See \code{pcalg::\link[pcalg]{pdsep}} for more details.}
 
 \item{alpha}{Significance level for the individual conditional independence tests.}
 
-\item{pMax}{See [functioname(pcalg::pdsep)] for more details.}
+\item{pMax}{See \code{pcalg::\link[pcalg]{pdsep}} for more details.}
 
 \item{m.max}{Maximum size of the conditioning sets that are considered in the conditional independence tests.}
 
-\item{pdsep.max}{See [functioname(pcalg::pdsep)] for more details.}
+\item{pdsep.max}{See \code{pcalg::\link[pcalg]{pdsep}} for more details.}
 
-\item{NAdelete}{See [functioname(pcalg::pdsep)] for more details.}
+\item{NAdelete}{See \code{pcalg::\link[pcalg]{pdsep}} for more details.}
 
-\item{unfVect}{See [functioname(pcalg::pdsep)] for more details.}
+\item{unfVect}{See \code{pcalg::\link[pcalg]{pdsep}} for more details.}
 
-\item{biCC}{See [functioname(pcalg::pdsep)] for more details.}
+\item{biCC}{See \code{pcalg::\link[pcalg]{pdsep}} for more details.}
 
 \item{verbose}{Logical indicating that detailed output is to be provided.}
 }
 \value{
-See [functioname(pcalg::pdsep)] for more details.
+See \code{pcalg::\link[pcalg]{pdsep}} for more details.
 }
 \description{
-This function is a modification of [functioname(pcalg::pdsep)]
+This function is a modification of \code{pcalg::\link[pcalg]{pdsep}}
 to be used for multiple imputation.
 }

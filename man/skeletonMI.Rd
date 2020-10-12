@@ -32,7 +32,7 @@ labels are not, in which case labels is set to 1:p.}
 
 \item{method}{Character string specifying method; the default, "stable"
 provides an order-independent skeleton, see
-[functioname(pcalg::skeleton)] for details.}
+\code{pcalg::\link[pcalg]{skeleton}} for details.}
 
 \item{m.max}{Maximal size of the conditioning sets that are considered in
 the conditional independence tests.}
@@ -53,24 +53,23 @@ If it is true, the corresponding edge is deleted, otherwise not.}
 \item{verbose}{If TRUE, detailed output is provided.}
 }
 \value{
-See [functioname(pcalg::skeleton)] for more details.
+See \code{pcalg::\link[pcalg]{skeleton}} for more details.
 }
 \description{
-This function is a modification of [functioname(pcalg::skeleton)]
+This function is a modification of \code{pcalg::\link[pcalg]{skeleton}}
 to be used for multiple imputation.
 }
 \note{
-This is a modified function of [functioname(pcalg::pc)]
+This is a modified function of \code{pcalg::\link[pcalg]{skeleton}}
       from the package 'pcalg' (Kalisch et al., 2012;
       http://www.jstatsoft.org/v47/i11/).
 }
 \examples{
-\dontrun{
+
 data(gmG)
-n <- nrow    (gmG8$x)
+n <- nrow(gmG8$x)
 V <- colnames(gmG8$x) # labels aka node names
 ## estimate Skeleton
-skel.fit <- skeletonMI(data = gmG8$x, alpha = 0.01, labels = V, verbose = FALSE)
-}
-
+data_mids <- mice(gmG8$x)
+skel.fit <- skeletonMI(data = data_mids, alpha = 0.01, labels = V, verbose = FALSE)
 }

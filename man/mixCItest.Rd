@@ -19,7 +19,7 @@ A p-value.
 \description{
 A likelihood ratio test for (conditional) independence between mixed 
 (continuous and unordered categorical) variables, to be used within 
-\link[pcalg]{skeleton}, \link[pcalg]{pc} or \link[pcalg]{fci}. 
+\code{pcalg::\link[pcalg]{skeleton}}, \code{pcalg::\link[pcalg]{pc}} or \code{pcalg::\link[pcalg]{fci}}. 
 It assumes that the variables in the test follow a Conditional Gaussian 
 distribution, i.e. conditional on each combination of values of the discrete
  variables, the continuous variables are multivariate Gaussian. 
@@ -40,6 +40,15 @@ non-collapsibility of the Conditional Gaussian distribution, this implies
 that the assumptions of two tests with overlapping sets of variables may 
 contradict each other. Little is known about how this affects the quality of 
 the estimated graph in practice.
+}
+\examples{
+## load data (numeric and factor variables)
+dat <- toenail2[1:400, ]
+
+## analyse data
+mixCItest(5, 2, NULL, suffStat=dat)
+mixCItest(2, 3, 4, suffStat=dat)
+
 }
 \references{
 Andrews B., Ramsey J., Cooper G.F. (2018): Scoring Bayesian networks 

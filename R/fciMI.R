@@ -1,7 +1,7 @@
 #' Estimate a PAG by the FCI-MI Algorithm for multiple
 #' imputed data sets of continuous data
 #'
-#' This function is a modification of [functioname(pcalg::fci)]
+#' This function is a modification of \code{pcalg::\link[pcalg]{fci}}
 #' to be used for multiple imputation.
 #'
 #' @param data An object of type mids, which stands for 'multiply imputed
@@ -14,27 +14,27 @@
 #'            labels are not, in which case labels is set to 1:p.
 #' @param skel.method Character string specifying method; the default, "stable"
 #'                provides an order-independent skeleton, see
-#'                [functioname(pcalg::skeleton)] for details.
-#' @param type  See [functioname(pcalg::fci)] for details.
-#' @param fixedGaps See [functioname(pcalg::fci)] for details.
-#' @param fixedEdges See [functioname(pcalg::fci)] for details.
-#' @param NAdelete See [functioname(pcalg::fci)] for details.
+#'                \code{pcalg::\link[pcalg]{skeleton}} for details.
+#' @param type  See \code{pcalg::\link[pcalg]{fci}} for details.
+#' @param fixedGaps See \code{pcalg::\link[pcalg]{fci}} for details.
+#' @param fixedEdges See \code{pcalg::\link[pcalg]{fci}} for details.
+#' @param NAdelete See \code{pcalg::\link[pcalg]{fci}} for details.
 #' @param m.max Maximum size of the conditioning sets that are considered in
 #'              the conditional independence tests.
-#' @param pdsep.max See [functioname(pcalg::fci)] for details.
+#' @param pdsep.max See \code{pcalg::\link[pcalg]{fci}} for details.
 #' @param rules Logical vector of length 10 indicating which rules should be
 #'              used when directing edges. The order of the rules is
 #'              taken from Zhang (2008).
-#' @param doPdsep See [functioname(pcalg::fci)] for details.
-#' @param biCC See [functioname(pcalg::fci)] for details.
-#' @param conservative See [functioname(pcalg::fci)] for details.
-#' @param maj.rule See [functioname(pcalg::fci)] for details.
+#' @param doPdsep See \code{pcalg::\link[pcalg]{fci}} for details.
+#' @param biCC See \code{pcalg::\link[pcalg]{fci}} for details.
+#' @param conservative See \code{pcalg::\link[pcalg]{fci}} for details.
+#' @param maj.rule See \code{pcalg::\link[pcalg]{fci}} for details.
 #' @param verbose If true, more detailed output is provided.
 #'
-#' @return See [functioname(pcalg::fci)] for details.
+#' @return See \code{pcalg::\link[pcalg]{fci}} for details.
 #' @export
 #' @examples
-#' library(mice)
+#' 
 #' daten <- windspeed[,1]
 #' for(i in 2:ncol(windspeed)) daten <- c(daten, windspeed[,i])
 #' daten[sample(1:length(daten), 260)] <- NA

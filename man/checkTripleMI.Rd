@@ -37,22 +37,22 @@ data set', typically created by a call to function mice().}
 \item{alpha}{significance level of test.}
 
 \item{version.unf}{(Integer) vector of length two. See
-[functioname(pcalg::chekTriple)] for more details.}
+\code{pcalg::\link[pcalg]{checkTriple}} for more details.}
 
 \item{maj.rule}{Logical indicating how the majority rule is applied. See
-[functioname(pcalg::chekTriple)] for more details.}
+\code{pcalg::\link[pcalg]{checkTriple}} for more details.}
 
 \item{verbose}{Logical asking for detailed output of intermediate steps.}
 }
 \value{
-See [functioname(pcalg::chekTriple)] for details.
+See \code{pcalg::\link[pcalg]{checkTriple}} for details.
 }
 \description{
-This function is a modification of [functioname(pcalg::checkTriple)]
+This function is a modification of \code{pcalg::\link[pcalg]{checkTriple}}
 to be used for multiple imputation.
 }
 \note{
-This is a modified function of [functioname(pcalg::pc)]
+This is a modified function of \code{pcalg::\link[pcalg]{checkTriple}}
       from the package 'pcalg' (Kalisch et al., 2012;
       http://www.jstatsoft.org/v47/i11/).
 }

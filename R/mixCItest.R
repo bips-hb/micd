@@ -2,7 +2,7 @@
 #' 
 #' A likelihood ratio test for (conditional) independence between mixed 
 #' (continuous and unordered categorical) variables, to be used within 
-#' \link[pcalg]{skeleton}, \link[pcalg]{pc} or \link[pcalg]{fci}. 
+#' \code{pcalg::\link[pcalg]{skeleton}}, \code{pcalg::\link[pcalg]{pc}} or \code{pcalg::\link[pcalg]{fci}}. 
 #' It assumes that the variables in the test follow a Conditional Gaussian 
 #' distribution, i.e. conditional on each combination of values of the discrete
 #'  variables, the continuous variables are multivariate Gaussian. 
@@ -44,7 +44,18 @@
 #' \emph{Multivariate Behavioral Research} 33(1):65-117. 
 #' http://www.phil.cmu.edu/tetrad/index.html
 #'
+#' @examples 
+#' ## load data (numeric and factor variables)
+#' dat <- toenail2[1:400, ]
+#' ß
+#' ## analyse data
+#' mixCItest(5, 2, NULL, suffStat=dat)
+#' mixCItest(2, 3, 4, suffStat=dat)
+#'
 #' @export
+
+
+
 mixCItest <- function(x, y, S=NULL, suffStat) {
   # tests X _||_ Y | S
   
@@ -131,7 +142,7 @@ multinomialLikelihood <- function(a, N) {
 # Covm
 covm <- function(dat) {
   n <- nrow(dat)
-  covm <- Rfast::cova(Rfast::data.frame.to_matrix(dat)) *(n-1)/n
+  covm <- Rfast::cova(Rfast::data.frame.to_matrix(dat)) * (n-1)/n
   if (anyNA(covm)) {
     covm <- matrix(1)
   }

@@ -40,44 +40,44 @@ labels are not, in which case labels is set to 1:p.}
 
 \item{skel.method}{Character string specifying method; the default, "stable"
 provides an order-independent skeleton, see
-[functioname(pcalg::skeleton)] for details.}
+\code{pcalg::\link[pcalg]{skeleton}} for details.}
 
-\item{type}{See [functioname(pcalg::fci)] for details.}
+\item{type}{See \code{pcalg::\link[pcalg]{fci}} for details.}
 
-\item{fixedGaps}{See [functioname(pcalg::fci)] for details.}
+\item{fixedGaps}{See \code{pcalg::\link[pcalg]{fci}} for details.}
 
-\item{fixedEdges}{See [functioname(pcalg::fci)] for details.}
+\item{fixedEdges}{See \code{pcalg::\link[pcalg]{fci}} for details.}
 
-\item{NAdelete}{See [functioname(pcalg::fci)] for details.}
+\item{NAdelete}{See \code{pcalg::\link[pcalg]{fci}} for details.}
 
 \item{m.max}{Maximum size of the conditioning sets that are considered in
 the conditional independence tests.}
 
-\item{pdsep.max}{See [functioname(pcalg::fci)] for details.}
+\item{pdsep.max}{See \code{pcalg::\link[pcalg]{fci}} for details.}
 
 \item{rules}{Logical vector of length 10 indicating which rules should be
 used when directing edges. The order of the rules is
 taken from Zhang (2008).}
 
-\item{doPdsep}{See [functioname(pcalg::fci)] for details.}
+\item{doPdsep}{See \code{pcalg::\link[pcalg]{fci}} for details.}
 
-\item{biCC}{See [functioname(pcalg::fci)] for details.}
+\item{biCC}{See \code{pcalg::\link[pcalg]{fci}} for details.}
 
-\item{conservative}{See [functioname(pcalg::fci)] for details.}
+\item{conservative}{See \code{pcalg::\link[pcalg]{fci}} for details.}
 
-\item{maj.rule}{See [functioname(pcalg::fci)] for details.}
+\item{maj.rule}{See \code{pcalg::\link[pcalg]{fci}} for details.}
 
 \item{verbose}{If true, more detailed output is provided.}
 }
 \value{
-See [functioname(pcalg::fci)] for details.
+See \code{pcalg::\link[pcalg]{fci}} for details.
 }
 \description{
-This function is a modification of [functioname(pcalg::fci)]
+This function is a modification of \code{pcalg::\link[pcalg]{fci}}
 to be used for multiple imputation.
 }
 \examples{
-library(mice)
+
 daten <- windspeed[,1]
 for(i in 2:ncol(windspeed)) daten <- c(daten, windspeed[,i])
 daten[sample(1:length(daten), 260)] <- NA

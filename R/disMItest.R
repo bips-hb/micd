@@ -1,25 +1,24 @@
 #' G square Test for (Conditional) Independence between Discrete Variables after 
 #' Multiple Imputation
 #' 
-#' A version of \code{\link[pcalg]{disCItest}}, to be used within 
-#' \code{\link[pcalg]{skeleton}}, \code{\link[pcalg]{pc}} or 
-#' \code{\link[pcalg]{fci}} when multiply imputed data sets are available. 
-#' Note that in contrast to \code{\link[pcalg]{disCItest}}, the variables must 
+#' A version of \code{pcalg::\link[pcalg]{disCItest}}, to be used within 
+#' \code{pcalg::\link[pcalg]{skeleton}}, \code{pcalg::\link[pcalg]{pc}} or 
+#' \code{pcalg::\link[pcalg]{fci}} when multiply imputed data sets are available. 
+#' Note that in contrast to \code{pcalg::\link[pcalg]{disCItest}}, the variables must 
 #' here be coded as factors.
 #'
 #' @param x,y,S (integer) position of variable X, Y and set of variables S, 
 #' respectively, in \code{suffStat}. It is tested whether X and Y are conditionally 
 #' independent given the subset S of the remaining variables.
 #' @param suffStat A list of \code{data.frame}s containing the multiply imputed 
-#' data sets. Usually obtained from a \code{\link[mice:mids-class]{mice:mids}} 
-#' object using \code{\link[mice:complete.mids]{complete}} with argument 
-#' \code{action="all"}. All variables must be coded as factors.
+#' data sets. Usually obtained from a \code{mice::\link[mice:mids-class]{mids}} 
+#' object using \code{mice::\link[mice:complete.mids]{complete}} with argument 
+#' \code{action="all"}. All variables must be coded as \code{\link{factor}s}. NO warning is issued if the variables are not coded as factors!
 #'
-#' @details See \code{\link{mixCItest}} for details on the assumptions of the 
-#' Conditional Gaussian likelihood ratio test. CGtestMI applies this test to each 
+#' @details See \code{pcalg::\link[pcalg]{disCItest}} for details on the G square test. disMItest applies this test to each 
 #' \code{data.frame} in \code{suffStat}, then combines the results using the rules 
 #' in Meng & Rubin (1992). Degrees of freedom are never adapted, and there is no 
-#' minimum required sample size, while \code{\link[pcalg]{disCItest}} requires 
+#' minimum required sample size, while \code{pcalg::\link[pcalg]{disCItest}} requires 
 #' \code{10*df} observations and otherwise returns a p-value of 1.
 #' 
 #' @return A p-value.
@@ -29,9 +28,33 @@
 #' @references Meng X.-L., Rubin D.B. (1992): Performing likelihood ratio tests with multiply 
 #' imputed data sets. \emph{Biometrika} 79(1):103-111.
 #' 
-#' @seealso \code{\link[pcalg]{disCItest}} for complete data
+#' @seealso \code{pcalg::\link[pcalg]{disCItest}} for complete data, \code{\link{disCItwd}} for test-wise deletion
+#' 
+#' @examples
+#' 
+#' ## simulate factor variables
+#' n <- 200
+#' set.seed(123)
+#' x <- factor(sample(0:2, n, TRUE)) # factor, 3 levels
+#' y <- factor(sample(0:3, n, TRUE)) # factor, 4 levels
+#' z <- factor(sample(0:1, n, TRUE)) # factor, 2 levels
+#' dat <- data.frame(x,y,z)
+#' 
+#' ## delete some observations of z
+#' dat[sample(1:n, 40), 3] <- NA
+#' 
+#' ## impute missing values under saturated model
+#' form <- make.formulas.saturated(dat)
+#' imp <- mice(dat, method = "logreg", formulas = form)
+#' imp <- complete(imp, action = "all")
+#' 
+#' ## analyse imputed data
+#' disMItest(1, 3, NULL, suffStat = imp)
 #' 
 #' @export
+
+
+
 disMItest <- function (x, y, S=NULL, suffStat) {
   
   # number of imputations / completed data sets

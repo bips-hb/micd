@@ -35,7 +35,7 @@ internally and should not be used!}
 
 \item{args.residuals}{(optional) list containing vertices and confounders.
 May be specified when residuals for vertices should be calculated in each bootstrap
-data set. See [functioname(micd::makeResiduals)] for more information}
+data set. See \code{\link{makeResiduals}} for more information}
 
 \item{seed}{A positive integer that is used as argument for set.seed().}
 
@@ -44,16 +44,15 @@ data set. See [functioname(micd::makeResiduals)] for more information}
 \item{...}{Further arguments passed to the imputation function `mice()`.}
 }
 \value{
-List of objects of class `pcalgo` (see [functionname(pcalg::`pcAlgo-class`)])
-        or of `fcmialgo` (see [functionname(pcalg::`fciAlgo-class`)]).
+List of objects of class `pcalgo` (see \code{pcalg::\link[pcalg]{pcAlgo-class}})
+        or of `fcmialgo` (see \code{pcalg::\link[pcalg]{fciAlgo-class}}).
 }
 \description{
 Generate R bootstrap replicates for the PC or FCI algorithm for data with
 missing values.
 }
 \examples{
-\dontrun{
-library(mice)
+
 daten <- windspeed[,1]
 for(i in 2:ncol(windspeed)) daten <- c(daten, windspeed[,i])
 daten[sample(1:length(daten), 260)] <- NA
@@ -64,5 +63,4 @@ boot.graph <- boot.graph(
             method = "pcMI",
             args = "solve.confl = TRUE, alpha = 0.05",
             R = 10)
-}
 }

@@ -23,15 +23,25 @@ A list of formulas.
 }
 \description{
 This helper function creates a valid \code{formulas} object. 
-The \code{formulas} object is an argument to the \code{\link[mice]{mice}} function. 
+The \code{formulas} object is an argument to the \code{mice::\link[mice]{mice}} function. 
 It is a list of formulas that specifies the target variables and the predictors 
-by means of the standard ~ operator. In contrast to \code{\link[mice]{make.formulas}}, 
+by means of the standard ~ operator. In contrast to \code{mice::\link[mice]{make.formulas}}, 
 which creates main effects formulas, \code{make.formulas.saturated} 
 creates formulas including all possible interaction effects.
 }
 \note{
-A modification of \code{\link[mice]{make.formulas}} by Stef van Buuren et al.
+A modification of \code{mice::\link[mice]{make.formulas}} by Stef van Buuren et al.
+}
+\examples{
+## main effecs model:
+f1 <- make.formulas(nhanes)
+f1
+
+## saturated model:
+f2 <- make.formulas.saturated(nhanes)
+f2
+
 }
 \seealso{
-\code{\link[mice]{make.formulas}}
+\code{mice::\link[mice]{make.formulas}}
 }

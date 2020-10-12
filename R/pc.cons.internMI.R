@@ -1,22 +1,22 @@
 #' Utility for conservative and majority rule in PC-MI and FCI-MI
 #' applied for multiple imputed data sets of continuous data
 #'
-#' This function is a modification of [functioname(pcalg::pc.cons.intern)]
+#' This function is a modification of \code{pcalg::\link[pcalg]{pc}}
 #' to be used for multiple imputation.
 #'
-#' @param sk A skeleton object as returned from [functioname(micd::skeletonMI)]
+#' @param sk A skeleton object as returned from \code{\link{skeletonMI}}
 #' @param data An object of type mids, which stands for 'multiply imputed
 #'             data set', typically created by a call to function mice().
 #' @param alpha Significance level for the conditional independence test.
 #' @param version.unf (Integer) vector of length two. See
-#'                    [functioname(pcalg::chekTriple)] for more details.
+#'                    \code{pcalg::\link[pcalg]{checkTriple}} for more details.
 #' @param maj.rule Logical indicating how the majority rule is applied. See
-#'                 [functioname(pcalg::chekTriple)] for more details.
+#'                 \code{pcalg::\link[pcalg]{checkTriple}} for more details.
 #' @param verbose Logical asking for detailed output of intermediate steps.
 #'
-#' @return See [functioname(pcalg::pc.cons.intern)] for more details.
+#' @return See \code{pcalg::\link[pcalg]{pc.cons.intern}} for more details.
 #'
-#' @note This is a modified function of [functioname(pcalg::pc)]
+#' @note This is a modified function of \code{pcalg::\link[pcalg]{pc.cons.intern}}
 #'       from the package 'pcalg' (Kalisch et al., 2012;
 #'       http://www.jstatsoft.org/v47/i11/).
 #'

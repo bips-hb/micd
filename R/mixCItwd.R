@@ -1,7 +1,7 @@
 #' Likelihood Ratio Test for (Conditional) Independence between Mixed Variables with Missings
 #' 
-#' A version of \code{\link{mixCItest}}, to be used within \code{\link[pcalg]{skeleton}}, 
-#' \code{\link[pcalg]{pc}} or \code{\link[pcalg]{fci}} when the data contain missing values. 
+#' A version of \code{\link{mixCItest}}, to be used within \code{pcalg::\link[pcalg]{skeleton}}, 
+#' \code{pcalg::\link[pcalg]{pc}} or \code{pcalg::\link[pcalg]{fci}} when the data contain missing values. 
 #' Observations where at least one of the variables involved in the test is missing 
 #' are deleted prior to performing the test (test-wise deletion).
 #'
@@ -19,10 +19,33 @@
 #' @seealso \code{\link{mixCItest}} for complete data, 
 #' \code{\link{mixMItest}} for multiply imputed data
 #' 
+#' @examples
+#' ## load data (numeric and factor variables)
+#' dat <- toenail2[1:400, ]
+#' 
+#' ## delete some observations
+#' set.seed(123)
+#' dat[sample(400, 20), 2] <- NA
+#' dat[sample(400, 30), 4] <- NA
+#' 
+#' ## analyse data
+#' # complete data:
+#' mixCItest(2, 3, 5, suffStat=toenail2[1:400, ])
+#' # test-wise deletion:
+#' mixCItwd(2, 3, 5, suffStat = dat)
+#' # list-wise deletion:
+#' suffStat <- dat[complete.cases(dat), ]
+#' mixCItest(2, 3, 5, suffStat = suffStat)
+#' 
 #' @export
+
+
+
 mixCItwd <- function(x, y, S=NULL, suffStat) {
   
   miss <- apply(suffStat[ ,c(x,y,S)], 1, anyNA)
-  mixCItest(x=x, y=y, S=S, suffStat=suffStat[!miss, ])
-  
+  if (length(S) > 0) {
+    S <- 3:(length(S)+2)
+  }
+  mixCItest(x = 1, y = 2, S = S, suffStat = suffStat[!miss, ])
 }
