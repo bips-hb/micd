@@ -4,13 +4,14 @@ Title: Multiple Imputation in Causal Graph Discovery
 Version: 1.0.0
 Author: Ronja Foraita, Janine Witte
 Maintainer: Ronja Foraita <foraita@leibniz-bips.de>
-Description: Modified functions of the package pcalg to run the PC and the FCI algorithm for constraint-based causal discovery in incomplete and multiply imputed datasets.
+Description: Modified functions of the package pcalg to run the PC and the FCI 
+            algorithm for constraint-based causal discovery in incomplete and 
+            multiply imputed datasets.
 Depends: R (>= 3.0.2),
-         pcalg, mice, Rfast
-Imports: stats, graphics, utils, methods, abind, graph, RBGL, igraph, ggm, 
-         corpcor, robustbase, vcd, Rcpp, bdsmatrix, sfsmisc, fastICA, clue, 
-         dagitty
-Suggests: MASS, Matrix, Rgraphviz, mvtnorm, huge
+         pcalg, mice, Rfast, graph
+Imports: stats, graphics, utils, methods, abind, RBGL, igraph, ggm, 
+         corpcor, robustbase, vcd, Rcpp, bdsmatrix, sfsmisc, fastICA, clue
+Suggests: MASS, Matrix, Rgraphviz, mvtnorm, huge, dagitty
 License: GPL-3
 Encoding: UTF-8
 LazyData: true

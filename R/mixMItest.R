@@ -241,7 +241,7 @@ maxJoint <- function(dat2, A, X, k, M) {
   if (length(A)==0) {
     # no discrete variables
     maxMultinomial <- list(0)
-    maxAll <- mvnorm.mle(data.frame.to_matrix(dat2))
+    maxAll <- mvnorm.mle(Rfast::data.frame.to_matrix(dat2))
     maxMu <- list( maxAll$mu /M )
     logL <- maxAll$loglik /M
     maxSigma <- list( maxAll$sigma /M )
@@ -281,8 +281,8 @@ maxCell <- function(dat_cell, A, X, N, Sigma_all, k, M) {
       Sigma <- Sigma_all
     }
     
-    c2 <-sum( dmvnorm(x=data.frame.to_matrix(dat_cell[X]),
-                      mu=apply(dat_cell[X], 2, mean),
+    c2 <-sum( dmvnorm(x = Rfast::data.frame.to_matrix(dat_cell[X]),
+                      mu = apply(dat_cell[X], 2, mean),
                       sigma=matrix(Sigma, nrow=k),
                       logged=TRUE) ) /M
     maxM <- apply(dat_cell[ ,X, drop=FALSE], 2, mean) /M

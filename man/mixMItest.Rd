@@ -41,12 +41,12 @@ dat[sample(400, 20), 2] <- NA
 dat[sample(400, 30), 4] <- NA
 
 ## impute missing values using random forests
-imp <- mice(dat, method="rf")
-idat <- complete(imp, action="all")
+imp <- mice(dat, method = "rf")
+idat <- complete(imp, action = "all")
 
 ## analyse data
 # complete data:
-mixCItest(2, 3, 5, suffStat=toenail2[1:400, ])
+mixCItest(2, 3, 5, suffStat = toenail2[1:400, ])
 # multiple imputation:
 mixMItest(2, 3, 5, suffStat = idat)
 # test-wise deletion:

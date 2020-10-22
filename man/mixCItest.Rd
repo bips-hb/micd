@@ -44,7 +44,7 @@ the estimated graph in practice.
 \examples{
 ## load data (numeric and factor variables)
 dat <- toenail2[1:400, ]
-
+ÃŸ
 ## analyse data
 mixCItest(5, 2, NULL, suffStat=dat)
 mixCItest(2, 3, 4, suffStat=dat)
