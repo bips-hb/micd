@@ -56,6 +56,9 @@
 disCItwd <- function(x, y, S=NULL, suffStat) {
   suffStat$nlev <- suffStat$nlev[c(x, y, S)]
   miss <- apply(suffStat$dm[, c(x, y, S)], 1, anyNA)
+  
+  if (sum(!miss)==0) { return(NA) }
+  
   suffStat$dm <- suffStat$dm[!miss, c(x, y, S)]
   if (length(S) > 0) {
     S <- 3:ncol(suffStat$dm)
