@@ -48,6 +48,9 @@ gaussCItwd <- function(x, y, S=NULL, suffStat) {
   
   miss <- apply(suffStat[ ,c(x,y,S)], 1, anyNA)
   C <- stats::cor(suffStat[!miss, c(x,y,S)])
+  
+  if (anyNA(C)) { return(NA) }
+  
   n <- sum(!miss)
   
   if (length(S)==0) {
