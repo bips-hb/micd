@@ -44,6 +44,9 @@
 mixCItwd <- function(x, y, S=NULL, suffStat) {
   
   miss <- apply(suffStat[ ,c(x,y,S)], 1, anyNA)
+  
+  if (sum(!miss)==0) { return(NA) }
+  
   if (length(S) > 0) {
     S <- 3:(length(S)+2)
   }
