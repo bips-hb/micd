@@ -55,7 +55,6 @@
 #' @export
 
 
-
 mixCItest <- function(x, y, S=NULL, suffStat) {
   # tests X _||_ Y | S
   
@@ -91,15 +90,13 @@ likelihoodJoint <- function(dat2) {
     logL <- Rfast::mvnorm.mle(Rfast::data.frame.to_matrix(dat2))$loglik
   } else {
     # at least one discrete variable
-    #cells <- split(dat2, dat2[A], drop=TRUE)
     Sigma_all <- covm(dat2[X])
     logL_cells <- by(dat2, dat2[A], likelihoodCell, X, N, Sigma_all, k, simplify=FALSE)
-    #logL_cells <- sapply(cells, likelihoodCell, X, N, Sigma_all, k)
     logL <- sum(unlist(logL_cells))
   }
   
-  fA <- f(A, dat2)
-  dof <-  fA * h(k) + fA
+  fA <- df_f(A, dat2)
+  dof <-  fA * df_h(k) + fA
   
   return(c(logL, dof))
 }
@@ -111,20 +108,23 @@ likelihoodJoint <- function(dat2) {
 likelihoodCell <- function(dat_cell, X, N, Sigma_all, k) {
   a <- nrow(dat_cell)
   
-  # multinomial component of the log likelihood:
+  # multinomial component of the log likelihood
   c1 <- a * multinomialLikelihood(a, N)
   
-  # multivariate Gaussian component of the log likelihood:
+  # multivariate Gaussian component of the log likelihood
   c2 <- 0
   if (k > 0) {
     if (a > (k + 5)) {
       #if (a > (k)) {
       c2 <- Rfast::mvnorm.mle(Rfast::data.frame.to_matrix(dat_cell[X]))$loglik
     } else {
-      c2 <-sum(Rfast::dmvnorm(x = Rfast::data.frame.to_matrix(dat_cell[X]),
+      dec <- tryCatch(chol(Sigma_all), error = function(e) e)
+      if (!inherits(dec, "error")) {
+        c2 <-sum(Rfast::dmvnorm(x = Rfast::data.frame.to_matrix(dat_cell[X]),
                         mu=apply(dat_cell[X], 2, mean),
                         sigma=Sigma_all,
                         logged=TRUE) )
+      }
     }
   }
   
@@ -142,7 +142,7 @@ multinomialLikelihood <- function(a, N) {
 # Covm
 covm <- function(dat) {
   n <- nrow(dat)
-  covm <- Rfast::cova(Rfast::data.frame.to_matrix(dat)) * (n-1)/n
+  covm <- Rfast::cova(Rfast::data.frame.to_matrix(dat)) *(n-1)/n
   if (anyNA(covm)) {
     covm <- matrix(1)
   }
@@ -150,18 +150,14 @@ covm <- function(dat) {
 }
 
 # Degrees of freedom for continous variables
-h <- function(k){ k*(k+1) /2 }
+df_h <- function(k){ k*(k+1) /2 }
 
 
 # Degrees of freedom for discrete variables
-f <- function(A, dat) {
+df_f <- function(A, dat) {
   if (length(A)==0) {return(1)}
   num_levels <- sapply(dat[A], function(i){nlevels(i)})
   prod(num_levels)
 }
-
-
-
-
 
 
