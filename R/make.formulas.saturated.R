@@ -46,8 +46,12 @@ make.formulas.saturated <- function (data, blocks = mice::make.blocks(data),
       predictors <- names(type)[type != 0]
     }
     x <- setdiff(predictors, y)
-    formulas[[h]] <- paste(paste(y, collapse = "+"), "~ 0 +", 
-                           paste(x, collapse = ":"))
+    if (length(x)==0) {
+      formulas[[h]] <- paste(paste(y, collapse = "+"), "~ 0")
+    } else {
+      formulas[[h]] <- paste(paste(y, collapse = "+"), "~ 0 + (", 
+                           paste(x, collapse = "+"), ") ^", d)
+    }
   }
   formulas <- lapply(formulas, stats::as.formula)
   formulas
