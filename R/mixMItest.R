@@ -1,53 +1,52 @@
-#' Likelihood Ratio Test for (Conditional) Independence between Mixed Variables 
+#' Likelihood Ratio Test for (Conditional) Independence between Mixed Variables
 #' after Multiple Imputation
-#' 
-#' A version of \code{\link{mixCItest}}, to be used within \code{pcalg::\link[pcalg]{skeleton}}, 
+#'
+#' A version of \code{\link{mixCItest}}, to be used within \code{pcalg::\link[pcalg]{skeleton}},
 #' \code{pcalg::\link[pcalg]{pc}} or \code{pcalg::\link[pcalg]{fci}} when multiply imputed data sets are available.
 #'
-#' @param x,y,S    (integer) position of variable X, Y and set of variables S, 
-#' respectively, in \code{suffStat}. It is tested whether X and Y are 
+#' @param x,y,S    (integer) position of variable X, Y and set of variables S,
+#' respectively, in \code{suffStat}. It is tested whether X and Y are
 #' conditionally independent given the subset S of the remaining variables.
-#' @param suffStat A list of \code{data.frame}s containing the multiply 
-#' imputed data sets. Usually obtained from a \code{mice::\link[mice:mids-class]{mids}} 
-#' object using \code{mice::\link[mice:complete.mids]{complete}} with argument \code{action="all"}. 
+#' @param suffStat A list of \code{data.frame}s containing the multiply
+#' imputed data sets. Usually obtained from a \code{mice::\link[mice:mids-class]{mids}}
+#' object using \code{mice::\link[mice:complete.mids]{complete}} with argument \code{action="all"}.
 #' Discrete variables must be coded as factors.
 #'
-#' @details See \code{\link{mixCItest}} for details on the assumptions of the 
-#' Conditional Gaussian likelihood ratio test. \code{CGtestMI} applies this test 
-#' to each \code{data.frame} in \code{suffStat}, then combines the results using 
+#' @details See \code{\link{mixCItest}} for details on the assumptions of the
+#' Conditional Gaussian likelihood ratio test. \code{CGtestMI} applies this test
+#' to each \code{data.frame} in \code{suffStat}, then combines the results using
 #' the rules in Meng & Rubin (1992).
 #' @return A p-value.
-#' 
+#'
 #' @author Janine Witte
-#' 
-#' @references Meng X.-L., Rubin D.B. (1992): Performing likelihood ratio tests 
+#'
+#' @references Meng X.-L., Rubin D.B. (1992): Performing likelihood ratio tests
 #' with multiply imputed data sets. \emph{Biometrika} 79(1):103-111.
-#' 
+#'
 #' @examples
-#' 
+#'
 #' ## load data (numeric and factor variables)
 #' dat <- toenail2[1:400, ]
-#' 
+#'
 #' ## delete some observations
 #' set.seed(123)
 #' dat[sample(400, 20), 2] <- NA
 #' dat[sample(400, 30), 4] <- NA
-#' 
+#'
 #' ## impute missing values using random forests
 #' imp <- mice(dat, method = "rf")
-#' idat <- complete(imp, action = "all")
-#' 
+#'
 #' ## analyse data
 #' # complete data:
 #' mixCItest(2, 3, 5, suffStat = toenail2[1:400, ])
 #' # multiple imputation:
-#' mixMItest(2, 3, 5, suffStat = idat)
+#' mixMItest(2, 3, 5, suffStat =  getSuff(imp, test = "mixMItest"))
 #' # test-wise deletion:
 #' mixCItwd(2, 3, 5, suffStat = dat)
 #' # list-wise deletion:
 #' suffStat <- dat[complete.cases(dat), ]
 #' mixCItest(2, 3, 5, suffStat = suffStat)
-#' 
+#'
 #' @export
 
 
@@ -176,7 +175,7 @@ mixMItest <- function(x, y, S = NULL, suffStat) {
   } else {
     LR_bar <- 2* (av_logL_xyS - av_logL_yS - av_logL_xS + av_logL_S)
   }
-  
+
   if (is.na(LR_bar)) {return(NaN)}
   if (LR_bar==-Inf) {return(1)}
   if (LR_bar==Inf) {return(0)}
@@ -189,7 +188,7 @@ mixMItest <- function(x, y, S = NULL, suffStat) {
   }
 
   r3 <- ( M + 1 ) * ( LR_bar - LR_tilde )  / ( K * ( M - 1 ) )
-  
+
   if (is.na(r3)) {return(0)}
 
   D3 <- LR_tilde / (K * (1 + r3))
@@ -212,8 +211,18 @@ mixMItest <- function(x, y, S = NULL, suffStat) {
 
 
 ### sum list elements
+plus <- function(a, b) {
+  if (is.null(a)) {
+    return(b)
+  } else if (is.null(b)) {
+    return(a)
+  } else {
+    return(a + b) 
+  }
+}
+
 listsum <- function(l1, l2) {
-  mapply('+', l1, l2, SIMPLIFY=FALSE)
+  mapply(plus, l1, l2, SIMPLIFY=FALSE)
 }
 
 
@@ -297,10 +306,10 @@ maxCell <- function(dat_cell, A, X, N, Sigma_all, k, M) {
     } else {
       Sigma <- Sigma_all
     }
-    
+
     # replace zero elements in Sigma_all by a small positive number
     if(length(Sigma[Sigma == 0]) != 0){Sigma[Sigma == 0] <- Sigma[Sigma == 0] + 1e-10}
-    
+
     dec <- tryCatch(chol(Sigma), error = function(e) e)
     if (inherits(dec, "error")) {
       c2 <- 0
@@ -326,25 +335,25 @@ maxCell <- function(dat_cell, A, X, N, Sigma_all, k, M) {
 
 
 evalJoint <- function(dat2, vars, A, X, k, maxMultinomial, maxMu, maxSigma) {
-  
+
   dat2 <- dat2[ ,vars, drop = FALSE]
 
   if (length(A)==0) {
     logL <- 0
     dec <- tryCatch(chol(maxSigma[[1]]), error = function(e) e)
     if (!inherits(dec, "error")) {
-      logL <- sum( dmvnorm(Rfast::data.frame.to_matrix(dat2[X]),
+      logL <- sum( Rfast::dmvnorm(Rfast::data.frame.to_matrix(dat2[X]),
                          mu = maxMu[[1]],
                          sigma = maxSigma[[1]], log = TRUE) )
     }
   } else {
     # at least one discrete variable
-    cells <- split(dat2[X], dat2[A])
+    cells <- split(dat2[X], dat2[A], drop=FALSE)
     Ncells <- length(cells)
     logL_cells <- mapply(evalCell, cells, rep(k, Ncells),
-                         maxMultinomial[lengths(maxMultinomial) != 0],
-                         maxMu[lengths(maxMu) != 0],
-                         maxSigma[lengths(maxSigma) != 0])
+                         maxMultinomial,
+                         maxMu,
+                         maxSigma)
     logL <- sum(logL_cells)
   }
 
@@ -396,4 +405,5 @@ covm <- function(dat) {
   }
   return(covm)
 }
+
 
