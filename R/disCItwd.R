@@ -70,5 +70,5 @@ disCItwd <- function(x, y, S=NULL, suffStat) {
   S <- S[!S1]
   if (length(S)==0) {S <- NULL}
   
-  gSquareDis_new(x = 1, y = 2, S = S, dm=suffStat$dm, adaptDF=suffStat$adaptDF, n.min=-1)
+  gSquareDis(x = 1, y = 2, S = S, dm=suffStat$dm, adaptDF=suffStat$adaptDF, n.min=-1)
 }
