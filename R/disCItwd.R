@@ -54,14 +54,21 @@
 
 
 disCItwd <- function(x, y, S=NULL, suffStat) {
-  suffStat$nlev <- suffStat$nlev[c(x, y, S)]
   miss <- apply(suffStat$dm[, c(x, y, S)], 1, anyNA)
   
-  if (sum(!miss)==0) { return(NA) }
+  if (sum(!miss) < 2) { return(NA) }
+  
+  if (length(unique(suffStat$dm[ ,1]))==1) {return(NA)}
+  if (length(unique(suffStat$dm[ ,2]))==1) {return(NA)}
   
   suffStat$dm <- suffStat$dm[!miss, c(x, y, S)]
   if (length(S) > 0) {
     S <- 3:ncol(suffStat$dm)
   }
-  pcalg::disCItest(x = 1, y = 2, S = S, suffStat = suffStat)
+  
+  S1 <- apply(suffStat$dm[ ,S, drop=FALSE], 2, function(i){length(unique(i))==1})
+  S <- S[!S1]
+  if (length(S)==0) {S <- NULL}
+  
+  gSquareDis_new(x = 1, y = 2, S = S, dm=suffStat$dm, adaptDF=suffStat$adaptDF, n.min=-1)
 }
