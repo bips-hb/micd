@@ -2,32 +2,32 @@
 % Please edit documentation in R/mixMItest.R
 \name{mixMItest}
 \alias{mixMItest}
-\title{Likelihood Ratio Test for (Conditional) Independence between Mixed Variables 
+\title{Likelihood Ratio Test for (Conditional) Independence between Mixed Variables
 after Multiple Imputation}
 \usage{
 mixMItest(x, y, S = NULL, suffStat)
 }
 \arguments{
-\item{x, y, S}{(integer) position of variable X, Y and set of variables S, 
-respectively, in \code{suffStat}. It is tested whether X and Y are 
+\item{x, y, S}{(integer) position of variable X, Y and set of variables S,
+respectively, in \code{suffStat}. It is tested whether X and Y are
 conditionally independent given the subset S of the remaining variables.}
 
-\item{suffStat}{A list of \code{data.frame}s containing the multiply 
-imputed data sets. Usually obtained from a \code{mice::\link[mice:mids-class]{mids}} 
-object using \code{mice::\link[mice:complete.mids]{complete}} with argument \code{action="all"}. 
+\item{suffStat}{A list of \code{data.frame}s containing the multiply
+imputed data sets. Usually obtained from a \code{mice::\link[mice:mids-class]{mids}}
+object using \code{mice::\link[mice:complete.mids]{complete}} with argument \code{action="all"}.
 Discrete variables must be coded as factors.}
 }
 \value{
 A p-value.
 }
 \description{
-A version of \code{\link{mixCItest}}, to be used within \code{pcalg::\link[pcalg]{skeleton}}, 
+A version of \code{\link{mixCItest}}, to be used within \code{pcalg::\link[pcalg]{skeleton}},
 \code{pcalg::\link[pcalg]{pc}} or \code{pcalg::\link[pcalg]{fci}} when multiply imputed data sets are available.
 }
 \details{
-See \code{\link{mixCItest}} for details on the assumptions of the 
-Conditional Gaussian likelihood ratio test. \code{CGtestMI} applies this test 
-to each \code{data.frame} in \code{suffStat}, then combines the results using 
+See \code{\link{mixCItest}} for details on the assumptions of the
+Conditional Gaussian likelihood ratio test. \code{CGtestMI} applies this test
+to each \code{data.frame} in \code{suffStat}, then combines the results using
 the rules in Meng & Rubin (1992).
 }
 \examples{
@@ -42,13 +42,12 @@ dat[sample(400, 30), 4] <- NA
 
 ## impute missing values using random forests
 imp <- mice(dat, method = "rf")
-idat <- complete(imp, action = "all")
 
 ## analyse data
 # complete data:
 mixCItest(2, 3, 5, suffStat = toenail2[1:400, ])
 # multiple imputation:
-mixMItest(2, 3, 5, suffStat = idat)
+mixMItest(2, 3, 5, suffStat =  getSuff(imp, test = "mixMItest"))
 # test-wise deletion:
 mixCItwd(2, 3, 5, suffStat = dat)
 # list-wise deletion:
@@ -57,7 +56,7 @@ mixCItest(2, 3, 5, suffStat = suffStat)
 
 }
 \references{
-Meng X.-L., Rubin D.B. (1992): Performing likelihood ratio tests 
+Meng X.-L., Rubin D.B. (1992): Performing likelihood ratio tests
 with multiply imputed data sets. \emph{Biometrika} 79(1):103-111.
 }
 \author{

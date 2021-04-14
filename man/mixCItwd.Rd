@@ -7,8 +7,8 @@
 mixCItwd(x, y, S = NULL, suffStat)
 }
 \arguments{
-\item{x, y, S}{(integer) position of variable X, Y and set of variables S, 
-respectively, in \code{suffStat}. It is tested whether X and Y are conditionally 
+\item{x, y, S}{(integer) position of variable X, Y and set of variables S,
+respectively, in \code{suffStat}. It is tested whether X and Y are conditionally
 independent given the subset S of the remaining variables.}
 
 \item{suffStat}{\code{data.frame}. Discrete variables must be coded as factors.}
@@ -17,14 +17,14 @@ independent given the subset S of the remaining variables.}
 A p-value.
 }
 \description{
-A version of \code{\link{mixCItest}}, to be used within \code{pcalg::\link[pcalg]{skeleton}}, 
-\code{pcalg::\link[pcalg]{pc}} or \code{pcalg::\link[pcalg]{fci}} when the data contain missing values. 
-Observations where at least one of the variables involved in the test is missing 
+A version of \code{\link{mixCItest}}, to be used within \code{pcalg::\link[pcalg]{skeleton}},
+\code{pcalg::\link[pcalg]{pc}} or \code{pcalg::\link[pcalg]{fci}} when the data contain missing values.
+Observations where at least one of the variables involved in the test is missing
 are deleted prior to performing the test (test-wise deletion).
 }
 \details{
-See \code{\link{mixCItest}} for details on the assumptions of the 
-Conditional Gaussian likelihood ratio test. Test-wise deletion is valid if 
+See \code{\link{mixCItest}} for details on the assumptions of the
+Conditional Gaussian likelihood ratio test. Test-wise deletion is valid if
 missingness does not jointly depend on X and Y.
 }
 \examples{
@@ -47,6 +47,6 @@ mixCItest(2, 3, 5, suffStat = suffStat)
 
 }
 \seealso{
-\code{\link{mixCItest}} for complete data, 
+\code{\link{mixCItest}} for complete data,
 \code{\link{mixMItest}} for multiply imputed data
 }

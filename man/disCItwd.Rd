@@ -7,11 +7,11 @@
 disCItwd(x, y, S = NULL, suffStat)
 }
 \arguments{
-\item{x, y, S}{(integer) position of variable X, Y and set of variables S, 
-respectively, in \code{suffStat}. It is tested whether X and Y 
+\item{x, y, S}{(integer) position of variable X, Y and set of variables S,
+respectively, in \code{suffStat}. It is tested whether X and Y
 are conditionally independent given the subset S of the remaining variables.}
 
-\item{suffStat}{a list with three elements, \code{"dm"}, \code{"nlev"}, 
+\item{suffStat}{a list with three elements, \code{"dm"}, \code{"nlev"},
 \code{"adaptDF"}; each corresponding to the above arguments.}
 
 \item{dm}{data matrix (rows: samples, columns: variables) with integer entries; the k levels for a given column must be coded by the integers 0,1,...,k-1. (see example)}
@@ -24,14 +24,14 @@ are conditionally independent given the subset S of the remaining variables.}
 A p-value.
 }
 \description{
-A wrapper for \code{pcalg::\link[pcalg]{disCItest}}, to be used within 
-\code{pcalg::\link[pcalg]{skeleton}}, \code{pcalg::\link[pcalg]{pc}} or 
-\code{pcalg::\link[pcalg]{fci}} when the data contain missing values. 
-Observations where at least one of the variables involved in the test is 
+A wrapper for \code{pcalg::\link[pcalg]{disCItest}}, to be used within
+\code{pcalg::\link[pcalg]{skeleton}}, \code{pcalg::\link[pcalg]{pc}} or
+\code{pcalg::\link[pcalg]{fci}} when the data contain missing values.
+Observations where at least one of the variables involved in the test is
 missing are deleted prior to performing the test (test-wise deletion).
 }
 \details{
-See \code{\link[pcalg]{disCItest}} for details on the G square test. Test-wise deletion 
+See \code{\link[pcalg]{disCItest}} for details on the G square test. Test-wise deletion
 is valid if missingness does not jointly depend on X and Y.
 }
 \examples{
