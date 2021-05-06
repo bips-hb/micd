@@ -67,7 +67,10 @@ mixCItest <- function(x, y, S=NULL, suffStat) {
   df <- logL_xyS[2] - logL_yS[2] - logL_xS[2] + logL_S[2]
   if (df<=0) {df <- 1}
   
-  stats::pchisq(logLR, df, lower.tail=FALSE)
+  p <- stats::pchisq(logLR, df, lower.tail=FALSE)
+  if (is.na(p)) {p <- 1}
+  
+  return(p)
 }
 
 
