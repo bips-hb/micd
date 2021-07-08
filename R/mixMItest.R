@@ -11,12 +11,16 @@
 #' imputed data sets. Usually obtained from a \code{mice::\link[mice:mids-class]{mids}}
 #' object using \code{mice::\link[mice:complete.mids]{complete}} with argument \code{action="all"}.
 #' Discrete variables must be coded as factors.
+#' @param moreOutput If \code{TRUE}, the test statistic, its main components and
+#'  the degrees of freedom are returned in addition to the p-value. Defaults to
+#'  \code{FALSE}.
 #'
 #' @details See \code{\link{mixCItest}} for details on the assumptions of the
 #' Conditional Gaussian likelihood ratio test. \code{CGtestMI} applies this test
 #' to each \code{data.frame} in \code{suffStat}, then combines the results using
 #' the rules in Meng & Rubin (1992).
-#' @return A p-value.
+#' @return A p-value. If \code{moreOutput=TRUE}, the test statistic, its main
+#' components and the degrees of freedom are returned as well.
 #'
 #' @author Janine Witte
 #'
@@ -52,7 +56,7 @@
 
 
 
-mixMItest <- function(x, y, S = NULL, suffStat) {
+mixMItest <- function(x, y, S = NULL, suffStat, moreOutput=FALSE) {
   # suffStat is a list of completed data sets
 
   # number of imputations / completed data sets
@@ -76,7 +80,7 @@ mixMItest <- function(x, y, S = NULL, suffStat) {
   df_yS <- dfCG(suffStat[[1]][c(y,S)], A_yS, k_yS)
   df_xS <- dfCG(suffStat[[1]][c(x,S)], A_xS, k_xS)
 
-  K <- df_xyS - df_yS - df_xS
+  K <- df_xyS - df_yS - df_xS + 1
 
 
   if (!is.null(S)) {
@@ -204,7 +208,11 @@ mixMItest <- function(x, y, S = NULL, suffStat) {
   # p value
   pvalue <- pf(D3, K, df, lower.tail = FALSE)
 
-  return(pvalue)
+  if (moreOutput) {
+    return( c(D3=D3, LR_bar=LR_bar, LR_tilde=LR_tilde, K=K, df=df, pvalue=pvalue) )
+  } else {
+    return(pvalue)
+  }
 }
 
 
@@ -235,14 +243,14 @@ dfCG <- function(dat, A, k) {
 }
 
 
-# continuous variables
-df_h <- function(k){ k * (k + 1) / 2 }
+# continous variables
+df_h <- function(k){ k*(k+1) /2 + k }
 
 # discrete variables
-df_f  <- function(A, dat) {
+df_f <- function(A, dat) {
   if (length(A)==0) {return(1)}
-  num_levels <- sapply(dat[A], function(i){length(levels(i))})
-  sum(num_levels)
+  num_levels <- sapply(dat[A], function(i){nlevels(i)})
+  prod(num_levels)
 }
 
 
@@ -397,13 +405,12 @@ multinomialLikelihood <- function(a, N) {
 }
 
 
+### Covm
 covm <- function(dat) {
   n <- nrow(dat)
-  covm <- cova(data.frame.to_matrix(dat)) * (n - 1) / n
+  covm <- Rfast::cova(Rfast::data.frame.to_matrix(dat)) *(n-1)/n
   if (anyNA(covm)) {
     covm <- matrix(1)
   }
   return(covm)
 }
-
-
