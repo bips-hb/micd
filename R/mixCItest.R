@@ -2,38 +2,35 @@
 #' 
 #' A likelihood ratio test for (conditional) independence between mixed 
 #' (continuous and unordered categorical) variables, to be used within 
-#' \code{pcalg::\link[pcalg]{skeleton}}, \code{pcalg::\link[pcalg]{pc}} or \code{pcalg::\link[pcalg]{fci}}. 
-#' It assumes that the variables in the test follow a Conditional Gaussian 
-#' distribution, i.e. conditional on each combination of values of the discrete
-#'  variables, the continuous variables are multivariate Gaussian. 
-#'  Each multivariate Gaussian distribution is allowed to have its own mean 
-#'  vector and covariance matrix.
+#' \code{pcalg::\link[pcalg]{skeleton}}, \code{pcalg::\link[pcalg]{pc}} or
+#' \code{pcalg::\link[pcalg]{fci}}. It assumes that the variables in the test
+#' follow a Conditional Gaussian distribution, i.e. conditional on each
+#' combination of values of the discrete variables, the continuous variables
+#' are multivariate Gaussian. Each multivariate Gaussian distribution is
+#' allowed to have its own mean vector and covariance matrix.
 #'
 #' @param x,y,S    (integer) position of variable X, Y and set of variables S, 
-#' respectively, in \code{suffStat}. It is tested whether X and Y are conditionally 
-#' independent given the subset S of the remaining variables.
-#' @param suffStat  \code{data.frame}. Discrete variables must be coded as factors.
+#' respectively, in \code{suffStat}. It is tested whether X and Y are
+#' conditionally independent given the subset S of the remaining variables.
+#' @param suffStat  \code{data.frame}. Discrete variables must be coded as
+#' factors.
+#' @param moreOutput If \code{TRUE}, the test statistic and the degrees of
+#' freedom are returned in addition to the p-value. Defaults to \code{FALSE}.
 #'
-#' @details The implementation follows Andrews et al. (2018). The same test is also 
-#' implemented in TETRAD and in the R-package rcausal, a wrapper for the 
+#' @details The implementation follows Andrews et al. (2018). The same test is
+#' also implemented in TETRAD and in the R-package rcausal, a wrapper for the 
 #' TETRAD Java library. Small differences in the p-values returned by 
 #' CGtest and the TETRAD/rcausal equivalent are due to differences in 
-#' handling sparse or empty cells, and differences in covariance estimation.
+#' handling sparse or empty cells.
 #' 
-#' Note that the test assumes a Conditional Gaussian distribution 
-#' (see Lauritzen & Wermuth, 1989) for the variables \emph{in that specific test}, 
-#' rather than for all variables in the graph / data set. Due to the 
-#' non-collapsibility of the Conditional Gaussian distribution, this implies 
-#' that the assumptions of two tests with overlapping sets of variables may 
-#' contradict each other. Little is known about how this affects the quality of 
-#' the estimated graph in practice.
-#' 
-#' @return A p-value.
+#' @return A p-value. If \code{moreOutput=TRUE}, the test statistic and the
+#' degrees of freedom are returned as well.
 #' 
 #' @author Janine Witte
 #' 
-#' @references Andrews B., Ramsey J., Cooper G.F. (2018): Scoring Bayesian networks 
-#' of mixed variables. \emph{International Journal of Data Science and Analytics} 6:3-18.
+#' @references Andrews B., Ramsey J., Cooper G.F. (2018): Scoring Bayesian
+#' networks of mixed variables. \emph{International Journal of Data Science and
+#' Analytics} 6:3-18.
 #' 
 #' Lauritzen S.L., Wermuth N. (1989): Graphical models for associations between 
 #' variables, some of which are qualitative and some quantitative. 
@@ -47,7 +44,7 @@
 #' @examples 
 #' ## load data (numeric and factor variables)
 #' dat <- toenail2[1:400, ]
-#' ß
+#' 
 #' ## analyse data
 #' mixCItest(5, 2, NULL, suffStat=dat)
 #' mixCItest(2, 3, 4, suffStat=dat)
@@ -55,7 +52,7 @@
 #' @export
 
 
-mixCItest <- function(x, y, S=NULL, suffStat) {
+mixCItest <- function(x, y, S=NULL, suffStat, moreOutput=FALSE) {
   # tests X _||_ Y | S
   
   logL_xyS <- likelihoodJoint(suffStat[c(x,y,S)])
@@ -68,11 +65,14 @@ mixCItest <- function(x, y, S=NULL, suffStat) {
   if (df<=0) {df <- 1}
   
   p <- stats::pchisq(logLR, df, lower.tail=FALSE)
-  if (is.na(p)) {p <- 1}
+  #if (is.na(p)) {p <- 1}
   
-  return(p)
+  if (moreOutput) {
+    return( c(logLR=logLR, df=df, p=p) )
+  } else {
+    return(p)
+  }
 }
-
 
 
 # Maximum log Likelihood in all cells - 'Joint' because it is not conditional
@@ -94,7 +94,8 @@ likelihoodJoint <- function(dat2) {
   } else {
     # at least one discrete variable
     Sigma_all <- covm(dat2[X])
-    logL_cells <- by(dat2, dat2[A], likelihoodCell, X, N, Sigma_all, k, simplify=FALSE)
+    logL_cells <- by(dat2, dat2[A], likelihoodCell, X, N, Sigma_all, k,
+                     simplify=FALSE)
     logL <- sum(unlist(logL_cells))
   }
   
@@ -103,8 +104,6 @@ likelihoodJoint <- function(dat2) {
   
   return(c(logL, dof))
 }
-
-
 
 
 # Maximum log likelihood in one cell
@@ -124,9 +123,9 @@ likelihoodCell <- function(dat_cell, X, N, Sigma_all, k) {
       dec <- tryCatch(chol(Sigma_all), error = function(e) e)
       if (!inherits(dec, "error")) {
         c2 <-sum(Rfast::dmvnorm(x = Rfast::data.frame.to_matrix(dat_cell[X]),
-                        mu=apply(dat_cell[X], 2, mean),
-                        sigma=Sigma_all,
-                        logged=TRUE) )
+                                mu=apply(dat_cell[X], 2, mean),
+                                sigma=Sigma_all,
+                                logged=TRUE) )
       }
     }
   }
@@ -152,8 +151,9 @@ covm <- function(dat) {
   return(covm)
 }
 
+
 # Degrees of freedom for continous variables
-df_h <- function(k){ k*(k+1) /2 }
+df_h <- function(k){ k*(k+1) /2 + k }
 
 
 # Degrees of freedom for discrete variables
@@ -162,5 +162,3 @@ df_f <- function(A, dat) {
   num_levels <- sapply(dat[A], function(i){nlevels(i)})
   prod(num_levels)
 }
-
-
