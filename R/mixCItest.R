@@ -84,7 +84,7 @@ likelihoodJoint <- function(dat2) {
   
   # indices of discrete variables
   A <- Rfast::which.is(dat2, "factor")
-  # indices of continous variables
+  # indices of continuous variables
   X <- Rfast::which.is(dat2, "numeric")
   k <- length(X)
   
@@ -141,7 +141,7 @@ multinomialLikelihood <- function(a, N) {
 }
 
 
-# Covm
+# Maximum likelihood estimator of covariance matrix
 covm <- function(dat) {
   n <- nrow(dat)
   covm <- Rfast::cova(Rfast::data.frame.to_matrix(dat)) *(n-1)/n
