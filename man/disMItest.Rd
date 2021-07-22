@@ -55,6 +55,10 @@ imp <- complete(imp, action = "all")
 ## analyse imputed data
 disMItest(1, 3, NULL, suffStat = imp)
 
+## use disMItest within pcalg::pc
+pc.fit <- pc(suffStat=imp, indepTest=disMItest, alpha=0.01, p=3)
+pc.fit
+
 }
 \references{
 Meng X.-L., Rubin D.B. (1992): Performing likelihood ratio tests with multiply 

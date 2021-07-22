@@ -59,6 +59,11 @@ mixCItwd(2, 3, 5, suffStat = dat)
 suffStat <- dat[complete.cases(dat), ]
 mixCItest(2, 3, 5, suffStat = suffStat)
 
+## use mixMItest within pcalg::pc
+pc.fit <- pc(suffStat =  getSuff(imp, test = "mixMItest",
+             indepTest=mixMItest, alpha=0.01, p=5)
+pc.fit
+
 }
 \references{
 Meng X.-L., Rubin D.B. (1992): Performing likelihood ratio tests
