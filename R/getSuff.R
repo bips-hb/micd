@@ -1,6 +1,6 @@
 #' Obtain 'suffStat' for conditional independence testing
 #'
-#' A convenience function for transforming a multiply imputed data set into the 'suffStat' required
+#' A convenience function for transforming a (multiply imputed) data set into the 'suffStat' required
 #' by \code{pcalg::\link[pcalg]{gaussCItest}}, \code{pcalg::\link[pcalg]{disCItest}},
 #' \code{\link{mixCItest}}, \code{\link{flexCItest}},
 #' \code{\link{gaussMItest}}, \code{\link{disMItest}},
@@ -103,6 +103,7 @@ getSuff <- function(X, test=c("gaussCItest", "gaussCItwd", "gaussMItest",
     if (is.null(adaptDF)) { stop("'adaptDF' needs to be specified. See ?pcalg::disCItest") }
     if (!is.null(nlev)) { if (length(nlev)!=ncol(X)) {stop("Something is wrong with nlev. Check ?pcalg::disCItest")} }
     for (i in 1:ncol(X)) {
+      X[ ,i] <- factor(X[ ,i])
       X[ ,i] <- as.numeric(X[ ,i]) - 1
     }
     if (is.null(nlev)) {
