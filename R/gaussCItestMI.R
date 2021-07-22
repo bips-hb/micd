@@ -3,6 +3,8 @@
 #'
 #' This function is a modification of \code{pcalg::\link[pcalg:condIndFisherZ]{gaussCItest}}
 #' to be used for multiple imputation.
+#' 
+#' @aliases gaussMItest
 #'
 #' @param x,y,S (integer) position of variable X, Y and set of variables S,
 #'              respectively, in the adjacency matrix.
@@ -10,6 +12,11 @@
 #'              given the subset S of the remaining nodes.
 #' @param data  An object of type mids, which stands for 'multiply imputed
 #'              data set', typically created by a call to function mice()
+#' @param suffStat A list of length m+1, where m is the number of imputations; 
+#'                 the first m elements are the covariance matrices of the m
+#'                 imputed data sets, the m-th element is the sample size. Can
+#'                 be obtained from a mids object by
+#'                getSuff(mids, test="gaussMItest")
 #'
 #' @return  Returns the p-value of the test
 #'
@@ -83,8 +90,40 @@ gaussCItestMI <- function (x, y, S, data)
 
 }
 
-
-
+gaussMItest <- function (x, y, S, suffStat) {
+  # number of imputations
+  M <- length(suffStat) - 1
+  # sample size
+  n <- suffStat[[M+1]]
+  suffStat[[M+1]] <- NULL
+  
+  z <- sapply(suffStat, function(j) {
+    zStatMI(x, y, S, C=j, n=n)
+  })
+  
+  # 1. Average of M imputed data sets
+  avgz <- mean(z)
+  
+  # 2. Average of completed-data variance
+  W <- 1 / (n - length(S) - 3)
+  
+  # 3. Between variance
+  B <- sum( ( z - avgz )^2 ) / (M-1)
+  
+  # 4. Total variance
+  TV <- W + (1 + 1 / M) * B
+  
+  # 5. Test statistic
+  ts <- avgz / sqrt(TV)
+  
+  # 6. Degrees of freedom
+  df <- (M - 1) * (1 + (W / B) * (M/(M + 1)))^2
+  
+  # 7. pvalue
+  pvalue <- 2 * pt(abs(ts), df = df, lower.tail = FALSE)
+  
+  return(pvalue)
+}
 
 zStatMI <- function (x, y, S, C, n)
 {
@@ -94,7 +133,5 @@ zStatMI <- function (x, y, S, C, n)
         0
     else res
 }
-
-
 
 log_q1pm <- function(r) log1p(2 * r / (1 - r))
