@@ -5,12 +5,13 @@
 #' It is a list of formulas that specifies the target variables and the predictors 
 #' by means of the standard ~ operator. In contrast to \code{mice::\link[mice]{make.formulas}}, 
 #' which creates main effects formulas, \code{make.formulas.saturated} 
-#' creates formulas including all possible interaction effects.
+#' creates formulas including interaction effects.
 #'
 #' @param data  A \code{data.frame} with the source data.
 #' @param blocks  An optional specification for blocks of variables in the rows. 
 #' The default assigns each variable in its own block.
 #' @param predictorMatrix  A \code{predictorMatrix} specified by the user.
+#' @param d maximum depth of interactions to be considered (1=no interactions, 2=two-way interactions, etc.)
 #'
 #' @return A list of formulas.
 #' 
@@ -19,7 +20,7 @@
 #' @seealso \code{mice::\link[mice]{make.formulas}}
 #' 
 #' @examples
-#' ## main effecs model:
+#' ## main effects model:
 #' f1 <- make.formulas(nhanes)
 #' f1
 #' 
@@ -29,12 +30,11 @@
 #' 
 #' @export
 
-
 make.formulas.saturated <- function (data, blocks = mice::make.blocks(data), 
-                                     predictorMatrix = NULL) {
+                                     predictorMatrix = NULL, d) {
   #data <- mice:::check.dataform(data)
   data <- mice_check_dataform(data)
-  formulas <- as.list(rep("~ 0", length(blocks)))
+  formulas <- as.list(rep("~ 1", length(blocks)))
   names(formulas) <- names(blocks)
   for (h in names(blocks)) {
     y <- blocks[[h]]
@@ -47,10 +47,13 @@ make.formulas.saturated <- function (data, blocks = mice::make.blocks(data),
     }
     x <- setdiff(predictors, y)
     if (length(x)==0) {
-      formulas[[h]] <- paste(paste(y, collapse = "+"), "~ 0")
+      formulas[[h]] <- paste(paste(y, collapse = "+"), "~ 1")
     } else {
-      formulas[[h]] <- paste(paste(y, collapse = "+"), "~ 0 + (", 
-                           paste(x, collapse = "+"), ") ^", d)
+      if (d==1) {
+        formulas[[h]] <- paste(paste(y, collapse = "+"), "~ 1 +", paste(x, collapse = "+"))
+      } else {
+        formulas[[h]] <- paste(paste(y, collapse = "+"), "~ 1 + (", paste(x, collapse = "+"), ") ^", d)
+      }
     }
   }
   formulas <- lapply(formulas, stats::as.formula)
