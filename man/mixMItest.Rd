@@ -5,7 +5,7 @@
 \title{Likelihood Ratio Test for (Conditional) Independence between Mixed Variables
 after Multiple Imputation}
 \usage{
-mixMItest(x, y, S = NULL, suffStat)
+mixMItest(x, y, S = NULL, suffStat, moreOutput = FALSE)
 }
 \arguments{
 \item{x, y, S}{(integer) position of variable X, Y and set of variables S,
@@ -16,9 +16,14 @@ conditionally independent given the subset S of the remaining variables.}
 imputed data sets. Usually obtained from a \code{mice::\link[mice:mids-class]{mids}}
 object using \code{mice::\link[mice:complete.mids]{complete}} with argument \code{action="all"}.
 Discrete variables must be coded as factors.}
+
+\item{moreOutput}{If \code{TRUE}, the test statistic, its main components and
+the degrees of freedom are returned in addition to the p-value. Defaults to
+\code{FALSE}.}
 }
 \value{
-A p-value.
+A p-value. If \code{moreOutput=TRUE}, the test statistic, its main
+components and the degrees of freedom are returned as well.
 }
 \description{
 A version of \code{\link{mixCItest}}, to be used within \code{pcalg::\link[pcalg]{skeleton}},

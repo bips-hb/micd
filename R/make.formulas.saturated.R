@@ -31,7 +31,7 @@
 #' @export
 
 make.formulas.saturated <- function (data, blocks = mice::make.blocks(data), 
-                                     predictorMatrix = NULL, d) {
+                                     predictorMatrix = NULL, d = NULL) {
   if ( is.null(d) ) {d <- ncol(data) - 1}
   data <- mice_check_dataform(data)
   formulas <- as.list(rep("~ 1", length(blocks)))
