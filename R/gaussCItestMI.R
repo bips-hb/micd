@@ -3,11 +3,6 @@
 #'
 #' This function is a modification of \code{pcalg::\link[pcalg:condIndFisherZ]{gaussCItest}}
 #' to be used for multiple imputation.
-#' 
-#' @aliases gaussMItest
-#' 
-#' @usage gaussCItestMI(x, y, S=NULL, data)
-#'        gaussMItest(x, y, S=NULL, suffStat)
 #'
 #' @param x,y,S (integer) position of variable X, Y and set of variables S,
 #'              respectively, in the adjacency matrix.
@@ -47,8 +42,6 @@
 #' gaussCItest(1, 2, c(4,5), suffStat = suffStat)
 #' 
 #' @export
-
-
 
 gaussCItestMI <- function (x, y, S=NULL, data)
 {
@@ -92,6 +85,9 @@ gaussCItestMI <- function (x, y, S=NULL, data)
   2 * stats::pt(abs(ts), df = df, lower.tail = FALSE)
 
 }
+
+
+#' @rdname gaussCItestMI
 
 gaussMItest <- function (x, y, S, suffStat) {
   # number of imputations

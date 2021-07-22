@@ -6,8 +6,9 @@
 \title{Test Conditional Independence of Gaussians via Fisher's Z using
 multiple imputations}
 \usage{
-gaussCItestMI(x, y, S=NULL, data)
-       gaussMItest(x, y, S=NULL, suffStat)
+gaussCItestMI(x, y, S = NULL, data)
+
+gaussMItest(x, y, S, suffStat)
 }
 \arguments{
 \item{x, y, S}{(integer) position of variable X, Y and set of variables S,
