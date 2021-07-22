@@ -2,9 +2,8 @@
 #'
 #' A convenience function for transforming a (multiply imputed) data set into the 'suffStat' required
 #' by \code{pcalg::\link[pcalg]{gaussCItest}}, \code{pcalg::\link[pcalg]{disCItest}},
-#' \code{\link{mixCItest}}, \code{\link{flexCItest}},
-#' \code{\link{gaussMItest}}, \code{\link{disMItest}},
-#' \code{\link{mixMItest}} or \code{\link{flexMItest}}
+#' \code{\link{mixCItest}}, \code{\link{gaussMItest}}, \code{\link{disMItest}} or
+#' \code{\link{mixMItest}}
 #'
 #' @param X  for \code{test="xxxCItest"}: a \code{data.frame} or \code{matrix};
 #' for \code{test="xxxMItest"}: an object of class \code{mice::\link[mice:mids-class]{mids}},
