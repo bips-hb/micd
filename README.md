@@ -1,6 +1,6 @@
 # Multiple Imputation for Causal Graph Discovery (micd)
 
-Add-ons to the R package `pcalg` for handling missing data in contrataint-based causal graph discovery. Supports continuous, discrete and mixed data. Two options are available: 1) `gaussCItwd`, `disCItwd` and `mixedCItwd` perform test-wise deletion, where missing observations are deleted as necessary on a test-by-test basis; 2) `gaussMItest`, `disMItest` and `mixedMItest` perform conditional independence tests on multiply imputed data. Each of these functions can be used as a plug-in to `pcalg::pc` or `pcalg::fci`. For example, the following code runs the PC algorithm using test-wise deletion on continuous data :
+Add-ons to the R package `pcalg` for handling missing data in contrataint-based causal graph discovery. Supports continuous, discrete and mixed data. Two options are available: 1) `gaussCItwd`, `disCItwd` and `mixedCItwd` perform test-wise deletion, where missing observations are deleted as necessary on a test-by-test basis; 2) `gaussMItest`, `disMItest` and `mixedMItest` perform conditional independence tests on multiply imputed data. Each of these functions can be used as a plug-in to  `pcalg::skeleton`, `pcalg::pc` or `pcalg::fci`. For example, the following code runs the PC algorithm using test-wise deletion on continuous data :
 ```R
 pcalg::pc(suffStat=suffStat, indepTest=gaussCItwd, alpha=alpha, p=p)
 ```
