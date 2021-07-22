@@ -9,8 +9,8 @@
 #' @param X  for \code{test="xxxCItest"}: a \code{data.frame} or \code{matrix};
 #' for \code{test="xxxMItest"}: an object of class \code{mice::\link[mice:mids-class]{mids}},
 #' or a list of \code{data.frame}s containing the multiply imputed data sets.
-#' @param test one of \code{"gaussCItest"}, \code{"gaussMItest"}, \code{"disCItest"},
-#' \code{"disMItest"}, \code{"mixCItest"}, \code{"mixMItest"}
+#' @param test one of \code{"gaussCItest"}, \code{"gaussCItwd"}, \code{"gaussMItest"}, \code{"disCItest"},
+#' \code{"disCItwd"}, \code{"disMItest"}, \code{"mixCItest"}, \code{"mixCItwd"}, \code{"mixMItest"}
 #'
 #' @return An R object that can be used as input to the specified conditional independence test
 #'
@@ -84,10 +84,11 @@
 
 # a function for conveniently obtaining the 'suffStat' required for the different conditional independence tests
 
-getSuff <- function(X, test=c("gaussCItest", "gaussMItest", "disCItest", "disMItest",
-                              "mixCItest", "mixMItest", "flexMItest", "flexCItest"), adaptDF=NULL, nlev=NULL) {
+getSuff <- function(X, test=c("gaussCItest", "gaussCItwd", "gaussMItest",
+                              "disCItest", "disCItwd", "disMItest",
+                              "mixCItest", "mixCItwd", "mixMItest"), adaptDF=NULL, nlev=NULL) {
   
-  if (test=="gaussCItest") {
+  if ( test %in% c("gaussCItest", "gaussCItwd") ) {
     C <- cor(X)
     n <- nrow(X)
     list(C=C,n=n)
@@ -98,7 +99,7 @@ getSuff <- function(X, test=c("gaussCItest", "gaussMItest", "disCItest", "disMIt
     C <- lapply(X, cor)
     n <- nrow(X[[1]])
     c(C,n)
-  } else if (test=="disCItest") {
+  } else if ( test %in% c("disCItest","disCItwd") ) {
     if (is.null(adaptDF)) { stop("'adaptDF' needs to be specified. See ?pcalg::disCItest") }
     if (!is.null(nlev)) { if (length(nlev)!=ncol(X)) {stop("Something is wrong with nlev. Check ?pcalg::disCItest")} }
     for (i in 1:ncol(X)) {
@@ -109,14 +110,14 @@ getSuff <- function(X, test=c("gaussCItest", "gaussMItest", "disCItest", "disMIt
     } else {
       return(list(dm=as.matrix(X), nlev=nlev, adaptDF=adaptDF))
     }
-  } else if (test=="disMItest") {
+  } else if ( test=="disMItest" ) {
     if (class(X)=="mids") {
       X <- mice::complete(X, action="all")
     }
     X
-  } else if (test=="mixCItest") {
+  } else if ( test %in% c("mixCItest", "mixCItwd") ) {
     X
-  }else if (test=="mixMItest") {
+  }else if ( test=="mixMItest" ) {
     if (class(X)=="mids") {
       X <- mice::complete(X, action="all")
     }
