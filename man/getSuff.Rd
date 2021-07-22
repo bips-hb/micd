@@ -6,8 +6,8 @@
 \usage{
 getSuff(
   X,
-  test = c("gaussCItest", "gaussMItest", "disCItest", "disMItest", "mixCItest",
-    "mixMItest", "flexMItest", "flexCItest"),
+  test = c("gaussCItest", "gaussCItwd", "gaussMItest", "disCItest", "disCItwd",
+    "disMItest", "mixCItest", "mixCItwd", "mixMItest"),
   adaptDF = NULL,
   nlev = NULL
 )
@@ -17,14 +17,14 @@ getSuff(
 for \code{test="xxxMItest"}: an object of class \code{mice::\link[mice:mids-class]{mids}},
 or a list of \code{data.frame}s containing the multiply imputed data sets.}
 
-\item{test}{one of \code{"gaussCItest"}, \code{"gaussMItest"}, \code{"disCItest"},
-\code{"disMItest"}, \code{"mixCItest"}, \code{"mixMItest"}}
+\item{test}{one of \code{"gaussCItest"}, \code{"gaussCItwd"}, \code{"gaussMItest"}, \code{"disCItest"},
+\code{"disCItwd"}, \code{"disMItest"}, \code{"mixCItest"}, \code{"mixCItwd"}, \code{"mixMItest"}}
 }
 \value{
 An R object that can be used as input to the specified conditional independence test
 }
 \description{
-A convenience function for transforming a multiply imputed data set into the 'suffStat' required
+A convenience function for transforming a (multiply imputed) data set into the 'suffStat' required
 by \code{pcalg::\link[pcalg]{gaussCItest}}, \code{pcalg::\link[pcalg]{disCItest}},
 \code{\link{mixCItest}}, \code{\link{flexCItest}},
 \code{\link{gaussMItest}}, \code{\link{disMItest}},

@@ -30,28 +30,24 @@
 #'
 #' @examples
 #'
-#' ## simulate variables (integers 0,...,k)
-#' n <- 200
-#' set.seed(123)
-#' x <- sample(0:2, n, TRUE) # 3 levels
-#' y <- sample(0:3, n, TRUE) # 4 levels
-#' z <- sample(0:1, n, TRUE) # 2 levels
-#' dat <- cbind(x,y,z)
+#' ## load data (200 observations)
+#' dat <- gmD$x[1:200, ]
 #'
-#' ## delete some observations of y and z
-#' dat[sample(1:n, 40), 2] <- NA
-#' dat[sample(1:n, 40), 3] <- NA
+#' ## delete some observations of X2 and X3
+#' dat[sample(1:200, 40), 2] <- NA
+#' dat[sample(1:200, 40), 3] <- NA
 #'
 #' ## analyse incomplete data
 #' # test-wise deletion:
-#' suffStat <- list(dm = dat, nlev = c(3,4,2), adaptDF = FALSE)
+#' suffStat <- getSuff(dat, test="disCItwd", adaptDF=FALSE)
 #' disCItwd(1, 3, NULL, suffStat = suffStat)
 #' # list-wise deletion:
-#' suffStat2 <- list(dm = dat[complete.cases(dat), ], nlev = c(3,4,2), adaptDF = FALSE)
+#' dat2 <- dat[complete.cases(dat), ]
+#' suffStat2 <- getSuff(dat2, test="disCItest", adaptDF=FALSE)
 #' disCItest(1, 3, NULL, suffStat = suffStat2)
 #' 
 #' ## use disCItwd within pcalg::pc
-#' pc.fit <- pc(suffStat=suffStat, indepTest=disCItwd, alpha=0.01, p=3)
+#' pc.fit <- pc(suffStat=suffStat, indepTest=disCItwd, alpha=0.1, p=5)
 #' pc.fit
 #'
 #' @export

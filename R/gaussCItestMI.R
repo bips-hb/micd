@@ -5,6 +5,9 @@
 #' to be used for multiple imputation.
 #' 
 #' @aliases gaussMItest
+#' 
+#' @usage gaussCItestMI(x, y, S=NULL, data)
+#'        gaussMItest(x, y, S=NULL, suffStat)
 #'
 #' @param x,y,S (integer) position of variable X, Y and set of variables S,
 #'              respectively, in the adjacency matrix.
@@ -47,7 +50,7 @@
 
 
 
-gaussCItestMI <- function (x, y, S, data)
+gaussCItestMI <- function (x, y, S=NULL, data)
 {
   M <- data$m
   z <- vector(mode = "list", length = M)

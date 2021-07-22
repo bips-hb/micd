@@ -2,10 +2,12 @@
 % Please edit documentation in R/gaussCItestMI.R
 \name{gaussCItestMI}
 \alias{gaussCItestMI}
+\alias{gaussMItest}
 \title{Test Conditional Independence of Gaussians via Fisher's Z using
 multiple imputations}
 \usage{
-gaussCItestMI(x, y, S, data)
+gaussCItestMI(x, y, S=NULL, data)
+       gaussMItest(x, y, S=NULL, suffStat)
 }
 \arguments{
 \item{x, y, S}{(integer) position of variable X, Y and set of variables S,
@@ -15,6 +17,12 @@ given the subset S of the remaining nodes.}
 
 \item{data}{An object of type mids, which stands for 'multiply imputed
 data set', typically created by a call to function mice()}
+
+\item{suffStat}{A list of length m+1, where m is the number of imputations; 
+ the first m elements are the covariance matrices of the m
+ imputed data sets, the m-th element is the sample size. Can
+ be obtained from a mids object by
+getSuff(mids, test="gaussMItest")}
 }
 \value{
 Returns the p-value of the test

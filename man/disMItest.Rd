@@ -36,27 +36,24 @@ minimum required sample size, while \code{pcalg::\link[pcalg]{disCItest}} requir
 }
 \examples{
 
-## simulate factor variables
-n <- 200
-set.seed(123)
-x <- factor(sample(0:2, n, TRUE)) # factor, 3 levels
-y <- factor(sample(0:3, n, TRUE)) # factor, 4 levels
-z <- factor(sample(0:1, n, TRUE)) # factor, 2 levels
-dat <- data.frame(x,y,z)
+## load data (200 observations) and factorise
+dat <- gmD$x[1:200, ]
+dat[] <- lapply(dat, as.factor)
 
-## delete some observations of z
-dat[sample(1:n, 40), 3] <- NA
+## delete some observations of X2 and X3
+dat[sample(1:200, 40), 2] <- NA
+dat[sample(1:200, 40), 3] <- NA
 
 ## impute missing values under saturated model
 form <- make.formulas.saturated(dat)
-imp <- mice(dat, method = "logreg", formulas = form)
+imp <- mice(dat, formulas = form)
 imp <- complete(imp, action = "all")
 
 ## analyse imputed data
 disMItest(1, 3, NULL, suffStat = imp)
 
 ## use disMItest within pcalg::pc
-pc.fit <- pc(suffStat=imp, indepTest=disMItest, alpha=0.01, p=3)
+pc.fit <- pc(suffStat=imp, indepTest=disMItest, alpha=0.01, p=5)
 pc.fit
 
 }
