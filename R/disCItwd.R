@@ -49,6 +49,10 @@
 #' # list-wise deletion:
 #' suffStat2 <- list(dm = dat[complete.cases(dat), ], nlev = c(3,4,2), adaptDF = FALSE)
 #' disCItest(1, 3, NULL, suffStat = suffStat2)
+#' 
+#' ## use disCItwd within pcalg::pc
+#' pc.fit <- pc(suffStat=suffStat, indepTest=disCItwd, alpha=0.01, p=3)
+#' pc.fit
 #'
 #' @export
 

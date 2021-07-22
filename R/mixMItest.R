@@ -50,6 +50,11 @@
 #' # list-wise deletion:
 #' suffStat <- dat[complete.cases(dat), ]
 #' mixCItest(2, 3, 5, suffStat = suffStat)
+#' 
+#' ## use mixMItest within pcalg::pc
+#' pc.fit <- pc(suffStat =  getSuff(imp, test = "mixMItest",
+#'              indepTest=mixMItest, alpha=0.01, p=5)
+#' pc.fit
 #'
 #' @export
 

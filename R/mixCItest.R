@@ -48,6 +48,10 @@
 #' ## analyse data
 #' mixCItest(5, 2, NULL, suffStat=dat)
 #' mixCItest(2, 3, 4, suffStat=dat)
+#' 
+#' ## use mixCItest within pcalg::pc
+#' pc.fit <- pc(suffStat=dat, indepTest=mixCItest, alpha=0.01, p=5)
+#' pc.fit
 #'
 #' @export
 
