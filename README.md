@@ -1,6 +1,6 @@
 # Multiple Imputation for Causal Graph Discovery (micd)
 
-Add-ons to the R package `pcalg` for handling missing data in contrataint-based causal graph discovery. Supports continuous, discrete and mixed data. Two options are available: 1) `gaussCItwd`, `disCItwd` and `mixedCItwd` perform test-wise deletion, where missing observations are deleted as necessary on a test-by-test basis; 2) `gaussMItest`, `disMItest` and `mixedMItest` perform conditional independence tests on multiply imputed data. Each of these functions can be used as a plug-in to `pcalg::pc` or `pcalg::fci`, e.g.
+Add-ons to the R package `pcalg` for handling missing data in contrataint-based causal graph discovery. Supports continuous, discrete and mixed data. Two options are available: 1) `gaussCItwd`, `disCItwd` and `mixedCItwd` perform test-wise deletion, where missing observations are deleted as necessary on a test-by-test basis; 2) `gaussMItest`, `disMItest` and `mixedMItest` perform conditional independence tests on multiply imputed data. Each of these functions can be used as a plug-in to `pcalg::pc` or `pcalg::fci`. For example, the following code runs the PC algorithm using test-wise deletion on continuous data :
 ```R
 pcalg::pc(suffStat=suffStat, indepTest=gaussCItwd, alpha=alpha, p=p)
 ```
@@ -21,7 +21,7 @@ Ronja Foraita, Juliane Friemel, Kathrin Günther, Thomas Behrens, Jörn Bullerdi
 
 ### References for pcalg
 
-Markus Kalisch, Martin Maechler, Diego Colombo, Marloes H. Maathuis, Peter Buehlmann (2012). Causal Inference Using Graphical Models with the R Package pcalg. Journal of Statistical Software, 47(11), 1-26. URL www.jstatsoft.org/v47/i11/.
+Markus Kalisch, Martin Mächler, Diego Colombo, Marloes H. Maathuis, Peter Bühlmann (2012). Causal Inference Using Graphical Models with the R Package pcalg. Journal of Statistical Software, 47(11), 1-26. URL www.jstatsoft.org/v47/i11/.
 
-Alain Hauser, Peter Buehlmann (2012). Characterization and greedy learning of interventional Markov equivalence classes of directed acyclic graphs. Journal of Machine Learning Research, 13, 2409-2464. URL jmlr.org/papers/v13/hauser12a.html.
+Alain Hauser, Peter Bühlmann (2012). Characterization and greedy learning of interventional Markov equivalence classes of directed acyclic graphs. Journal of Machine Learning Research, 13, 2409-2464. URL jmlr.org/papers/v13/hauser12a.html.
 
