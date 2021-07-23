@@ -17,7 +17,7 @@ devtools::install_github("bips-hb/micd")
 
 ### References
 
-Ronja Foraita, Juliane Friemel, Kathrin Günther, Thomas Behrens, Jörn Bullerdiek, Rolf Nimzyk, Wolfgang Ahrens, Vanessa Didelez (2020). Causal discovery of gene regulation with incomplete data. Journal of the Royal Statistical Society: Series A (Statistics in Society), 183(4), 1747-1775. URL rss.onlinelibrary.wiley.com/doi/10.1111/rssa.12565.
+Ronja Foraita, Juliane Friemel, Kathrin Günther, Thomas Behrens, Jörn Bullerdiek, Rolf Nimzyk, Wolfgang Ahrens, Vanessa Didelez (2020). Causal discovery of gene regulation with incomplete data. Journal of the Royal Statistical Society: Series A (Statistics in Society), 183(4), 1747-1775. URL https://rss.onlinelibrary.wiley.com/doi/10.1111/rssa.12565.
 
 ### References for pcalg
 
