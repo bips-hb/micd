@@ -17,11 +17,11 @@ devtools::install_github("bips-hb/micd")
 
 ### References
 
-Ronja Foraita, Juliane Friemel, Kathrin Günther, Thomas Behrens, Jörn Bullerdiek, Rolf Nimzyk, Wolfgang Ahrens, Vanessa Didelez (2020). Causal discovery of gene regulation with incomplete data. Journal of the Royal Statistical Society: Series A (Statistics in Society), 183(4), 1747-1775. URL rss.onlinelibrary.wiley.com/doi/10.1111/rssa.12565.
+Ronja Foraita, Juliane Friemel, Kathrin Günther, Thomas Behrens, Jörn Bullerdiek, Rolf Nimzyk, Wolfgang Ahrens, Vanessa Didelez (2020). Causal discovery of gene regulation with incomplete data. Journal of the Royal Statistical Society: Series A (Statistics in Society), 183(4), 1747-1775. URL www.rss.onlinelibrary.wiley.com/doi/10.1111/rssa.12565.
 
 ### References for pcalg
 
 Markus Kalisch, Martin Mächler, Diego Colombo, Marloes H. Maathuis, Peter Bühlmann (2012). Causal Inference Using Graphical Models with the R Package pcalg. Journal of Statistical Software, 47(11), 1-26. URL www.jstatsoft.org/v47/i11/.
 
-Alain Hauser, Peter Bühlmann (2012). Characterization and greedy learning of interventional Markov equivalence classes of directed acyclic graphs. Journal of Machine Learning Research, 13, 2409-2464. URL jmlr.org/papers/v13/hauser12a.html.
+Alain Hauser, Peter Bühlmann (2012). Characterization and greedy learning of interventional Markov equivalence classes of directed acyclic graphs. Journal of Machine Learning Research, 13, 2409-2464. URL www.jmlr.org/papers/v13/hauser12a.html.
 
