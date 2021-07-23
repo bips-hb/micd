@@ -50,16 +50,23 @@ imp <- mice(dat, method = "norm")
 
 ## analyse data
 # complete data:
-suffStat <- getSuff(windspeed, test="gaussCItest")
-gaussCItest(1, 2, c(4,5), suffStat = suffStat)
+suffcomplete <- getSuff(windspeed, test = "gaussCItest")
+gaussCItest(1, 2, c(4,5), suffStat = suffcomplete)
 # multiple imputation:
+suffMI <- getSuff(imp, test = "gaussMItest")
+gaussMItest(1, 2, c(4,5), suffStat = suffMI)
 gaussCItestMI(1, 2, c(4,5), data = imp)
-gaussMItest(1, 2, c(4,5), suffStat = getSuff(imp, test="gaussMItest"))
 # test-wise deletion:
 gaussCItwd(1, 2, c(4,5), suffStat = dat)
 # list-wise deletion:
 dat2 <- dat[complete.cases(dat), ]
-suffStat2 <- getSuff(dat2, test="gaussCItest")
-gaussCItest(1, 2, c(4,5), suffStat = suffStat2)
+sufflwd <- getSuff(dat2, test = "gaussCItest")
+gaussCItest(1, 2, c(4,5), suffStat = sufflwd)
+
+## use gaussMItest or gaussCItestMI within pcalg::pc
+pc.fit <- pc(suffStat = suffMI, indepTest = gaussMItest, alpha = 0.01, p = 6)
+pc.fit
+pc.fit <- pc(suffStat = imp, indepTest = gaussCItestMI, alpha = 0.01, p = 6)
+pc.fit
 
 }

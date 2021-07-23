@@ -1,7 +1,7 @@
 #' G square Test for (Conditional) Independence between Discrete Variables after 
 #' Multiple Imputation
 #' 
-#' A version of \code{pcalg::\link[pcalg]{disCItest}}, to be used within 
+#' A modified version of \code{pcalg::\link[pcalg]{disCItest}}, to be used within 
 #' \code{pcalg::\link[pcalg]{skeleton}}, \code{pcalg::\link[pcalg]{pc}} or 
 #' \code{pcalg::\link[pcalg]{fci}} when multiply imputed data sets are available. 
 #' Note that in contrast to \code{pcalg::\link[pcalg]{disCItest}}, the variables must 
@@ -33,15 +33,17 @@
 #' @examples
 #' 
 #' ## load data (200 observations) and factorise
+#' data(gmD)
 #' dat <- gmD$x[1:200, ]
 #' dat[] <- lapply(dat, as.factor)
 #'
 #' ## delete some observations of X2 and X3
+#' set.seed(123)
 #' dat[sample(1:200, 40), 2] <- NA
 #' dat[sample(1:200, 40), 3] <- NA
 #' 
-#' ## impute missing values under saturated model
-#' form <- make.formulas.saturated(dat)
+#' ## impute missing values under model with two-way interactions
+#' form <- make.formulas.saturated(dat, d = 2)
 #' imp <- mice(dat, formulas = form)
 #' imp <- complete(imp, action = "all")
 #' 
@@ -49,7 +51,7 @@
 #' disMItest(1, 3, NULL, suffStat = imp)
 #' 
 #' ## use disMItest within pcalg::pc
-#' pc.fit <- pc(suffStat=imp, indepTest=disMItest, alpha=0.01, p=5)
+#' pc.fit <- pc(suffStat = imp, indepTest = disMItest, alpha = 0.01, p = 5)
 #' pc.fit
 #' 
 #' @export

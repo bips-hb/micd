@@ -46,7 +46,7 @@ dat2 <- dat[complete.cases(dat), ]
 mixCItest(2, 3, 5, suffStat = dat2)
 
 ## use mixCItwd within pcalg::pc
-pc.fit <- pc(suffStat=dat, indepTest=mixCItwd, alpha=0.01, p=5)
+pc.fit <- pc(suffStat = dat, indepTest = mixCItwd, alpha = 0.01, p = 5)
 pc.fit
 
 }

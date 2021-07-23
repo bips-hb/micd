@@ -12,7 +12,9 @@ respectively, in \code{suffStat}. It is tested whether X and Y
 are conditionally independent given the subset S of the remaining variables.}
 
 \item{suffStat}{a list with three elements, \code{"dm"}, \code{"nlev"},
-\code{"adaptDF"}; each corresponding to the above arguments.}
+\code{"adaptDF"}; each corresponding to the above arguments.
+Can be obtained from a data.frame  of factor variables using
+the \code{suffStat} function (see example section)}
 
 \item{dm}{data matrix (rows: samples, columns: variables) with integer entries; the k levels for a given column must be coded by the integers 0,1,...,k-1. (see example)}
 
@@ -37,23 +39,25 @@ is valid if missingness does not jointly depend on X and Y.
 \examples{
 
 ## load data (200 observations)
+data(gmD)
 dat <- gmD$x[1:200, ]
 
 ## delete some observations of X2 and X3
+set.seed(123)
 dat[sample(1:200, 40), 2] <- NA
 dat[sample(1:200, 40), 3] <- NA
 
 ## analyse incomplete data
 # test-wise deletion:
-suffStat <- getSuff(dat, test="disCItwd", adaptDF=FALSE)
-disCItwd(1, 3, NULL, suffStat = suffStat)
+sufftwd <- getSuff(dat, test = "disCItwd", adaptDF = FALSE)
+disCItwd(1, 3, NULL, suffStat = sufftwd)
 # list-wise deletion:
 dat2 <- dat[complete.cases(dat), ]
-suffStat2 <- getSuff(dat2, test="disCItest", adaptDF=FALSE)
+suffStat2 <- getSuff(dat2, test = "disCItest", adaptDF = FALSE)
 disCItest(1, 3, NULL, suffStat = suffStat2)
 
 ## use disCItwd within pcalg::pc
-pc.fit <- pc(suffStat=suffStat, indepTest=disCItwd, alpha=0.1, p=5)
+pc.fit <- pc(suffStat = sufftwd, indepTest = disCItwd, alpha = 0.1, p = 5)
 pc.fit
 
 }
