@@ -51,25 +51,27 @@
 #' dat3[sample(1:200, 40), 2] <- NA
 #' dat3[sample(1:200, 40), 3] <- NA
 #'
-#' ## impute missing values under saturated model
+#' # impute missing values under saturated model
 #' form <- make.formulas.saturated(dat3)
 #' imp3 <- mice(dat3, formulas = form)
 #'
-#' ## analyse imputed data
+#' # analyse imputed data
 #' disMItest(1, 3, NULL, suffStat = getSuff(imp3, test="disMItest"))
 #' disMItest(1, 3, NULL, suffStat = complete(imp3, action = "all"))
 #'
 #' ## Example 4: mixed variables, multiple imputation
-#' ## load data (numeric and factor variables)
+#' # load data (numeric and factor variables)
 #' dat4 <- toenail2[1:400, ]
 #'
-#' ## delete some observations
+#' # delete some observations
 #' set.seed(123)
 #' dat4[sample(400, 20), 2] <- NA
 #' dat4[sample(400, 30), 4] <- NA
 #'
-#' ## impute missing values using random forests
+#' # impute missing values using random forests
 #' imp4 <- mice(dat4, method = "rf")
+#' 
+#' # analyse imputed data
 #' mixMItest(2, 3, 5, suffStat = getSuff(imp4, test = "mixMItest"))
 #' mixMItest(2, 3, 5, suffStat = complete(imp4, action = "all"))
 #'
