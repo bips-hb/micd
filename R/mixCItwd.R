@@ -49,7 +49,7 @@ mixCItwd <- function(x, y, S = NULL, suffStat) {
 
   miss <- apply(suffStat[ ,c(x,y,S)], 1, anyNA)
 
-  if (sum(!miss)==0) { return(NA) }
+  if (sum(!miss) < 2) { return(NA) }
 
   mixCItest(x = x, y = y, S = S, suffStat = suffStat[!miss, ])
 }
