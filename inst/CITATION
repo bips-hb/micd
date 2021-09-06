@@ -21,3 +21,18 @@ citEntry(entry = "Article",
         "Causal discovery of gene regulation with incomplete data.",
         "Journal of the Royal Statistical Society: Series A (Statistics in Society), 183(4), 1747-1775.")
 )
+
+
+citEntry(entry = "Article",
+  title        = "Multiple imputation and test-wise deletion for causal discovery from incomplete cohort data",
+  author       = personList(as.person("Janine Witte"),
+                   as.person("Ronja Foraita"),
+                   as.person("Vanessa Didelez")),
+  journal      = "arXiv preprint arXiv:2108.13331",
+  year         = "2021",
+
+  textVersion  =
+  paste("Janine Witte, Ronja Foraita, Vanessa Didelez (2021).",
+        "Multiple imputation and test-wise deletion for causal discovery from incomplete cohort data",
+        "arXiv preprint arXiv:2108.13331")
+)
