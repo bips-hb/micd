@@ -18,6 +18,8 @@ devtools::install_github("bips-hb/micd")
 
 Ronja Foraita, Juliane Friemel, Kathrin Günther, Thomas Behrens, Jörn Bullerdiek, Rolf Nimzyk, Wolfgang Ahrens, Vanessa Didelez (2020). Causal discovery of gene regulation with incomplete data. Journal of the Royal Statistical Society: Series A (Statistics in Society), 183(4), 1747-1775. URL https://rss.onlinelibrary.wiley.com/doi/10.1111/rssa.12565.
 
+Janine Witte, Ronja Foraita, Vanessa Didelez (2021). Multiple imputation and test-wise deletion for causal discovery with incomplete cohort data. arXiv preprint arXiv:2108.13331. URL www.arxiv.org/abs/2108.13331.
+
 ### References for pcalg
 
 Markus Kalisch, Martin Mächler, Diego Colombo, Marloes H. Maathuis, Peter Bühlmann (2012). Causal Inference Using Graphical Models with the R Package pcalg. Journal of Statistical Software, 47(11), 1-26. URL www.jstatsoft.org/v47/i11/.
