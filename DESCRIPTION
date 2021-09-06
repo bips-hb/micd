@@ -1,7 +1,7 @@
 Package: micd
 Type: Package
 Title: Multiple Imputation in Causal Graph Discovery
-Version: 1.2.0
+Version: 1.2.1
 Date: 2021-8-13
 Author: Ronja Foraita, Janine Witte
 Maintainer: Ronja Foraita <foraita@leibniz-bips.de>
