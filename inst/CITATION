@@ -33,6 +33,6 @@ citEntry(entry = "Article",
 
   textVersion  =
   paste("Janine Witte, Ronja Foraita, Vanessa Didelez (2021).",
-        "Multiple imputation and test-wise deletion for causal discovery from incomplete cohort data",
-        "arXiv preprint arXiv:2108.13331")
+        "Multiple imputation and test-wise deletion for causal discovery from incomplete cohort data.",
+        "arXiv preprint arXiv:2108.13331.")
 )
