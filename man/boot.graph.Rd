@@ -26,7 +26,7 @@ only continous variables can be included in the model selection}
 \item{method}{Character string specifying the algorithm for causal discovery
 from the package 'pcalg'.}
 
-\item{args}{Arguments passed to `method`. NOTE: argument `labels` is set
+\item{args}{Arguments passed to \code{method}. NOTE: argument \code{labels} is set
 internally and should not be used!}
 
 \item{R}{A positive integer number of bootstrap replications.}
@@ -41,11 +41,11 @@ data set. See \code{\link{makeResiduals}} for more information}
 
 \item{quickpred}{If true, mice uses quickpred to select predictors.}
 
-\item{...}{Further arguments passed to the imputation function `mice()`.}
+\item{...}{Further arguments passed to the imputation function \code{mice()}.}
 }
 \value{
-List of objects of class `pcalgo` (see \code{pcalg::\link[pcalg]{pcAlgo-class}})
-        or of `fcmialgo` (see \code{pcalg::\link[pcalg]{fciAlgo-class}}).
+List of objects of class \code{pcalgo} (see \code{pcalg::\link[pcalg]{pcAlgo-class}})
+or of \code{fcmialgo} (see \code{pcalg::\link[pcalg]{fciAlgo-class}}).
 }
 \description{
 Generate R bootstrap replicates for the PC or FCI algorithm for data with

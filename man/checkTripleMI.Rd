@@ -53,6 +53,6 @@ to be used for multiple imputation.
 }
 \note{
 This is a modified function of \code{pcalg::\link[pcalg]{checkTriple}}
-      from the package 'pcalg' (Kalisch et al., 2012;
-      http://www.jstatsoft.org/v47/i11/).
+from the package 'pcalg' (Kalisch et al., 2012;
+http://www.jstatsoft.org/v47/i11/).
 }

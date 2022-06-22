@@ -35,12 +35,12 @@ Typically preferred to specifying p.}
 \item{p}{(Optional) number of variables (or nodes). May be specified if
 labels are not, in which case labels is set to 1:p.}
 
-\item{fixedGaps}{A logical matrix of dimension p*p. If entry [i,j] or [j,i]
+\item{fixedGaps}{A logical matrix of dimension p*p. If entry \link{i,j} or \link{j,i}
 (or both) are TRUE, the edge i-j is removed before starting
 the algorithm. Therefore, this edge is guaranteed to be
 absent in the resulting graph.}
 
-\item{fixedEdges}{A logical matrix of dimension p*p. If entry [i,j] or [j,i]
+\item{fixedEdges}{A logical matrix of dimension p*p. If entry \link{i,j} or \link{j,i}
 (or both) are TRUE, the edge i-j is never considered for
 removal. Therefore, this edge is guaranteed to be present
 in the resulting graph}
@@ -80,12 +80,12 @@ to be used for multiple imputation.
 }
 \details{
 An object of class "pcAlgo" (see pcAlgo) containing an estimate of
-        the equivalence class of the underlying DAG.
+the equivalence class of the underlying DAG.
 }
 \note{
 This is a modified function of \code{pcalg::\link[pcalg]{pc}}
-      from the package 'pcalg' (Kalisch et al., 2012;
-      http://www.jstatsoft.org/v47/i11/).
+from the package 'pcalg' (Kalisch et al., 2012;
+http://www.jstatsoft.org/v47/i11/).
 }
 \examples{
 

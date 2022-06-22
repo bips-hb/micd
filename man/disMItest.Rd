@@ -2,36 +2,36 @@
 % Please edit documentation in R/disMItest.R
 \name{disMItest}
 \alias{disMItest}
-\title{G square Test for (Conditional) Independence between Discrete Variables after 
+\title{G square Test for (Conditional) Independence between Discrete Variables after
 Multiple Imputation}
 \usage{
 disMItest(x, y, S = NULL, suffStat)
 }
 \arguments{
-\item{x, y, S}{(integer) position of variable X, Y and set of variables S, 
-respectively, in \code{suffStat}. It is tested whether X and Y are conditionally 
+\item{x, y, S}{(integer) position of variable X, Y and set of variables S,
+respectively, in \code{suffStat}. It is tested whether X and Y are conditionally
 independent given the subset S of the remaining variables.}
 
-\item{suffStat}{A list of \code{data.frame}s containing the multiply imputed 
-data sets. Usually obtained from a \code{mice::\link[mice:mids-class]{mids}} 
-object using \code{mice::\link[mice:complete.mids]{complete}} with argument 
+\item{suffStat}{A list of \code{data.frame}s containing the multiply imputed
+data sets. Usually obtained from a \code{mice::\link[mice:mids-class]{mids}}
+object using \code{mice::\link[mice:complete.mids]{complete}} with argument
 \code{action="all"}. All variables must be coded as \code{\link{factor}s}. NO warning is issued if the variables are not coded as factors!}
 }
 \value{
 A p-value.
 }
 \description{
-A version of \code{pcalg::\link[pcalg]{disCItest}}, to be used within 
-\code{pcalg::\link[pcalg]{skeleton}}, \code{pcalg::\link[pcalg]{pc}} or 
-\code{pcalg::\link[pcalg]{fci}} when multiply imputed data sets are available. 
-Note that in contrast to \code{pcalg::\link[pcalg]{disCItest}}, the variables must 
+A version of \code{pcalg::\link[pcalg]{disCItest}}, to be used within
+\code{pcalg::\link[pcalg]{skeleton}}, \code{pcalg::\link[pcalg]{pc}} or
+\code{pcalg::\link[pcalg]{fci}} when multiply imputed data sets are available.
+Note that in contrast to \code{pcalg::\link[pcalg]{disCItest}}, the variables must
 here be coded as factors.
 }
 \details{
-See \code{pcalg::\link[pcalg]{disCItest}} for details on the G square test. disMItest applies this test to each 
-\code{data.frame} in \code{suffStat}, then combines the results using the rules 
-in Meng & Rubin (1992). Degrees of freedom are never adapted, and there is no 
-minimum required sample size, while \code{pcalg::\link[pcalg]{disCItest}} requires 
+See \code{pcalg::\link[pcalg]{disCItest}} for details on the G square test. disMItest applies this test to each
+\code{data.frame} in \code{suffStat}, then combines the results using the rules
+in Meng & Rubin (1992). Degrees of freedom are never adapted, and there is no
+minimum required sample size, while \code{pcalg::\link[pcalg]{disCItest}} requires
 \code{10*df} observations and otherwise returns a p-value of 1.
 }
 \examples{
@@ -57,7 +57,7 @@ disMItest(1, 3, NULL, suffStat = imp)
 
 }
 \references{
-Meng X.-L., Rubin D.B. (1992): Performing likelihood ratio tests with multiply 
+Meng X.-L., Rubin D.B. (1992): Performing likelihood ratio tests with multiply
 imputed data sets. \emph{Biometrika} 79(1):103-111.
 }
 \seealso{

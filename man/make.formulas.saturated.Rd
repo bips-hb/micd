@@ -13,7 +13,7 @@ make.formulas.saturated(
 \arguments{
 \item{data}{A \code{data.frame} with the source data.}
 
-\item{blocks}{An optional specification for blocks of variables in the rows. 
+\item{blocks}{An optional specification for blocks of variables in the rows.
 The default assigns each variable in its own block.}
 
 \item{predictorMatrix}{A \code{predictorMatrix} specified by the user.}
@@ -22,11 +22,11 @@ The default assigns each variable in its own block.}
 A list of formulas.
 }
 \description{
-This helper function creates a valid \code{formulas} object. 
-The \code{formulas} object is an argument to the \code{mice::\link[mice]{mice}} function. 
-It is a list of formulas that specifies the target variables and the predictors 
-by means of the standard ~ operator. In contrast to \code{mice::\link[mice]{make.formulas}}, 
-which creates main effects formulas, \code{make.formulas.saturated} 
+This helper function creates a valid \code{formulas} object.
+The \code{formulas} object is an argument to the \code{mice::\link[mice]{mice}} function.
+It is a list of formulas that specifies the target variables and the predictors
+by means of the standard ~ operator. In contrast to \code{mice::\link[mice]{make.formulas}},
+which creates main effects formulas, \code{make.formulas.saturated}
 creates formulas including all possible interaction effects.
 }
 \note{

@@ -37,12 +37,12 @@ provides an order-independent skeleton, see
 \item{m.max}{Maximal size of the conditioning sets that are considered in
 the conditional independence tests.}
 
-\item{fixedGaps}{Logical symmetric matrix of dimension p*p. If entry [i,j]
+\item{fixedGaps}{Logical symmetric matrix of dimension p*p. If entry \link{i,j}
 is true, the edge i-j is removed before starting the
 algorithm. Therefore, this edge is guaranteed to be absent
 in the resulting graph.}
 
-\item{fixedEdges}{A logical symmetric matrix of dimension p*p. If entry [i,j]
+\item{fixedEdges}{A logical symmetric matrix of dimension p*p. If entry \link{i,j}
 is true, the edge i-j is never considered for removal.
 Therefore, this edge is guaranteed to be present in the
 resulting graph.}
@@ -61,8 +61,8 @@ to be used for multiple imputation.
 }
 \note{
 This is a modified function of \code{pcalg::\link[pcalg]{skeleton}}
-      from the package 'pcalg' (Kalisch et al., 2012;
-      http://www.jstatsoft.org/v47/i11/).
+from the package 'pcalg' (Kalisch et al., 2012;
+http://www.jstatsoft.org/v47/i11/).
 }
 \examples{
 

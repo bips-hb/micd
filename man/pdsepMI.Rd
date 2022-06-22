@@ -21,7 +21,7 @@ pdsepMI(
 )
 }
 \arguments{
-\item{skel}{Graph object returned by [functioname(micd::skeletonMI)]}
+\item{skel}{Graph object returned by \link[functioname(micd:skeletonMI)]{functioname(micd::skeletonMI)}}
 
 \item{data}{An object of type mids, which stands for 'multiply imputed
 data set', typically created by a call to function mice()}

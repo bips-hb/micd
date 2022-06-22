@@ -4,63 +4,61 @@
 \alias{mixCItest}
 \title{Likelihood Ratio Test for (Conditional) Independence between Mixed Variables}
 \usage{
-mixCItest(x, y, S = NULL, suffStat)
+mixCItest(x, y, S = NULL, suffStat, moreOutput = FALSE)
 }
 \arguments{
-\item{x, y, S}{(integer) position of variable X, Y and set of variables S, 
-respectively, in \code{suffStat}. It is tested whether X and Y are conditionally 
-independent given the subset S of the remaining variables.}
+\item{x, y, S}{(integer) position of variable X, Y and set of variables S,
+respectively, in \code{suffStat}. It is tested whether X and Y are
+conditionally independent given the subset S of the remaining variables.}
 
-\item{suffStat}{\code{data.frame}. Discrete variables must be coded as factors.}
+\item{suffStat}{\code{data.frame}. Discrete variables must be coded as
+factors.}
+
+\item{moreOutput}{If \code{TRUE}, the test statistic and the degrees of
+freedom are returned in addition to the p-value. Defaults to \code{FALSE}.}
 }
 \value{
-A p-value.
+A p-value. If \code{moreOutput=TRUE}, the test statistic and the
+degrees of freedom are returned as well.
 }
 \description{
-A likelihood ratio test for (conditional) independence between mixed 
-(continuous and unordered categorical) variables, to be used within 
-\code{pcalg::\link[pcalg]{skeleton}}, \code{pcalg::\link[pcalg]{pc}} or \code{pcalg::\link[pcalg]{fci}}. 
-It assumes that the variables in the test follow a Conditional Gaussian 
-distribution, i.e. conditional on each combination of values of the discrete
- variables, the continuous variables are multivariate Gaussian. 
- Each multivariate Gaussian distribution is allowed to have its own mean 
- vector and covariance matrix.
+A likelihood ratio test for (conditional) independence between mixed
+(continuous and unordered categorical) variables, to be used within
+\code{pcalg::\link[pcalg]{skeleton}}, \code{pcalg::\link[pcalg]{pc}} or
+\code{pcalg::\link[pcalg]{fci}}. It assumes that the variables in the test
+follow a Conditional Gaussian distribution, i.e. conditional on each
+combination of values of the discrete variables, the continuous variables
+are multivariate Gaussian. Each multivariate Gaussian distribution is
+allowed to have its own mean vector and covariance matrix.
 }
 \details{
-The implementation follows Andrews et al. (2018). The same test is also 
-implemented in TETRAD and in the R-package rcausal, a wrapper for the 
-TETRAD Java library. Small differences in the p-values returned by 
-CGtest and the TETRAD/rcausal equivalent are due to differences in 
-handling sparse or empty cells, and differences in covariance estimation.
-
-Note that the test assumes a Conditional Gaussian distribution 
-(see Lauritzen & Wermuth, 1989) for the variables \emph{in that specific test}, 
-rather than for all variables in the graph / data set. Due to the 
-non-collapsibility of the Conditional Gaussian distribution, this implies 
-that the assumptions of two tests with overlapping sets of variables may 
-contradict each other. Little is known about how this affects the quality of 
-the estimated graph in practice.
+The implementation follows Andrews et al. (2018). The same test is
+also implemented in TETRAD and in the R-package rcausal, a wrapper for the
+TETRAD Java library. Small differences in the p-values returned by
+CGtest and the TETRAD/rcausal equivalent are due to differences in
+handling sparse or empty cells.
 }
 \examples{
 ## load data (numeric and factor variables)
 dat <- toenail2[1:400, ]
-ÃŸ
+
 ## analyse data
 mixCItest(5, 2, NULL, suffStat=dat)
 mixCItest(2, 3, 4, suffStat=dat)
 
 }
 \references{
-Andrews B., Ramsey J., Cooper G.F. (2018): Scoring Bayesian networks 
-of mixed variables. \emph{International Journal of Data Science and Analytics} 6:3-18.
+Andrews B., Ramsey J., Cooper G.F. (2018): Scoring Bayesian
+networks of mixed variables. \emph{International Journal of Data Science and
+Analytics} 6:3-18.
 
-Lauritzen S.L., Wermuth N. (1989): Graphical models for associations between 
-variables, some of which are qualitative and some quantitative. 
-\emph{The Annals of Statistics} 17(1):31-57. 
+Lauritzen S.L., Wermuth N. (1989): Graphical models for associations between
+variables, some of which are qualitative and some quantitative.
+\emph{The Annals of Statistics} 17(1):31-57.
 
-Scheines R., Spirtes P., Glymour C., Meek C., Richardson T. (1998): 
-The TETRAD project: Constraint based aids to causal model specification. 
-\emph{Multivariate Behavioral Research} 33(1):65-117. 
+Scheines R., Spirtes P., Glymour C., Meek C., Richardson T. (1998):
+The TETRAD project: Constraint based aids to causal model specification.
+\emph{Multivariate Behavioral Research} 33(1):65-117.
 http://www.phil.cmu.edu/tetrad/index.html
 }
 \author{

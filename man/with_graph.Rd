@@ -7,10 +7,10 @@
 with_graph(data, algo = c("pc", "fci", "fciPlus", "ges"), args, score = FALSE)
 }
 \arguments{
-\item{data}{An object of type mids, which stands for 'multiply imputed 
+\item{data}{An object of type mids, which stands for 'multiply imputed
 data set', typically created by a call to function mice()}
 
-\item{algo}{An algorithm for causal discovery from the package 'pcalg' 
+\item{algo}{An algorithm for causal discovery from the package 'pcalg'
 (see details).}
 
 \item{args}{Additional arguments passed to the algo. Must be a string
