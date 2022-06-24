@@ -7,7 +7,8 @@
 make.formulas.saturated(
   data,
   blocks = mice::make.blocks(data),
-  predictorMatrix = NULL
+  predictorMatrix = NULL,
+  d = NULL
 )
 }
 \arguments{
@@ -17,23 +18,25 @@ make.formulas.saturated(
 The default assigns each variable in its own block.}
 
 \item{predictorMatrix}{A \code{predictorMatrix} specified by the user.}
+
+\item{d}{maximum depth of interactions to be considered (1=no interactions, 2=two-way interactions, etc.)}
 }
 \value{
 A list of formulas.
 }
 \description{
-This helper function creates a valid \code{formulas} object.
-The \code{formulas} object is an argument to the \code{mice::\link[mice]{mice}} function.
-It is a list of formulas that specifies the target variables and the predictors
-by means of the standard ~ operator. In contrast to \code{mice::\link[mice]{make.formulas}},
-which creates main effects formulas, \code{make.formulas.saturated}
-creates formulas including all possible interaction effects.
+This helper function creates a valid \code{formulas} object. 
+The \code{formulas} object is an argument to the \code{mice::\link[mice]{mice}} function. 
+It is a list of formulas that specifies the target variables and the predictors 
+by means of the standard ~ operator. In contrast to \code{mice::\link[mice]{make.formulas}}, 
+which creates main effects formulas, \code{make.formulas.saturated} 
+creates formulas including interaction effects.
 }
 \note{
 A modification of \code{mice::\link[mice]{make.formulas}} by Stef van Buuren et al.
 }
 \examples{
-## main effecs model:
+## main effects model:
 f1 <- make.formulas(nhanes)
 f1
 

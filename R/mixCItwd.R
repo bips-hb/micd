@@ -34,8 +34,12 @@
 #' # test-wise deletion:
 #' mixCItwd(2, 3, 5, suffStat = dat)
 #' # list-wise deletion:
-#' suffStat <- dat[complete.cases(dat), ]
-#' mixCItest(2, 3, 5, suffStat = suffStat)
+#' dat2 <- dat[complete.cases(dat), ]
+#' mixCItest(2, 3, 5, suffStat = dat2)
+#' 
+#' ## use mixCItwd within pcalg::pc
+#' pc.fit <- pc(suffStat = dat, indepTest = mixCItwd, alpha = 0.01, p = 5)
+#' pc.fit
 #'
 #' @export
 
@@ -45,7 +49,7 @@ mixCItwd <- function(x, y, S = NULL, suffStat) {
 
   miss <- apply(suffStat[ ,c(x,y,S)], 1, anyNA)
 
-  if (sum(!miss)==0) { return(NA) }
+  if (sum(!miss) < 2) { return(NA) }
 
   mixCItest(x = x, y = y, S = S, suffStat = suffStat[!miss, ])
 }

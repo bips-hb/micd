@@ -32,13 +32,17 @@
 #' 
 #' ## analyse data
 #' # complete data:
-#' suffStat <- list( C = cor(windspeed), n = nrow(windspeed) )
-#' gaussCItest(1, 2, c(4,5), suffStat = suffStat)
+#' suffcomplete <- getSuff(windspeed, test="gaussCItest")
+#' gaussCItest(1, 2, c(4,5), suffStat = suffcomplete)
 #' # test-wise deletion:
 #' gaussCItwd(1, 2, c(4,5), suffStat = dat)
 #' # list-wise deletion:
-#' suffStat <- list( C = cor(dat[complete.cases(dat), ]), n = sum(complete.cases(dat)) )
-#' gaussCItest(1, 2, c(4,5), suffStat = suffStat)
+#' sufflwd <- getSuff(dat[complete.cases(dat), ], test="gaussCItest")
+#' gaussCItest(1, 2, c(4,5), suffStat = sufflwd)
+#' 
+#' ## use gaussCItwd within pcalg::pc
+#' pc.fit <- pc(suffStat = dat, indepTest = gaussCItwd, alpha = 0.01, p = 6)
+#' pc.fit
 #' 
 #' @export
 

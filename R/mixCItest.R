@@ -46,8 +46,12 @@
 #' dat <- toenail2[1:400, ]
 #' 
 #' ## analyse data
-#' mixCItest(5, 2, NULL, suffStat=dat)
-#' mixCItest(2, 3, 4, suffStat=dat)
+#' mixCItest(5, 2, NULL, suffStat = dat)
+#' mixCItest(2, 3, 4, suffStat = dat)
+#' 
+#' ## use mixCItest within pcalg::pc
+#' pc.fit <- pc(suffStat = dat, indepTest = mixCItest, alpha = 0.01, p = 5)
+#' pc.fit
 #'
 #' @export
 
@@ -65,7 +69,7 @@ mixCItest <- function(x, y, S=NULL, suffStat, moreOutput=FALSE) {
   if (df<=0) {df <- 1}
   
   p <- stats::pchisq(logLR, df, lower.tail=FALSE)
-  #if (is.na(p)) {p <- 1}
+  if (is.na(p)) {p <- 1}
   
   if (moreOutput) {
     return( c(logLR=logLR, df=df, p=p) )
@@ -84,7 +88,7 @@ likelihoodJoint <- function(dat2) {
   
   # indices of discrete variables
   A <- Rfast::which.is(dat2, "factor")
-  # indices of continous variables
+  # indices of continuous variables
   X <- Rfast::which.is(dat2, "numeric")
   k <- length(X)
   
@@ -141,7 +145,7 @@ multinomialLikelihood <- function(a, N) {
 }
 
 
-# Covm
+# Maximum likelihood estimator of covariance matrix
 covm <- function(dat) {
   n <- nrow(dat)
   covm <- Rfast::cova(Rfast::data.frame.to_matrix(dat)) *(n-1)/n

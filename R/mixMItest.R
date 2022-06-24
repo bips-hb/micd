@@ -1,7 +1,7 @@
 #' Likelihood Ratio Test for (Conditional) Independence between Mixed Variables
 #' after Multiple Imputation
 #'
-#' A version of \code{\link{mixCItest}}, to be used within \code{pcalg::\link[pcalg]{skeleton}},
+#' A modified version of \code{\link{mixCItest}}, to be used within \code{pcalg::\link[pcalg]{skeleton}},
 #' \code{pcalg::\link[pcalg]{pc}} or \code{pcalg::\link[pcalg]{fci}} when multiply imputed data sets are available.
 #'
 #' @param x,y,S    (integer) position of variable X, Y and set of variables S,
@@ -44,12 +44,17 @@
 #' # complete data:
 #' mixCItest(2, 3, 5, suffStat = toenail2[1:400, ])
 #' # multiple imputation:
-#' mixMItest(2, 3, 5, suffStat =  getSuff(imp, test = "mixMItest"))
+#' suffMI <- complete(imp, action = "all")
+#' mixMItest(2, 3, 5, suffStat =  suffMI)
 #' # test-wise deletion:
 #' mixCItwd(2, 3, 5, suffStat = dat)
 #' # list-wise deletion:
-#' suffStat <- dat[complete.cases(dat), ]
-#' mixCItest(2, 3, 5, suffStat = suffStat)
+#' sufflwd <- dat[complete.cases(dat), ]
+#' mixCItest(2, 3, 5, suffStat = sufflwd)
+#' 
+#' ## use mixMItest within pcalg::pc
+#' pc.fit <- pc(suffStat =  suffMI, indepTest = mixMItest, alpha = 0.01, p = 5)
+#' pc.fit
 #'
 #' @export
 
