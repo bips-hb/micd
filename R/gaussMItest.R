@@ -107,10 +107,10 @@ gaussCItestMI <- function (x, y, S=NULL, data)
       data.i <- data$data[[i]]
     } else stop("data is neither a list nor a mids object")
 
-    #suffStat <- list(C = cor(data.i), n = nrow(data.i))
     suffStat <- list(C = stats::cov(scale(data.i)), n = nrow(data.i))
     z[[i]] <- zStatMI(x, y, S, C = suffStat$C, n = n)
   }
+  
 
   # 1. Average of M imputed data sets
   avgz <- Reduce('+', z) / M
