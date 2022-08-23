@@ -4,50 +4,55 @@
 \alias{makeResiduals}
 \title{Generate residuals based on variables in imputed data sets}
 \usage{
-makeResiduals(x, v, confounder, scaled = TRUE, method = c("res", "cc", "pd"))
+makeResiduals(data, v, confounder, method = c("res", "cc", "pd"))
 }
 \arguments{
-\item{x}{mids object}
+\item{data}{a data frame}
 
-\item{v}{variable of integers referring to the location in the data set}
+\item{v}{vector of integers referring to the location of the variable(s) in the data set}
 
-\item{confounder}{variable of integers referring to the location in the data set}
-
-\item{scaled}{whether the variables should be scaled; default is TRUE}
+\item{confounder}{vector of integers referring to the location of the variable(s)
+in the data set (confounders are not included in the network!)}
 
 \item{method}{default method 'res' uses residuals, 'cc' uses complete cases
 and 'pd' uses pairwise deletion}
+}
+\value{
+A data matrix of residuals.
 }
 \description{
 Generate residuals based on variables in imputed data sets
 }
 \examples{
+data(windspeed)
+daten <- mice::ampute(windspeed)$amp
 
-daten <- windspeed[,1]
-for(i in 2:ncol(windspeed)) daten <- c(daten, windspeed[,i])
-daten[sample(1:length(daten), 260)] <- NA
-daten <- matrix(daten, ncol = 6)
-colnames(daten) <- names(windspeed)
+# Impute missing values
+imp <- mice(daten, m = 5)
 
-## Impute missing values
-imp <- mice(daten, m = 10)
-
-## Build residuals
+# Build residuals
 knoten <- 1:4
 confounder <- 5:6
-residuals <- list(data = list(), m = 10)
-for (i in 1:10){
- data.i <- mice::complete(imp, i)
- residuals$data[[i]] <- makeResiduals(data.i,
-                          v = knoten, confounder = confounder)}
 
-pc.res <- pcMI(data = residuals, p = ncol(residuals$data[[1]]), alpha = 0.05,
-               maj.rule = TRUE, solve.confl = TRUE)
-fci.res <- fciMI(data = imp, p = ncol(residuals$data[[1]]), alpha = 0.05)
+# Residuals based on dataset with missing values
+res.pd <- makeResiduals(daten, v = knoten, confounder = confounder, method = "pd")
 
-\dontrun{
+# Residuals based in multiple imputed data
+residuals <- list(data = list(), m = 5)
+imp_c <- mice::complete(imp, "all")
+for (i in 1:imp$m){
+   residuals$data[[i]] <- makeResiduals(imp_c[[i]],
+                          v = knoten, confounder = confounder)
+ }
+
+pc.res <- pcMI(data = residuals, p = length(knoten), alpha = 0.05)
+fci.res <- fciMI(data = imp, p = length(knoten), alpha = 0.05)
+
+if(require("Rgraphviz", character.only = TRUE, quietly = TRUE)){
 par(mfrow = c(1,2))
-plot(pc.res)
-plot(fci.res)}
+  plot(pc.res)
+  plot(fci.res)
+par(mfrow = c(1,1))
+}
 
 }

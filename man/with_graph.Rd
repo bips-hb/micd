@@ -26,18 +26,33 @@ A list object of S3 class \code{mice::\link[mice]{mira-class}}.
 Evaluate causal graph discovery algorithm in multiple imputed datasets
 }
 \examples{
+dat <- as.matrix(windspeed)
 
-imp <- mice(windspeed)
- out.pc <- with_graph(data = imp, 
-                      algo = "pc", 
-                      args = ", indepTest = gaussCItest, solve.confl = TRUE,
-                      labels = names(imp$imp), alpha = 0.05")
+## delete some observations
+set.seed(123)
+dat[sample(1:length(dat), 260)] <- NA
 
- out.fci <- with_graph(data = imp, 
-                       algo = "fciPlus", 
-                       args = ", indepTest = gaussCItest,
-                       labels = names(imp$imp), alpha = 0.01")
+## Impute missing values under normal model
+imp <- mice(dat, method = "norm")
+
+out.pc <- with_graph(data = imp, 
+                     algo = "pc", 
+                     args = ", indepTest = gaussCItest, solve.confl = TRUE,
+                     labels = names(imp$imp), alpha = 0.05")
+
+out.fci <- with_graph(data = imp, 
+                      algo = "fciPlus", 
+                      args = ", indepTest = gaussCItest,
+                      labels = names(imp$imp), alpha = 0.01")
                           
  out.ges <- with_graph(data = imp, algo = "ges", arg = NULL, score = TRUE)
+ 
+if(require("Rgraphviz", character.only = TRUE, quietly = TRUE)){
+ par(mfrow = c(1,3))
+ plot(out.pc$res[[1]])
+ plot(out.fci$res[[1]])
+ plot(out.ges$res[[1]]$essgraph)
+ par(mfrow = c(1,1))
+ }
                                      
 }

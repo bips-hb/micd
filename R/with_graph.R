@@ -35,7 +35,7 @@
 #'                           
 #'  out.ges <- with_graph(data = imp, algo = "ges", arg = NULL, score = TRUE)
 #'  
-#'  \dontrun{
+#' if(require("Rgraphviz", character.only = TRUE, quietly = TRUE)){
 #'  par(mfrow = c(1,3))
 #'  plot(out.pc$res[[1]])
 #'  plot(out.fci$res[[1]])

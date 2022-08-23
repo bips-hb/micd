@@ -20,7 +20,7 @@
 #'                
 #' @details \code{gaussMItest} is faster, as it uses pre-calculated covariance matrices.
 #'
-#' @return  Returns the p-value of the test
+#' @return  A p-value.
 #' 
 #' @importFrom stats cov pt
 #' @import mice

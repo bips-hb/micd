@@ -41,16 +41,17 @@ handling sparse or empty cells.
 }
 \examples{
 ## load data (numeric and factor variables)
-dat <- toenail2[1:400, ]
+dat <- toenail2
 
 ## analyse data
 mixCItest(5, 2, NULL, suffStat = dat)
 mixCItest(2, 3, 4, suffStat = dat)
 
 ## use mixCItest within pcalg::pc
-pc.fit <- pc(suffStat = dat, indepTest = mixCItest, alpha = 0.01, p = 5)
-pc.fit
-
+if(require("Rgraphviz", character.only = TRUE, quietly = TRUE)){
+(pc.fit <- pc(suffStat = dat, indepTest = mixCItest, alpha = 0.01, p = 5,
+              maj.rule = TRUE))
+}
 }
 \references{
 Andrews B., Ramsey J., Cooper G.F. (2018): Scoring Bayesian

@@ -2,16 +2,16 @@ Package: micd
 Type: Package
 Title: Multiple Imputation in Causal Graph Discovery
 Version: 1.1.0
-Date: 2021-8-13
+Date: 2022-08-23
 Authors@R: c(
       person(given = "Ronja", family = "Foraita", middle = NULL,
              email = "foraita@leibniz-bips.de", role = c("aut", "cph", "cre")),
       person(given = "Janine", family = "Witte", middle = NULL,
              email = "witte@leibniz-bips.de", role = "ctb"))
 Maintainer: Ronja Foraita <foraita@leibniz-bips.de>
-Description: Modified functions of the package pcalg to run the PC and the FCI 
-            algorithm for constraint-based causal discovery in incomplete and 
-            multiply imputed datasets.
+Description: Modified functions of the package 'pcalg' and some additional functions
+            to run the PC and the FCI algorithm for constraint-based causal discovery 
+            in incomplete and multiply imputed datasets.
 Depends: R (>= 3.0.2), pcalg, mice
 Imports: methods, RBGL, Rfast, stats, utils
 Suggests: nnet, ranger, Rgraphviz, testthat (>= 3.0.0)

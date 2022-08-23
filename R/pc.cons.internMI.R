@@ -19,8 +19,11 @@
 #' @note This is a modified function of \code{pcalg::\link[pcalg]{pc.cons.intern}}
 #'       from the package 'pcalg' (Kalisch et al., 2012;
 #'       http://www.jstatsoft.org/v47/i11/).
+#'       
+#' @author Original code by Markus Kalisch and Diego Colombo.
+#' Modifications by Ronja Foraita.          
 #'
-#' @export
+#' @noRd
 #'
 pc.cons.internMI <- function (sk, data, alpha, version.unf = c(NA, NA),
                               maj.rule = FALSE, verbose = FALSE)
@@ -68,7 +71,7 @@ pc.cons.internMI <- function (sk, data, alpha, version.unf = c(NA, NA),
                     "\n")
                 }
 
-                r.abc <- checkTripleMI(a, b, c, nbrsA, nbrsC, data = data,
+                r.abc <- micd:::checkTripleMI(a, b, c, nbrsA, nbrsC, data = data,
                                        sepsetA = sk@sepset[[a]][[c]],
                                        sepsetC = sk@sepset[[c]][[a]],
                                        alpha = alpha,

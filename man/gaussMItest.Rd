@@ -26,7 +26,7 @@ getSuff(mids, test="gaussMItest")}
 data set', typically created by a call to function mice()}
 }
 \value{
-Returns the p-value of the test
+A p-value.
 }
 \description{
 A modified version of \code{pcalg::\link[pcalg:condIndFisherZ]{gaussCItest}},
@@ -64,9 +64,7 @@ sufflwd <- getSuff(dat2, test = "gaussCItest")
 gaussCItest(1, 2, c(4,5), suffStat = sufflwd)
 
 ## use gaussMItest or gaussCItestMI within pcalg::pc
-pc.fit <- pc(suffStat = suffMI, indepTest = gaussMItest, alpha = 0.01, p = 6)
-pc.fit
-pc.fit <- pc(suffStat = imp, indepTest = gaussCItestMI, alpha = 0.01, p = 6)
-pc.fit
+(pc.fit <- pc(suffStat = suffMI, indepTest = gaussMItest, alpha = 0.01, p = 6))
+(pc.fit <- pc(suffStat = imp, indepTest = gaussCItestMI, alpha = 0.01, p = 6))
 
 }

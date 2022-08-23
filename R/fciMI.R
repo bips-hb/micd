@@ -1,7 +1,7 @@
 #' Estimate a PAG by the FCI-MI Algorithm for multiple
 #' imputed data sets of continuous data
 #'
-#' This function is a modification of \code{pcalg::\link[pcalg]{fci}}
+#' This function is a modification of [pcalg::fci()]
 #' to be used for multiple imputation.
 #'
 #' @param data An object of type mids, which stands for 'multiply imputed
@@ -13,25 +13,28 @@
 #' @param p (Optional) number of variables (or nodes). May be specified if
 #'            labels are not, in which case labels is set to 1:p.
 #' @param skel.method Character string specifying method; the default, "stable"
-#'                provides an order-independent skeleton, see
-#'                \code{pcalg::\link[pcalg]{skeleton}} for details.
-#' @param type  See \code{pcalg::\link[pcalg]{fci}} for details.
-#' @param fixedGaps See \code{pcalg::\link[pcalg]{fci}} for details.
-#' @param fixedEdges See \code{pcalg::\link[pcalg]{fci}} for details.
-#' @param NAdelete See \code{pcalg::\link[pcalg]{fci}} for details.
+#'                provides an order-independent skeleton, see [pcalg::skeleton()] for details.
+#' @param type Character string specifying the version of the FCI algorithm to be used. 
+#'              See [pcalg::fci()] for details.
+#' @param fixedGaps See [pcalg::fci()] for details.
+#' @param fixedEdges See [pcalg::fci()] for details.
+#' @param NAdelete See [pcalg::fci()] for details.
 #' @param m.max Maximum size of the conditioning sets that are considered in
 #'              the conditional independence tests.
-#' @param pdsep.max See \code{pcalg::\link[pcalg]{fci}} for details.
+#' @param pdsep.max See [pcalg::fci()] for details.
 #' @param rules Logical vector of length 10 indicating which rules should be
 #'              used when directing edges. The order of the rules is
 #'              taken from Zhang (2008).
-#' @param doPdsep See \code{pcalg::\link[pcalg]{fci}} for details.
-#' @param biCC See \code{pcalg::\link[pcalg]{fci}} for details.
-#' @param conservative See \code{pcalg::\link[pcalg]{fci}} for details.
-#' @param maj.rule See \code{pcalg::\link[pcalg]{fci}} for details.
+#' @param doPdsep See [pcalg::fci()] for details.
+#' @param biCC See [pcalg::fci()] for details.
+#' @param conservative See [pcalg::fci()] for details.
+#' @param maj.rule See [pcalg::fci()] for details.
 #' @param verbose If true, more detailed output is provided.
 #'
-#' @return See \code{pcalg::\link[pcalg]{fci}} for details.
+#' @return See [pcalg::fci()] for details.
+#' 
+#' @author Original code by Diego Colombo, Markus Kalisch, and  Joris Mooij.
+#' Modifications by Ronja Foraita.   
 #' 
 #' @importFrom methods as new
 #' @export
@@ -46,14 +49,13 @@
 #' imp <- mice(daten)
 #' fc.res <- fciMI(data = imp, label = colnames(imp$data), alpha = 0.01)
 #' 
-#' \dontrun{
-#' library(Rgraphviz)
+#' if(require("Rgraphviz", character.only = TRUE, quietly = TRUE)){
 #' plot(fc.res)
 #' }
 #'
 fciMI <- function (data, alpha, labels, p, skel.method = c("stable",
-    "original"), type = c("normal", "anytime",
-    "adaptive"), fixedGaps = NULL, fixedEdges = NULL, NAdelete = TRUE,
+    "original"), type = c("normal", "anytime", "adaptive"), fixedGaps = NULL, 
+    fixedEdges = NULL, NAdelete = TRUE,
     m.max = Inf, pdsep.max = Inf, rules = rep(TRUE, 10), doPdsep = TRUE,
     biCC = FALSE, conservative = FALSE, maj.rule = FALSE,
     verbose = FALSE)
@@ -101,10 +103,10 @@ fciMI <- function (data, alpha, labels, p, skel.method = c("stable",
         if (verbose)
             cat("\nCompute PDSEP\n=============\n")
 
-        pc.ci <- pc.cons.internMI(skel, data, alpha = alpha,
+        pc.ci <- micd:::pc.cons.internMI(skel, data, alpha = alpha,
             version.unf = c(1, 1), maj.rule = FALSE, verbose = verbose)
 
-        pdsepRes <- pdsepMI(skel@graph, data, p = p,
+        pdsepRes <- micd:::pdsepMI(skel@graph, data, p = p,
                       sepset = pc.ci$sk@sepset, alpha = alpha, pMax = pMax,
                       m.max = if (type == "adaptive")
                 max.ordSKEL
@@ -124,7 +126,7 @@ fciMI <- function (data, alpha, labels, p, skel.method = c("stable",
                 n.edgetests = n.edgetestsSKEL, sepset = sepset,
                 pMax = pMax, zMin = matrix(NA, 1, 1))
 
-            sk. <- pc.cons.internMI(tmp.pdsep, data, alpha, verbose = verbose,
+            sk. <- micd:::pc.cons.internMI(tmp.pdsep, data, alpha, verbose = verbose,
                     version.unf = c(1, 1), maj.rule = maj.rule)
             tripleList <- sk.$unfTripl
             sepset <- sk.$sk@sepset
@@ -138,7 +140,7 @@ fciMI <- function (data, alpha, labels, p, skel.method = c("stable",
             if (verbose)
                 cat("\nCheck v-structures conservatively\n=================================\n")
 
-            nopdsep <- pc.cons.internMI(skel, data, alpha, verbose = verbose,
+            nopdsep <- micd:::pc.cons.internMI(skel, data, alpha, verbose = verbose,
                          version.unf = c(2,1), maj.rule = maj.rule)
             tripleList <- nopdsep$unfTripl
             sepset <- nopdsep$sk@sepset

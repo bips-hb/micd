@@ -24,8 +24,11 @@
 #' @note This is a modified function of [pcalg::checkTriple()]
 #'       from the package 'pcalg' (Kalisch et al., 2012;
 #'       http://www.jstatsoft.org/v47/i11/).
-
-#' @export
+#'       
+#' @author Original code by Markus Kalisch and Diego Colombo.
+#' Modifications by Ronja Foraita.    
+#' 
+#' @noRd
 checkTripleMI <- function (a, b, c, nbrsA, nbrsC, data, sepsetA, sepsetC,
                     alpha, version.unf = c(NA, NA), maj.rule = FALSE,
                     verbose = FALSE)

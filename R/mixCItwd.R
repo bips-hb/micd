@@ -20,6 +20,7 @@
 #'
 #' @examples
 #' ## load data (numeric and factor variables)
+#' data(toenail2)
 #' dat <- toenail2[1:2000, ]
 #'
 #' ## delete some observations
@@ -39,9 +40,7 @@
 #' mixCItest(2, 3, 5, suffStat = dat2)
 #' 
 #' ## use mixCItwd within pcalg::pc
-#' \dontrun{
 #' pc.fit <- pc(suffStat = dat, indepTest = mixCItwd, alpha = 0.01, p = 5)
-#' }
 #'
 #' @export
 

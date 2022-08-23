@@ -53,7 +53,7 @@
 #' mixCItest(2, 3, 4, suffStat = dat)
 #' 
 #' ## use mixCItest within pcalg::pc
-#' \dontrun{
+#' if(require("Rgraphviz", character.only = TRUE, quietly = TRUE)){
 #' (pc.fit <- pc(suffStat = dat, indepTest = mixCItest, alpha = 0.01, p = 5,
 #'               maj.rule = TRUE))
 #' }

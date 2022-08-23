@@ -28,11 +28,11 @@ citEntry(entry = "Article",
   author       = personList(as.person("Janine Witte"),
                    as.person("Ronja Foraita"),
                    as.person("Vanessa Didelez")),
-  journal      = "arXiv preprint arXiv:2108.13331",
-  year         = "2021",
+  journal      = "Statistics in Medicine",
+  year         = "2022",
 
   textVersion  =
-  paste("Janine Witte, Ronja Foraita, Vanessa Didelez (2021).",
+  paste("Janine Witte, Ronja Foraita, Vanessa Didelez (2022).",
         "Multiple imputation and test-wise deletion for causal discovery from incomplete cohort data.",
-        "arXiv preprint arXiv:2108.13331.")
+        "Statistics in Medicine, https://doi.org/10.1002/sim.9535")
 )

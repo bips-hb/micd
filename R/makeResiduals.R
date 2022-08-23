@@ -1,71 +1,73 @@
 #' Generate residuals based on variables in imputed data sets
 #'
-#' @param x mids object
-#' @param v variable of integers referring to the location in the data set
-#' @param confounder variable of integers referring to the location in the data set
-#' @param scaled whether the variables should be scaled; default is TRUE
+#' @param data a data frame
+#' @param v vector of integers referring to the location of the variable(s) in the data set
+#' @param confounder vector of integers referring to the location of the variable(s) 
+#' in the data set (confounders are not included in the network!)
 #' @param method default method 'res' uses residuals, 'cc' uses complete cases
-#'               and 'pd' uses pairwise deletion                            
+#'               and 'pd' uses pairwise deletion   
+#'               
+#' @return A data matrix of residuals.                                       
 #'               
 #' @importFrom stats na.omit as.formula lm
 #'
 #' @export
 #'
 #' @examples
+#' data(windspeed)
+#' daten <- mice::ampute(windspeed)$amp
 #' 
-#' daten <- windspeed[,1]
-#' for(i in 2:ncol(windspeed)) daten <- c(daten, windspeed[,i])
-#' daten[sample(1:length(daten), 260)] <- NA
-#' daten <- matrix(daten, ncol = 6)
-#' colnames(daten) <- names(windspeed)
+#' # Impute missing values
+#' imp <- mice(daten, m = 5)
 #'
-#' ## Impute missing values
-#' imp <- mice(daten, m = 10)
-#'
-#' ## Build residuals
+#' # Build residuals
 #' knoten <- 1:4
 #' confounder <- 5:6
-#' residuals <- list(data = list(), m = 10)
-#' for (i in 1:10){
-#'  data.i <- mice::complete(imp, i)
-#'  residuals$data[[i]] <- makeResiduals(data.i,
-#'                           v = knoten, confounder = confounder)}
 #'
-#' pc.res <- pcMI(data = residuals, p = ncol(residuals$data[[1]]), alpha = 0.05,
-#'                maj.rule = TRUE, solve.confl = TRUE)
-#' fci.res <- fciMI(data = imp, p = ncol(residuals$data[[1]]), alpha = 0.05)
+#' # Residuals based on dataset with missing values
+#' res.pd <- makeResiduals(daten, v = knoten, confounder = confounder, method = "pd")
 #'
-#' \dontrun{
+#' # Residuals based in multiple imputed data
+#' residuals <- list(data = list(), m = 5)
+#' imp_c <- mice::complete(imp, "all")
+#' for (i in 1:imp$m){
+#'    residuals$data[[i]] <- makeResiduals(imp_c[[i]],
+#'                           v = knoten, confounder = confounder)
+#'  }
+#'
+#' pc.res <- pcMI(data = residuals, p = length(knoten), alpha = 0.05)
+#' fci.res <- fciMI(data = imp, p = length(knoten), alpha = 0.05)
+#'
+#' if(require("Rgraphviz", character.only = TRUE, quietly = TRUE)){
 #' par(mfrow = c(1,2))
-#' plot(pc.res)
-#' plot(fci.res)
+#'   plot(pc.res)
+#'   plot(fci.res)
+#' par(mfrow = c(1,1))
 #' }
 #'
-makeResiduals <- function (x, v, confounder, scaled = TRUE, method = c("res","cc", "pd"))
+makeResiduals <- function (data, v, confounder, method = c("res","cc", "pd"))
 {
   deletion.method <- match.arg(method)
-  labels <- colnames(x)
-  rownames(x) <- 1:nrow(x)
-  formeln <- paste0(labels[v], " ~ ", paste(labels[confounder],
-                                            collapse = " + "))
-  if (any(is.na(x[, c(v, confounder)])))
-    x.new <- stats::na.omit(x)
-  if (deletion.method == "cc")
-    x <- x.new
-
-  daten <- matrix(ncol = length(v), nrow = nrow(x))
+  if(any(is.na(data[, c(v, confounder)])) & deletion.method == "res" )
+     stop("Dataset contains missing values. Select method 'cc' or 'pd'.")
+  
+  labels <- colnames(data)
+  rownames(data) <- 1:nrow(data)
+  formeln <- paste0(labels[v], " ~ ", paste(labels[confounder], collapse = " + "))
+  # browser()
+  if (deletion.method == "cc"){data <- stats::na.omit(data)}
+  daten <- matrix(ncol = length(v), nrow = nrow(data))
+  
   for (node in 1:length(v)) {
+    
     if (deletion.method == "pd") {
-      tmp <- stats::lm(stats::as.formula(formeln[node]), data = x)$residuals
+      tmp <- stats::lm(stats::as.formula(formeln[node]), data = data)$residuals
       daten[as.numeric(names(tmp)), node] <- tmp
     }
     else {
-      daten[, node] <- stats::lm(stats::as.formula(formeln[node]), data = x)$residuals
+      daten[, node] <- stats::lm(stats::as.formula(formeln[node]), data = data)$residuals
     }
   }
   colnames(daten) <- labels[v]
-
-  if (scaled == TRUE) {
-    daten <- scale(daten)
-  }
+  return(daten)
 }

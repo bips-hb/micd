@@ -35,6 +35,9 @@
 #' @note This is a modified function of [pcalg::skeleton()]
 #'       from the package 'pcalg' (Kalisch et al., 2012;
 #'       http://www.jstatsoft.org/v47/i11/).
+#'       
+#' @author Original code by Markus Kalisch, Martin Maechler, Alain Hauser, and Diego Colombo.
+#' Modifications by Ronja Foraita.         
 #'
 #' @export
 #'

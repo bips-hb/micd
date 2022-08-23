@@ -49,8 +49,7 @@
 #' pc.fit <- pc(suffStat = sufftwd, indepTest = disCItwd, alpha = 0.1, p = 5)
 #' pc.fit
 #' 
-#' \donrun{
-#' library(Rgraphviz)
+#' if(require("Rgraphviz", character.only = TRUE, quietly = TRUE)){
 #' plot(pc.fit)
 #' }
 #'

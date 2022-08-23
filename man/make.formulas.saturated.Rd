@@ -37,6 +37,7 @@ A modification of \code{mice::\link[mice]{make.formulas}} by Stef van Buuren et 
 }
 \examples{
 ## main effects model:
+data(nhanes)
 f1 <- make.formulas(nhanes)
 f1
 

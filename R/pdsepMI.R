@@ -1,4 +1,4 @@
-#' Estimate Final Skeleton in the FCI-MI algorithm for multiple imputed
+#' Estimate final skeleton in the FCI-MI algorithm for multiple imputed
 #' data sets of continuous data
 #'
 #' This function is a modification of [pcalg::pdsep()]
@@ -20,10 +20,13 @@
 #'
 #' @return See \code{pcalg::\link[pcalg]{pdsep}} for more details.
 #' 
+#' @author Original code by Markus Kalisch and Diego Colombo.
+#' Modifications by Ronja Foraita.      
+#' 
 #' @importFrom RBGL biConnComp
 #' @importFrom utils combn
 #' 
-#' @export
+#' @noRd
 #'
 pdsepMI <- function (skel, data, p, sepset, alpha, pMax,
     m.max = Inf, pdsep.max = Inf, NAdelete = TRUE, unfVect = NULL,

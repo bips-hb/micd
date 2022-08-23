@@ -16,7 +16,7 @@
 #' @param nlev (Optional) for discrete variables: vector with numbers of levels for each 
 #' variable in the data.
 #'
-#' @return An R object that can be used as input to the specified conditional independence test
+#' @return An R object that can be used as input to the specified conditional independence test:
 #' 
 #' @importFrom Rfast which.is
 #' @importFrom mice complete

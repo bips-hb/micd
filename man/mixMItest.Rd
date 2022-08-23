@@ -39,12 +39,12 @@ the rules in Meng & Rubin (1992).
 \examples{
 
 ## load data (numeric and factor variables)
-dat <- toenail2[1:400, ]
+dat <- toenail2[1:1000, ]
 
 ## delete some observations
 set.seed(123)
-dat[sample(400, 20), 2] <- NA
-dat[sample(400, 30), 4] <- NA
+dat[sample(1000, 20), 2] <- NA
+dat[sample(1000, 30), 4] <- NA
 
 ## impute missing values using random forests
 imp <- mice(dat, method = "rf")

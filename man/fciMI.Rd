@@ -39,41 +39,41 @@ Typically preferred to specifying p.}
 labels are not, in which case labels is set to 1:p.}
 
 \item{skel.method}{Character string specifying method; the default, "stable"
-provides an order-independent skeleton, see
-\code{pcalg::\link[pcalg]{skeleton}} for details.}
+provides an order-independent skeleton, see \code{\link[pcalg:skeleton]{pcalg::skeleton()}} for details.}
 
-\item{type}{See \code{pcalg::\link[pcalg]{fci}} for details.}
+\item{type}{Character string specifying the version of the FCI algorithm to be used.
+See \code{\link[pcalg:fci]{pcalg::fci()}} for details.}
 
-\item{fixedGaps}{See \code{pcalg::\link[pcalg]{fci}} for details.}
+\item{fixedGaps}{See \code{\link[pcalg:fci]{pcalg::fci()}} for details.}
 
-\item{fixedEdges}{See \code{pcalg::\link[pcalg]{fci}} for details.}
+\item{fixedEdges}{See \code{\link[pcalg:fci]{pcalg::fci()}} for details.}
 
-\item{NAdelete}{See \code{pcalg::\link[pcalg]{fci}} for details.}
+\item{NAdelete}{See \code{\link[pcalg:fci]{pcalg::fci()}} for details.}
 
 \item{m.max}{Maximum size of the conditioning sets that are considered in
 the conditional independence tests.}
 
-\item{pdsep.max}{See \code{pcalg::\link[pcalg]{fci}} for details.}
+\item{pdsep.max}{See \code{\link[pcalg:fci]{pcalg::fci()}} for details.}
 
 \item{rules}{Logical vector of length 10 indicating which rules should be
 used when directing edges. The order of the rules is
 taken from Zhang (2008).}
 
-\item{doPdsep}{See \code{pcalg::\link[pcalg]{fci}} for details.}
+\item{doPdsep}{See \code{\link[pcalg:fci]{pcalg::fci()}} for details.}
 
-\item{biCC}{See \code{pcalg::\link[pcalg]{fci}} for details.}
+\item{biCC}{See \code{\link[pcalg:fci]{pcalg::fci()}} for details.}
 
-\item{conservative}{See \code{pcalg::\link[pcalg]{fci}} for details.}
+\item{conservative}{See \code{\link[pcalg:fci]{pcalg::fci()}} for details.}
 
-\item{maj.rule}{See \code{pcalg::\link[pcalg]{fci}} for details.}
+\item{maj.rule}{See \code{\link[pcalg:fci]{pcalg::fci()}} for details.}
 
 \item{verbose}{If true, more detailed output is provided.}
 }
 \value{
-See \code{pcalg::\link[pcalg]{fci}} for details.
+See \code{\link[pcalg:fci]{pcalg::fci()}} for details.
 }
 \description{
-This function is a modification of \code{pcalg::\link[pcalg]{fci}}
+This function is a modification of \code{\link[pcalg:fci]{pcalg::fci()}}
 to be used for multiple imputation.
 }
 \examples{
@@ -85,6 +85,10 @@ daten <- matrix(daten, ncol = 6)
 
 ## Impute missing values
 imp <- mice(daten)
-fciMI(data = imp, label = colnames(imp$data), alpha = 0.01)
+fc.res <- fciMI(data = imp, label = colnames(imp$data), alpha = 0.01)
+
+if(require("Rgraphviz", character.only = TRUE, quietly = TRUE)){
+plot(fc.res)
+}
 
 }

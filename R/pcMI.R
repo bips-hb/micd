@@ -47,6 +47,9 @@
 #' @note This is a modified function of [pcalg::pc()]
 #'       from the package 'pcalg' (Kalisch et al., 2012;
 #'       http://www.jstatsoft.org/v47/i11/).
+#'       
+#' @author Original code by Markus Kalisch, Martin Maechler, and Diego Colombo.
+#' Modifications by Ronja Foraita.       
 #'
 #' @export
 #'
@@ -110,7 +113,7 @@ pcMI <- function (data, alpha, labels, p, fixedGaps = NULL,
                 solve.confl = solve.confl))
     }
     else {
-        pc. <- pc.cons.internMI(skel, data, alpha, version.unf = c(2, 1),
+        pc. <- micd:::pc.cons.internMI(skel, data, alpha, version.unf = c(2, 1),
                               maj.rule = maj.rule, verbose = verbose)
         pcalg::udag2pdagRelaxed(pc.$sk, verbose = verbose, unfVect = pc.$unfTripl,
             solve.confl = solve.confl)

@@ -34,12 +34,12 @@ is valid if missingness does not jointly depend on X and Y.
 
 ## load data (200 observations)
 data(gmD)
-dat <- gmD$x[1:200, ]
+dat <- gmD$x[1:1000,]
 
 ## delete some observations of X2 and X3
 set.seed(123)
-dat[sample(1:200, 40), 2] <- NA
-dat[sample(1:200, 40), 3] <- NA
+dat[sample(1:1000, 50), 2] <- NA
+dat[sample(1:1000, 50), 3] <- NA
 
 ## analyse incomplete data
 # test-wise deletion ==========
@@ -54,6 +54,10 @@ disCItest(1, 3, NULL, suffStat = suffStat2)
 ## use disCItwd within pcalg::pc ==========
 pc.fit <- pc(suffStat = sufftwd, indepTest = disCItwd, alpha = 0.1, p = 5)
 pc.fit
+
+if(require("Rgraphviz", character.only = TRUE, quietly = TRUE)){
+plot(pc.fit)
+}
 
 }
 \seealso{

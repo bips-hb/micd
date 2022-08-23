@@ -55,6 +55,5 @@ pc.fit
 
 }
 \seealso{
-\code{pcalg::\link[pcalg:condIndFisherZ]{gaussCItest}} for complete data,
-\code{\link{gaussCItestMI}} for multiply imputed data
+\code{\link[pcalg:condIndFisherZ]{pcalg::condIndFisherZ()}} for complete data, \code{\link[=gaussCItestMI]{gaussCItestMI()}} for multiply imputed data
 }

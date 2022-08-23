@@ -29,7 +29,7 @@ cannot go below 1.}
 variable in the data.}
 }
 \value{
-An R object that can be used as input to the specified conditional independence test
+An R object that can be used as input to the specified conditional independence test:
 }
 \description{
 A convenience function for transforming a multiply imputed data set into the 'suffStat' required
