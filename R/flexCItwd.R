@@ -46,10 +46,14 @@ flexCItwd <- function(x, y, S = NULL, data) {
   if ( all(c(x,y,S) %in% conpos) ) {
     x2 <- as.numeric(which(conpos %in% x))
     y2 <- as.numeric(which(conpos %in% y))
-    S2 <- which(conpos %in% S)
-    if ( is.null(S) ){S2 <- S}
+  
+    if(!is.null(S)){  
+      S2 <- which(conpos %in% S)
+    } else {
+      S2 <- S
+    }
 
-    pval <- micd::gaussCItwd(x = x2, y = y2, S = S2, suffStat = data[, conpos])
+    pval <- gaussCItwd(x = x2, y = y2, S = S2, suffStat = data[, conpos])
 
   } else if ( all(c(x,y,S) %in% dispos) ) {
 
@@ -61,16 +65,20 @@ flexCItwd <- function(x, y, S = NULL, data) {
 
     x2 <- as.numeric(which(dispos %in% x))
     y2 <- as.numeric(which(dispos %in% y))
-    S2 <- which(dispos %in% S)
-    if ( is.null(S) ){S2 <- S}
+    
+    if(!is.null(S)){  
+      S2 <- which(dispos %in% S)
+    } else {
+      S2 <- S
+    }
 
     suffStat <- list(dm = data, adaptDF = TRUE)
 
-    pval <- micd::disCItwd(x = x2, y = y2, S = S2, suffStat = suffStat)
+    pval <- disCItwd(x = x2, y = y2, S = S2, suffStat = suffStat)
 
   } else {
 
-    pval <- micd::mixCItwd(x = x, y = y, S = S, suffStat = data)
+    pval <- mixCItwd(x = x, y = y, S = S, suffStat = data)
   }
 
   return(pval)

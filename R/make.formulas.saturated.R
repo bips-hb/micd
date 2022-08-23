@@ -21,6 +21,7 @@
 #' 
 #' @examples
 #' ## main effects model:
+#' data(nhanes)
 #' f1 <- make.formulas(nhanes)
 #' f1
 #' 

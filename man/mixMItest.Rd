@@ -17,7 +17,8 @@ imputed data sets. Usually obtained from a \code{mice::\link[mice:mids-class]{mi
 object using \code{mice::\link[mice:complete.mids]{complete}} with argument \code{action="all"}.
 Discrete variables must be coded as factors.}
 
-\item{moreOutput}{If \code{TRUE}, the test statistic, its main components and
+\item{moreOutput}{(only for mixed of discrete variables) If \code{TRUE}, the test
+statistic, its main components and
 the degrees of freedom are returned in addition to the p-value. Defaults to
 \code{FALSE}.}
 }

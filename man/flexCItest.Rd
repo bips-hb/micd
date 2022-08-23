@@ -11,16 +11,16 @@ flexCItest(x, y, S = NULL, suffStat)
 respectively, in the dataset. It is tested whether X and Y are conditionally
 independent given the subset S of the remaining variables.}
 
-\item{suffStat}{a list generated using \code{\link{getSuff}} with \code{test="flexMItest"}. See below for details.}
+\item{suffStat}{a list generated using \code{getSuff()} with \code{test="flexMItest"}. See below for details.}
 }
 \value{
 A p-value.
 }
 \description{
-A plug-in conditional independence test for \code{pcalg::\link[pcalg]{skeleton}}, \code{pcalg::\link[pcalg]{pc}} or
-\code{pcalg::\link[pcalg]{fci}} when multiply imputed data sets are available. \code{flexMItest} detects whether
-variables are continuous, discrete or mixed, and automatically switches between \code{\link{gaussMItest}} (continuous only),
-\code{link{disMItest}} (discrete only) and \code{\link{mixMItest}} (mixed).
+A plug-in conditional independence test for \code{\link[pcalg:skeleton]{pcalg::skeleton()}}, \code{\link[pcalg:pc]{pcalg::pc()}} or
+\code{\link[pcalg:fci]{pcalg::fci()}} when multiply imputed data sets are available. \code{\link[=flexMItest]{flexMItest()}} detects whether
+variables are continuous, discrete or mixed, and automatically switches between \code{\link[=gaussMItest]{gaussMItest()}} (continuous only),
+\code{\link[=disMItest]{disMItest()}} (discrete only) and \code{\link[=mixMItest]{mixMItest()}} (mixed variables).
 }
 \details{
 \code{suffStat} needs to be a list with four elements named \code{datlist}, \code{corlist},
@@ -31,6 +31,16 @@ the (M+1)-the element is the number of rows in each imputed dataset.
 \code{conpos} is a vector containing the integer positions of the continuous variables in the original dataset.
 \code{dispos} is a vector containing the integer positions of the discrete variables in the original dataset.
 }
+\examples{
+# load data (numeric and factor variables)
+dat <- toenail2[1:400, ]
+
+# obtain correct input 'suffStat' for 'flexMItest'
+suff <- getSuff(dat, test="flexCItest")
+
+flexCItest(2,3,NULL, suffStat = suff)
+
+}
 \seealso{
-\code{\link{gaussMItest}}, \code{\link{disMItest}} and \code{\link{mixMItest}}
+\code{\link[=gaussMItest]{gaussMItest()}}, \code{\link[=disMItest]{disMItest()}} and \code{\link[=mixMItest]{mixMItest()}}.
 }

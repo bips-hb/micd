@@ -34,12 +34,12 @@
 #' @examples
 #'
 #' ## load data (numeric and factor variables)
-#' dat <- toenail2[1:400, ]
+#' dat <- toenail2[1:1000, ]
 #'
 #' ## delete some observations
 #' set.seed(123)
-#' dat[sample(400, 20), 2] <- NA
-#' dat[sample(400, 30), 4] <- NA
+#' dat[sample(1000, 20), 2] <- NA
+#' dat[sample(1000, 30), 4] <- NA
 #'
 #' ## impute missing values using random forests
 #' imp <- mice(dat, method = "rf")
@@ -65,13 +65,25 @@
 
 
 
-mixMItest <- function(x, y, S = NULL, suffStat, moreOutput=FALSE) {
+mixMItest <- function(x, y, S = NULL, suffStat, moreOutput = FALSE) {
   # suffStat is a list of completed data sets
   
-  if(all(c(x,y,S) %in% Rfast::which.is(suffStat[[1]][c(x,y,S)], "numeric"))){
-    message("Note: The variables are all numeric (mixMI).\n")
-    X <- lapply(suffStat, function(w) w[c(x,y,S)])
+  conpos <- Rfast::which.is(suffStat[[1]], "numeric")
+  dispos <- Rfast::which.is(suffStat[[1]], "factor")
+  
+  if(all(c(x,y,S) %in% conpos)){
+    # message("Note: The variables are all numeric (mixMI).\n")
+    X <- lapply(suffStat, function(X) X[c(x,y,S)])
+    
     gaussMItest(1,2,(seq_along(S) + 2), suffStat = getSuff(X, test = 'gaussMItest'))
+    
+  } else if(all(c(x,y,S) %in% dispos)){
+    # message("Note: The variables are all discrete (mixMI)\n")
+    
+    X <- lapply(suffStat, function(X) X[c(x,y,S)])
+    disMItest(1, 2, (seq_along(S) + 2), 
+                       suffStat = getSuff(X, test = "disMItest", adaptDF = TRUE))
+
   } else {
     
     # number of imputations / completed data sets

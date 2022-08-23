@@ -44,7 +44,12 @@
 #'
 #' ## Impute missing values
 #' imp <- mice(daten)
-#' fciMI(data = imp, label = colnames(imp$data), alpha = 0.01)
+#' fc.res <- fciMI(data = imp, label = colnames(imp$data), alpha = 0.01)
+#' 
+#' \dontrun{
+#' library(Rgraphviz)
+#' plot(fc.res)
+#' }
 #'
 fciMI <- function (data, alpha, labels, p, skel.method = c("stable",
     "original"), type = c("normal", "anytime",

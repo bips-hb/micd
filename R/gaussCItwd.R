@@ -20,8 +20,7 @@
 #' 
 #' @importFrom stats cor pnorm
 #' 
-#' @seealso \code{pcalg::\link[pcalg:condIndFisherZ]{gaussCItest}} for complete data, 
-#' \code{\link{gaussCItestMI}} for multiply imputed data
+#' @seealso [pcalg::condIndFisherZ()] for complete data, [gaussCItestMI()] for multiply imputed data
 #' 
 #' @examples
 #' 

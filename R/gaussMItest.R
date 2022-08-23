@@ -52,14 +52,13 @@
 #' gaussCItest(1, 2, c(4,5), suffStat = sufflwd)
 #' 
 #' ## use gaussMItest or gaussCItestMI within pcalg::pc
-#' pc.fit <- pc(suffStat = suffMI, indepTest = gaussMItest, alpha = 0.01, p = 6)
-#' pc.fit
-#' pc.fit <- pc(suffStat = imp, indepTest = gaussCItestMI, alpha = 0.01, p = 6)
-#' pc.fit
+#' (pc.fit <- pc(suffStat = suffMI, indepTest = gaussMItest, alpha = 0.01, p = 6))
+#' (pc.fit <- pc(suffStat = imp, indepTest = gaussCItestMI, alpha = 0.01, p = 6))
 #' 
 #' @export
 
 gaussMItest <- function (x, y, S, suffStat) {
+  
   # number of imputations
   M <- length(suffStat) - 1
   # sample size
@@ -106,6 +105,7 @@ gaussCItestMI <- function (x, y, S=NULL, data)
   {
     if(mice::is.mids(data)){
       data.i <- mice::complete(data, i)
+      if(i == 1 & length(which.is(data.i, "factor") > 0)) stop("data must be all numeric.")
     } else if(is.list(data$data)) {
       data.i <- data$data[[i]]
     } else stop("data is neither a list nor a mids object")

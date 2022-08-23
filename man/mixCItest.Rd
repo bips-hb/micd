@@ -15,7 +15,8 @@ conditionally independent given the subset S of the remaining variables.}
 factors.}
 
 \item{moreOutput}{If \code{TRUE}, the test statistic and the degrees of
-freedom are returned in addition to the p-value. Defaults to \code{FALSE}.}
+freedom are returned in addition to the p-value (only for mixed variables).
+Defaults to \code{FALSE}.}
 }
 \value{
 A p-value. If \code{moreOutput=TRUE}, the test statistic and the

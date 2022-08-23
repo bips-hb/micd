@@ -16,21 +16,20 @@
 #'
 #' @return A p-value.
 #'
-#' @seealso \code{\link{mixCItest}} for complete data,
-#' \code{\link{mixMItest}} for multiply imputed data
+#' @seealso [mixCItest()] for complete data, [mixMItest()] for multiply imputed data
 #'
 #' @examples
 #' ## load data (numeric and factor variables)
-#' dat <- toenail2[1:400, ]
+#' dat <- toenail2[1:2000, ]
 #'
 #' ## delete some observations
 #' set.seed(123)
-#' dat[sample(400, 20), 2] <- NA
-#' dat[sample(400, 30), 4] <- NA
+#' dat[sample(2000, 20), 2] <- NA
+#' dat[sample(2000, 30), 4] <- NA
 #'
 #' ## analyse data 
 #' # complete data: ==========
-#' mixCItest(2, 3, 5, suffStat=toenail2[1:400, ])
+#' mixCItest(2, 3, 5, suffStat=toenail2[1:1000, ])
 #' 
 #' # test-wise deletion: ==========
 #' mixCItwd(2, 3, 5, suffStat = dat)
@@ -40,8 +39,9 @@
 #' mixCItest(2, 3, 5, suffStat = dat2)
 #' 
 #' ## use mixCItwd within pcalg::pc
+#' \dontrun{
 #' pc.fit <- pc(suffStat = dat, indepTest = mixCItwd, alpha = 0.01, p = 5)
-#' pc.fit
+#' }
 #'
 #' @export
 

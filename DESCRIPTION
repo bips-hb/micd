@@ -14,10 +14,9 @@ Description: Modified functions of the package pcalg to run the PC and the FCI
             multiply imputed datasets.
 Depends: R (>= 3.0.2), pcalg, mice
 Imports: methods, RBGL, Rfast, stats, utils
-Suggests: nnet, ranger, testthat (>= 3.0.0)
+Suggests: nnet, ranger, Rgraphviz, testthat (>= 3.0.0)
 License: GPL (>= 3)
 Encoding: UTF-8
-LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.0
 usethis: :use_github("https://github.com/bips-hb/micd")       

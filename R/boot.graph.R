@@ -15,13 +15,13 @@
 #' @param m      Number of chains included in mice()`.
 #' @param args.residuals (optional) list containing vertices and confounders.
 #'               May be specified when residuals for vertices should be calculated in each bootstrap
-#'               data set. See \code{\link{makeResiduals}} for more information
+#'               data set. See [makeResiduals()] for more information
 #' @param seed   A positive integer that is used as argument for set.seed().
 #' @param quickpred   If true, mice uses quickpred to select predictors.
 #' @param ...    Further arguments passed to the imputation function `mice()`.
 #'
-#' @return List of objects of class `pcalgo` (see \code{pcalg::\link[pcalg]{pcAlgo-class}})
-#'         or of `fcmialgo` (see \code{pcalg::\link[pcalg]{fciAlgo-class}}).
+#' @return List of objects of class `pcalgo` (see [pcalg::pcAlgo-class])
+#'         or of `fcmialgo` (see [pcalg::fciAlgo-class]).
 #' 
 #' @export
 #' @examples

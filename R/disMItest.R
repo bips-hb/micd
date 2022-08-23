@@ -37,13 +37,13 @@
 #' 
 #' ## load data (200 observations) and factorise
 #' data(gmD)
-#' dat <- gmD$x[1:200, ]
+#' dat <- gmD$x[1:1000, ]
 #' dat[] <- lapply(dat, as.factor)
 #'
 #' ## delete some observations of X2 and X3
 #' set.seed(123)
-#' dat[sample(1:200, 40), 2] <- NA
-#' dat[sample(1:200, 40), 3] <- NA
+#' dat[sample(1:1000, 40), 2] <- NA
+#' dat[sample(1:1000, 40), 3] <- NA
 #' 
 #' ## impute missing values under model with two-way interactions
 #' form <- make.formulas.saturated(dat, d = 2)
@@ -56,6 +56,11 @@
 #' ## use disMItest within pcalg::pc
 #' pc.fit <- pc(suffStat = imp, indepTest = disMItest, alpha = 0.01, p = 5)
 #' pc.fit
+#' 
+#' \donrun{
+#' library(Rgraphviz)
+#' plot(pc.fit)
+#' }
 #' 
 #' @export
 disMItest <- function (x, y, S=NULL, suffStat) {

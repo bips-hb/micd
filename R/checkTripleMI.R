@@ -13,15 +13,15 @@
 #' @param data     An object of type mids, which stands for 'multiply imputed
 #'                 data set', typically created by a call to function mice().
 #' @param alpha    significance level of test.
-#' @param version.unf (Integer) vector of length two. See
-#'                    \code{pcalg::\link[pcalg]{checkTriple}} for more details.
+#' @param version.unf (Integer) vector of length two. See 
+#'                    [pcalg::checkTriple()] for more details.
 #' @param maj.rule Logical indicating how the majority rule is applied. See
-#'                    \code{pcalg::\link[pcalg]{checkTriple}} for more details.
+#'                   [pcalg::checkTriple()] for more details.
 #' @param verbose  Logical asking for detailed output of intermediate steps.
 #'
-#' @return See \code{pcalg::\link[pcalg]{checkTriple}} for details.
+#' @return See [pcalg::checkTriple()] for details.
 #'
-#' @note This is a modified function of \code{pcalg::\link[pcalg]{checkTriple}}
+#' @note This is a modified function of [pcalg::checkTriple()]
 #'       from the package 'pcalg' (Kalisch et al., 2012;
 #'       http://www.jstatsoft.org/v47/i11/).
 

@@ -45,8 +45,9 @@ pc.res <- pcMI(data = residuals, p = ncol(residuals$data[[1]]), alpha = 0.05,
                maj.rule = TRUE, solve.confl = TRUE)
 fci.res <- fciMI(data = imp, p = ncol(residuals$data[[1]]), alpha = 0.05)
 
+\dontrun{
 par(mfrow = c(1,2))
 plot(pc.res)
-plot(fci.res)
+plot(fci.res)}
 
 }

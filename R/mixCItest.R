@@ -46,16 +46,17 @@
 #'
 #' @examples 
 #' ## load data (numeric and factor variables)
-#' dat <- toenail2[1:400, ]
+#' dat <- toenail2
 #' 
 #' ## analyse data
 #' mixCItest(5, 2, NULL, suffStat = dat)
 #' mixCItest(2, 3, 4, suffStat = dat)
 #' 
 #' ## use mixCItest within pcalg::pc
-#' pc.fit <- pc(suffStat = dat, indepTest = mixCItest, alpha = 0.01, p = 5)
-#' pc.fit
-#'
+#' \dontrun{
+#' (pc.fit <- pc(suffStat = dat, indepTest = mixCItest, alpha = 0.01, p = 5,
+#'               maj.rule = TRUE))
+#' }
 #' @export
 
 
@@ -64,14 +65,12 @@ mixCItest <- function(x, y, S=NULL, suffStat, moreOutput=FALSE) {
   conpos <- Rfast::which.is(suffStat, "numeric")
   dispos <- Rfast::which.is(suffStat, "factor")
   
-  message("in mixCItest")
-  
   if(all(c(x,y,S) %in% conpos)){
-    message("Note: The variables are all continuous. (mixCI)\n")
+    # message("Note: The variables are all continuous. (mixCI)\n")
     pcalg::gaussCItest(1, 2, (seq_along(S) + 2), 
                        suffStat = getSuff(suffStat[,c(x,y,S)], test = "gaussCItest"))
   } else if(all(c(x,y,S) %in% dispos)){
-    message("Note: The variables are all discrete. (mixCI)\n")
+    # message("Note: The variables are all discrete. (mixCI)\n")
     pcalg::disCItest(1, 2, (seq_along(S) + 2), 
                      suffStat = getSuff(suffStat[,c(x,y,S)], test = "disCItest", adaptDF = TRUE))
   } else {

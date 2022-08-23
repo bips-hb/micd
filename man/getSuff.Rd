@@ -40,11 +40,12 @@ by \code{\link[pcalg:condIndFisherZ]{pcalg::gaussCItest()}}, \code{\link[pcalg:d
 
 ## Example 1: continuous variables, no missing values =====================
 ## load data
+library(mice)
 dat1 <- as.matrix(windspeed)
 
 ## analyse data
-gaussCItest(1, 2, c(4,5), suffStat = getSuff(dat1, test="gaussCItest"))
-mixCItest(1, 2, c(4,5), suffStat = dat1)
+gaussCItest(1, 2, NULL, suffStat = getSuff(windspeed, test = "gaussCItest"))
+mixCItest(1, 2, NULL, suffStat = windspeed)
 
 ## Example 2: continuous variables, multiple imputation ===================
 ## load data
@@ -52,7 +53,7 @@ dat2 <- as.matrix(windspeed)
 
 ## delete some observations
 set.seed(123)
-dat[sample(1:length(dat2), 260)] <- NA
+dat2[sample(1:length(dat2), 260)] <- NA
 
 ## Impute missing values under normal model
 imp2 <- mice(dat2, method = "norm")
@@ -76,14 +77,14 @@ dat3 <- data.frame(x,y,z)
 dat3[sample(1:n, 40), 3] <- NA
 
 ## impute missing values under saturated model
-form <- make.formulas.saturated(dat)
-imp3 <- mice(dat3, method = "logreg", formulas = form)
+form <- make.formulas.saturated(dat3)
+imp3 <- mice::mice(dat3, method = "logreg", formulas = form)
 
 ## analyse imputed data
 disMItest(1, 3, NULL, suffStat = getSuff(imp3, test="disMItest"))
-disMItest(1, 3, NULL, suffStat = micd::complete(imp3, action = "all"))
+disMItest(1, 3, NULL, suffStat = mice::complete(imp3, action = "all"))
 mixMItest(1, 3, NULL, suffStat = getSuff(imp3, test="mixMItest"))
-mixMItest(1, 3, NULL, suffStat = micd::complete(imp3, action = "all"))
+mixMItest(1, 3, NULL, suffStat = mice::complete(imp3, action = "all"))
 flexMItest(1, 3, NULL, suffStat = getSuff(imp3, test="flexMItest"))
 
 ## Example 4: mixed variables, multiple imputation =========================
@@ -96,7 +97,7 @@ dat4[sample(400, 20), 2] <- NA
 dat4[sample(400, 30), 4] <- NA
 
 ## impute missing values using random forests
-imp <- mice(dat4, method="rf")
+imp4 <- mice(dat4, method="rf")
 mixMItest(2, 3, 5, suffStat = getSuff(imp4, test="mixMItest"))
 mixMItest(2, 3, 5, suffStat = mice::complete(imp4, action="all"))
 flexMItest(2, 3, 5, suffStat = getSuff(imp4, test="flexMItest"))

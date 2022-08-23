@@ -98,25 +98,30 @@ getSuff <- function(X, test = c("gaussCItest", "gaussMItest", "disCItest", "disM
     n <- nrow(X)
     list(C=C,n=n)
   } else if (test=="gaussMItest") {
-    if (class(X)=="mids") {
+    if(!(mice::is.mids(X) | is.list(X))) stop("data is neither a list nor a mids object")
+    
+    if (inherits(X, "mids")) {
       X <- mice::complete(X, action="all")
+      if(length(which.is(X, "factor") > 0)) stop("data must be all numeric.")
     }
     C <- lapply(X, stats::cor)
     n <- nrow(X[[1]])
     c(C,n)
   } else if (test=="disCItest") {
     if (is.null(adaptDF)) { stop("'adaptDF' needs to be specified. See ?pcalg::disCItest") }
-    if (!is.null(nlev)) { if (length(nlev)!=ncol(X)) {stop("Something is wrong with nlev. Check ?pcalg::disCItest")} }
+    if (!is.null(nlev)) { if (length(nlev) != ncol(X)) {stop("Something is wrong with nlev. Check ?pcalg::disCItest")} }
     for (i in 1:ncol(X)) {
       X[ ,i] <- as.numeric(X[ ,i]) - 1
     }
+
+    if(is.null(adaptDF)) adaptDF = TRUE
     if (is.null(nlev)) {
-      return(list(dm=as.matrix(X), adaptDF=adaptDF))
+      return(list(dm=as.matrix(X), adaptDF = adaptDF))
     } else {
-      return(list(dm=as.matrix(X), nlev=nlev, adaptDF=adaptDF))
+      return(list(dm=as.matrix(X), nlev = nlev, adaptDF = adaptDF))
     }
   } else if (test=="disMItest") {
-    if (class(X)=="mids") {
+    if (inherits(X, "mids")) {
       X <- mice::complete(X, action="all")
     }
     X
@@ -126,22 +131,22 @@ getSuff <- function(X, test = c("gaussCItest", "gaussMItest", "disCItest", "disM
   } else if (test=="mixCItest") {
     X
   }else if (test=="mixMItest") {
-    if (class(X)=="mids") {
+    if (inherits(X, "mids")) {
       X <- mice::complete(X, action="all")
     }
     X
   } else if (test=="flexCItest") {
     conpos <- Rfast::which.is(X, "numeric")
     dispos <- Rfast::which.is(X, "factor")
-    # browser()
+     
     corlist <- NULL
-    dmlist <- NULL
+    datlist <- NULL
     
     if (length(conpos)==0) {
-      message("Note: The variables are all discrete (flexCI).\n")
+      # message("Note: The variables are all discrete (flexCI).\n")
     }
     if (length(dispos)==0) {
-      message("Note: The variables are all numeric (flexCI).\n")
+      # message("Note: The variables are all numeric (flexCI).\n")
     }
     
     if (length(conpos)>1 ) {
@@ -152,42 +157,39 @@ getSuff <- function(X, test = c("gaussCItest", "gaussMItest", "disCItest", "disM
     
     if (length(dispos)>1 ) {
       # if (is.null(adaptDF)) { stop("'adaptDF' needs to be specified. See ?pcalg::disCItest") }
-      if (!is.null(nlev)) { if (length(nlev)!=ncol(X)) {
+      if (!is.null(nlev)) { if (length(nlev) != ncol(X)) {
         stop("Something is wrong with nlev. Check ?pcalg::disCItest")} }
       
       D <- X[ ,dispos]
       n_level <- vector(length = length(dispos))
       for (i in 1:ncol(D)) {
         n_level[i] <- nlevels(D[,i])
-        #ERROR: Die Werte ewrden numerisch gemacht. Damit kann pc nicht umgehen.
-        #Zudem werden hier die Werte von X[,i] auf D geschrieben ?????
-        # D[ ,i] <- as.numeric(X[ ,i]) - 1
-        # D[ ,i] <- as.numeric(X[ ,dispos[i]]) - 1
-        D[, i] <- as.numeric(D[, i])
-        if(min(D[,i] > 0)) D[ ,i] <- as.integer(D[, i])
+        # pcalg requires to start with 0
+        D[ ,i] <- as.integer(D[, i]) - 1
+        if(min(D[,i], na.rm = TRUE) != 0) D[,i] - min(D[,i], na.rm = TRUE)
       }
       if(is.null(adaptDF)) adaptDF = TRUE
       if (is.null(nlev)) {
-        dmlist <- list(dm=D, nlev = n_level, adaptDF=adaptDF)
+        datlist <- list(dm = D, nlev = n_level, adaptDF = adaptDF)
       } else {
-        dmlist <- list(dm=D, nlev=nlev, adaptDF=adaptDF)
+        datlist <- list(dm = D, nlev = nlev, adaptDF = adaptDF)
       }
     }
     
-    return(list(dat=X, corlist=corlist, dmlist=dmlist, conpos=conpos, dispos=dispos))
+    return(list(dat = X, corlist = corlist, datlist = datlist, conpos = conpos, dispos = dispos))
     
   } else if (test=="flexMItest") {
-    if (class(X)=="mids") {
+    if (inherits(X, "mids")) {
       X <- mice::complete(X, action="all")
     }
     conpos <- Rfast::which.is(X[[1]], "numeric")
     dispos <- Rfast::which.is(X[[1]], "factor")
     
     if (length(conpos)==0) {
-      message("Note: The variables are all discrete (flexMI).\n")
+      # message("Note: The variables are all discrete (flexMI).\n")
     }
     if (length(dispos)==0) {
-      message("Note: The variables are all numeric (flexMI).\n")
+      # message("Note: The variables are all numeric (flexMI).\n")
     }
     
     corlist <- NULL

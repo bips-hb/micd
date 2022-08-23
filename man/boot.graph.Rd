@@ -35,7 +35,7 @@ internally and should not be used!}
 
 \item{args.residuals}{(optional) list containing vertices and confounders.
 May be specified when residuals for vertices should be calculated in each bootstrap
-data set. See \code{\link{makeResiduals}} for more information}
+data set. See \code{\link[=makeResiduals]{makeResiduals()}} for more information}
 
 \item{seed}{A positive integer that is used as argument for set.seed().}
 
@@ -44,8 +44,8 @@ data set. See \code{\link{makeResiduals}} for more information}
 \item{...}{Further arguments passed to the imputation function \code{mice()}.}
 }
 \value{
-List of objects of class \code{pcalgo} (see \code{pcalg::\link[pcalg]{pcAlgo-class}})
-or of \code{fcmialgo} (see \code{pcalg::\link[pcalg]{fciAlgo-class}}).
+List of objects of class \code{pcalgo} (see \link[pcalg:pcAlgo-class]{pcalg::pcAlgo})
+or of \code{fcmialgo} (see \link[pcalg:fciAlgo-class]{pcalg::fciAlgo}).
 }
 \description{
 Generate R bootstrap replicates for the PC or FCI algorithm for data with
