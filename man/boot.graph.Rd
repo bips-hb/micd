@@ -52,7 +52,7 @@ Generate R bootstrap replicates for the PC or FCI algorithm for data with
 missing values.
 }
 \examples{
-
+data(windspeed)
 daten <- windspeed[,1]
 for(i in 2:ncol(windspeed)) daten <- c(daten, windspeed[,i])
 daten[sample(1:length(daten), 260)] <- NA

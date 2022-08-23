@@ -21,7 +21,9 @@ pdsepMI(
 )
 }
 \arguments{
-\item{skel}{Graph object returned by \link[functioname(micd:skeletonMI)]{functioname(micd::skeletonMI)}}
+\item{skel}{Graph object returned by [skeletonMI())]
+
+[skeletonMI())]: R:skeletonMI())}
 
 \item{data}{An object of type mids, which stands for 'multiply imputed
 data set', typically created by a call to function mice()}
@@ -50,6 +52,6 @@ data set', typically created by a call to function mice()}
 See \code{pcalg::\link[pcalg]{pdsep}} for more details.
 }
 \description{
-This function is a modification of \code{pcalg::\link[pcalg]{pdsep}}
+This function is a modification of \code{\link[pcalg:pdsep]{pcalg::pdsep()}}
 to be used for multiple imputation.
 }

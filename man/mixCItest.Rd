@@ -7,7 +7,7 @@
 mixCItest(x, y, S = NULL, suffStat, moreOutput = FALSE)
 }
 \arguments{
-\item{x, y, S}{(integer) position of variable X, Y and set of variables S, 
+\item{x, y, S}{(integer) position of variable X, Y and set of variables S,
 respectively, in \code{suffStat}. It is tested whether X and Y are
 conditionally independent given the subset S of the remaining variables.}
 
@@ -22,8 +22,8 @@ A p-value. If \code{moreOutput=TRUE}, the test statistic and the
 degrees of freedom are returned as well.
 }
 \description{
-A likelihood ratio test for (conditional) independence between mixed 
-(continuous and unordered categorical) variables, to be used within 
+A likelihood ratio test for (conditional) independence between mixed
+(continuous and unordered categorical) variables, to be used within
 \code{pcalg::\link[pcalg]{skeleton}}, \code{pcalg::\link[pcalg]{pc}} or
 \code{pcalg::\link[pcalg]{fci}}. It assumes that the variables in the test
 follow a Conditional Gaussian distribution, i.e. conditional on each
@@ -33,9 +33,9 @@ allowed to have its own mean vector and covariance matrix.
 }
 \details{
 The implementation follows Andrews et al. (2018). The same test is
-also implemented in TETRAD and in the R-package rcausal, a wrapper for the 
-TETRAD Java library. Small differences in the p-values returned by 
-CGtest and the TETRAD/rcausal equivalent are due to differences in 
+also implemented in TETRAD and in the R-package rcausal, a wrapper for the
+TETRAD Java library. Small differences in the p-values returned by
+CGtest and the TETRAD/rcausal equivalent are due to differences in
 handling sparse or empty cells.
 }
 \examples{

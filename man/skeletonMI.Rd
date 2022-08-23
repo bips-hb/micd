@@ -32,17 +32,17 @@ labels are not, in which case labels is set to 1:p.}
 
 \item{method}{Character string specifying method; the default, "stable"
 provides an order-independent skeleton, see
-\code{pcalg::\link[pcalg]{skeleton}} for details.}
+\code{\link[pcalg:pc]{pcalg::pc()}} for details.}
 
 \item{m.max}{Maximal size of the conditioning sets that are considered in
 the conditional independence tests.}
 
-\item{fixedGaps}{Logical symmetric matrix of dimension p*p. If entry \link{i,j}
+\item{fixedGaps}{Logical symmetric matrix of dimension p*p. If entry [i,j]
 is true, the edge i-j is removed before starting the
 algorithm. Therefore, this edge is guaranteed to be absent
 in the resulting graph.}
 
-\item{fixedEdges}{A logical symmetric matrix of dimension p*p. If entry \link{i,j}
+\item{fixedEdges}{A logical symmetric matrix of dimension p*p. If entry [i,j]
 is true, the edge i-j is never considered for removal.
 Therefore, this edge is guaranteed to be present in the
 resulting graph.}
@@ -53,14 +53,14 @@ If it is true, the corresponding edge is deleted, otherwise not.}
 \item{verbose}{If TRUE, detailed output is provided.}
 }
 \value{
-See \code{pcalg::\link[pcalg]{skeleton}} for more details.
+See \code{\link[pcalg:skeleton]{pcalg::skeleton()}} for more details.
 }
 \description{
-This function is a modification of \code{pcalg::\link[pcalg]{skeleton}}
+This function is a modification of \code{\link[pcalg:skeleton]{pcalg::skeleton()}}
 to be used for multiple imputation.
 }
 \note{
-This is a modified function of \code{pcalg::\link[pcalg]{skeleton}}
+This is a modified function of \code{\link[pcalg:skeleton]{pcalg::skeleton()}}
 from the package 'pcalg' (Kalisch et al., 2012;
 http://www.jstatsoft.org/v47/i11/).
 }

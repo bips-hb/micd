@@ -21,10 +21,13 @@
 #'
 #' @return A p-value.
 #'
+#' @import mice
+#' 
 #' @seealso \code{\link{gaussMItest}}, \code{\link{disMItest}} and \code{\link{mixMItest}}
 #'
 #' @examples
 #' ## load data (numeric and factor variables)
+#' library(ranger)
 #' dat <- toenail2[1:400, ]
 #'
 #' ## delete some observations
@@ -33,49 +36,114 @@
 #' dat[sample(400, 30), 4] <- NA
 #'
 #' ## impute missing values using random forests
-#' imp <- mice(dat, method="rf")
+#' imp <- mice::mice(dat, method = "rf")
 #'
 #' ## obtain correct input 'suffStat' for 'flexMItest'
 #' suff <- getSuff(imp, test="flexMItest")
 #'
 #' ## analyse data
 #' # continuous variables only
-#' flexMItest(4,5,NULL, suffStat=suff)
+#' flexMItest(4,5,NULL, suffStat = suff)
 #' implist <- complete(imp, action="all")
-#' gaussSuff <- c(lapply(implist, function(i){cor(i[ ,c(4,5)])}), n=400)
-#' gaussMItest(1,2,NULL, suffStat=gaussSuff)
+#' gaussSuff <- c(lapply(implist, function(i){cor(i[ ,c(4,5)])}), n = 400)
+#' gaussMItest(1,2,NULL, suffStat = gaussSuff)
+#' flexCItwd(4, 5, NULL, dat)
 #'
 #' # discrete variables only
-#' flexMItest(2,3,NULL, suffStat=suff)
-#' disMItest(2,3,NULL, suffStat=complete(imp, action="all"))
+#' flexMItest(2,3,NULL, suffStat = suff)
+#' disMItest(2,3,NULL, suffStat = complete(imp, action="all"))
+#' flexCItwd(2,3,NULL, dat)
 #'
 #' # mixed variables
-#' flexMItest(2,3,4, suffStat=suff)
-#' mixMItest(2,3,4, suffStat=complete(imp, action="all"))
+#' flexMItest(2,3,4, suffStat = suff)
+#' mixMItest(2,3,4, suffStat = complete(imp, action="all"))
+#' flexCItwd(2,3,4, dat)
 #'
 #' @export
-
-
-
 flexMItest <- function(x, y, S = NULL, suffStat) {
 
     if(all(c(x,y,S) %in% suffStat$conpos)){
     x2 <- as.numeric(which(suffStat$conpos %in% x))
     y2 <- as.numeric(which(suffStat$conpos %in% y))
-
+    
     if(is.null(S)){
-       S2 <- S
+      S2 <- S
     } else {
-       S2 <- which(suffStat$conpos %in% S)
+      S2 <- which(suffStat$conpos %in% S)
     }
     pval <- gaussMItest(x=x2, y=y2, S=S2, suffStat=suffStat$corlist)
+    
+    } else if (all(c(x,y,S) %in% suffStat$dispos)){
+      pval <- disMItest(x=x, y=y, S=S, suffStat=suffStat$datlist)
+      
+    } else {
+      pval <- mixMItest(x=x, y=y, S=S, suffStat=suffStat$datlist)
+    }
+  
+  return(pval)
+}
 
-  } else if (all(c(x,y,S) %in% suffStat$dispos)){
-    pval <- disMItest(x=x, y=y, S=S, suffStat=suffStat$datlist)
 
+#' @export
+flexCItest <- function(x, y, S = NULL, suffStat) {
+  
+  if (all(c(x,y,S) %in% suffStat$conpos)) {
+    x2 <- as.numeric(which(suffStat$conpos %in% x))
+    y2 <- as.numeric(which(suffStat$conpos %in% y))
+    
+    if ( is.null(S) ) {S2 <- S} else {S2 <- which(suffStat$conpos %in% S)}
+    pval <- pcalg::gaussCItest(x=x2, y=y2, S=S2, suffStat=suffStat$corlist)
+    
+  } else if ( all(c(x,y,S) %in% suffStat$dispos) ) {
+    x2 <- as.numeric(which(suffStat$dispos %in% x))
+    y2 <- as.numeric(which(suffStat$dispos %in% y))
+    
+    if ( is.null(S) ) {S2 <- S} else {S2 <- which(suffStat$dispos %in% S)}
+    pval <- pcalg::disCItest(x=x2, y=y2, S=S2, suffStat=suffStat$dmlist)
+    
   } else {
-    pval <- mixMItest(x=x, y=y, S=S, suffStat=suffStat$datlist)
+    pval <- mixCItest(x=x, y=y, S=S, suffStat=suffStat$dat)
   }
+  
+  return(pval)
+}
 
+
+#' @export
+flexCItwd <- function(x, y, S = NULL, data) {
+  
+  conpos <- Rfast::which.is(data, "numeric")
+  dispos <- Rfast::which.is(data, "factor")
+  
+  if ( all(c(x,y,S) %in% conpos) ) {
+    x2 <- as.numeric(which(conpos %in% x))
+    y2 <- as.numeric(which(conpos %in% y))
+    S2 <- which(conpos %in% S)
+    if ( is.null(S) ){S2 <- S}
+    
+    pval <- micd::gaussCItwd(x = x2, y = y2, S = S2, suffStat = data[, conpos])
+    
+  } else if ( all(c(x,y,S) %in% dispos) ) {
+    
+    data <- lapply(data[,dispos], function(x){
+      x <- as.integer(x)
+      if(min(x, na.rm = TRUE) != 0) x - min(x, na.rm = TRUE)
+    })
+    data <- do.call(cbind, data)
+    
+    x2 <- as.numeric(which(dispos %in% x))
+    y2 <- as.numeric(which(dispos %in% y))
+    S2 <- which(dispos %in% S)
+    if ( is.null(S) ){S2 <- S}
+    
+    suffStat <- list(dm = data, adaptDF = TRUE)
+    
+    pval <- micd::disCItwd(x = x2, y = y2, S = S2, suffStat = suffStat)
+    
+  } else {
+    
+    pval <- micd::mixCItwd(x = x, y = y, S = S, suffStat = data)
+  }
+  
   return(pval)
 }

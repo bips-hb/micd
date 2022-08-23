@@ -1,7 +1,7 @@
 #' Estimate the Equivalence Class of a DAG using the PC-MI algorithm for multiple
 #' imputed data sets of continuous data
 #'
-#' @description This function is a modification of \code{pcalg::\link[pcalg]{pc}}
+#' @description This function is a modification of [pcalg::pc()]
 #' to be used for multiple imputation.
 #'
 #' @param data  An object of type mids, which stands for 'multiply imputed
@@ -12,11 +12,11 @@
 #'               Typically preferred to specifying p.
 #' @param p  (Optional) number of variables (or nodes). May be specified if
 #'            labels are not, in which case labels is set to 1:p.
-#' @param fixedGaps A logical matrix of dimension p*p. If entry [i,j] or [j,i]
+#' @param fixedGaps A logical matrix of dimension p*p. If entry \code{[i,j]} or \code{[j,i]}
 #'                  (or both) are TRUE, the edge i-j is removed before starting
 #'                  the algorithm. Therefore, this edge is guaranteed to be
 #'                  absent in the resulting graph.
-#' @param fixedEdges A logical matrix of dimension p*p. If entry [i,j] or [j,i]
+#' @param fixedEdges A logical matrix of dimension p*p. If entry \code{[i,j]} or \code{[j,i]}
 #'                  (or both) are TRUE, the edge i-j is never considered for
 #'                  removal. Therefore, this edge is guaranteed to be present
 #'                  in the resulting graph
@@ -29,22 +29,22 @@
 #'              information when trying to orient edges (see details below).
 #' @param skel.method Character string specifying method; the default, "stable"
 #'                provides an order-independent skeleton, see
-#'                \code{pcalg::\link[pcalg]{skeleton}} for details.
+#'                [pcalg::skeleton()] for details.
 #' @param conservative Logical indicating if the conservative PC is used. See
-#'                \code{pcalg::\link[pcalg]{pc}} for details.
+#'                 [pcalg::pc()] for details.
 #' @param maj.rule Logical indicating that the triples shall be checked for
 #'                 ambiguity using a majority rule idea, which is less strict
 #'                 than the conservative PC algorithm. For more information, see
-#'                 \code{pcalg::\link[pcalg]{pc}}.
-#' @param solve.confl See \code{pcalg::\link[pcalg]{pc}} for more details.
+#'                 [pcalg::pc()].
+#' @param solve.confl See [pcalg::pc()] for more details.
 #' @param verbose If TRUE, detailed output is provided.
 #'
 #' @details An object of class "pcAlgo" (see pcAlgo) containing an estimate of
 #'         the equivalence class of the underlying DAG.
 #'
-#' @return See \code{pcalg::\link[pcalg]{pc}} for more details.
+#' @return See [pcalg::pc()] for more details.
 #'
-#' @note This is a modified function of \code{pcalg::\link[pcalg]{pc}}
+#' @note This is a modified function of [pcalg::pc()]
 #'       from the package 'pcalg' (Kalisch et al., 2012;
 #'       http://www.jstatsoft.org/v47/i11/).
 #'

@@ -33,10 +33,10 @@
 #' flexCItwd(4, 5, NULL, dat)
 #' 
 #' # discrete variables only
-#' flexCItwd(2,3,NULL, dat)
+#' flexCItwd(2, 3, NULL, dat)
 #'
 #' # mixed variables
-#' flexCItwd(2,3,4, dat)
+#' flexCItwd(2, 3, 4, dat)
 #'
 flexCItwd <- function(x, y, S = NULL, data) {
 

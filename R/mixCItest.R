@@ -15,7 +15,8 @@
 #' @param suffStat  \code{data.frame}. Discrete variables must be coded as
 #' factors.
 #' @param moreOutput If \code{TRUE}, the test statistic and the degrees of
-#' freedom are returned in addition to the p-value. Defaults to \code{FALSE}.
+#' freedom are returned in addition to the p-value (only for mixed variables). 
+#' Defaults to \code{FALSE}.
 #'
 #' @details The implementation follows Andrews et al. (2018). The same test is
 #' also implemented in TETRAD and in the R-package rcausal, a wrapper for the 
@@ -25,6 +26,8 @@
 #' 
 #' @return A p-value. If \code{moreOutput=TRUE}, the test statistic and the
 #' degrees of freedom are returned as well.
+#' 
+#' @importFrom stats pchisq
 #' 
 #' @author Janine Witte
 #' 
@@ -58,24 +61,38 @@
 
 mixCItest <- function(x, y, S=NULL, suffStat, moreOutput=FALSE) {
   # tests X _||_ Y | S
+  conpos <- Rfast::which.is(suffStat, "numeric")
+  dispos <- Rfast::which.is(suffStat, "factor")
   
-  logL_xyS <- likelihoodJoint(suffStat[c(x,y,S)])
-  logL_yS <- likelihoodJoint(suffStat[c(y,S)])
-  logL_xS <- likelihoodJoint(suffStat[c(x,S)])
-  logL_S <- likelihoodJoint(suffStat[S])
+  message("in mixCItest")
   
-  logLR <- 2* ( logL_xyS[1] - logL_yS[1] - logL_xS[1] + logL_S[1] )
-  df <- logL_xyS[2] - logL_yS[2] - logL_xS[2] + logL_S[2]
-  if (df<=0) {df <- 1}
-  
-  p <- stats::pchisq(logLR, df, lower.tail=FALSE)
-  if (is.na(p)) {p <- 1}
-  
-  if (moreOutput) {
-    return( c(logLR=logLR, df=df, p=p) )
+  if(all(c(x,y,S) %in% conpos)){
+    message("Note: The variables are all continuous. (mixCI)\n")
+    pcalg::gaussCItest(1, 2, (seq_along(S) + 2), 
+                       suffStat = getSuff(suffStat[,c(x,y,S)], test = "gaussCItest"))
+  } else if(all(c(x,y,S) %in% dispos)){
+    message("Note: The variables are all discrete. (mixCI)\n")
+    pcalg::disCItest(1, 2, (seq_along(S) + 2), 
+                     suffStat = getSuff(suffStat[,c(x,y,S)], test = "disCItest", adaptDF = TRUE))
   } else {
-    return(p)
-  }
+    
+    logL_xyS <- likelihoodJoint(suffStat[c(x,y,S)])
+    logL_yS  <- likelihoodJoint(suffStat[c(y,S)])
+    logL_xS  <- likelihoodJoint(suffStat[c(x,S)])
+    logL_S   <- likelihoodJoint(suffStat[S])
+    
+    logLR <- 2* ( logL_xyS[1] - logL_yS[1] - logL_xS[1] + logL_S[1] )
+    df <- logL_xyS[2] - logL_yS[2] - logL_xS[2] + logL_S[2]
+    if (df <= 0) {df <- 1}
+    
+    p <- stats::pchisq(logLR, df, lower.tail=FALSE)
+    if (is.na(p)) {p <- 1}
+    
+    if (moreOutput) {
+      return( c(logLR = logLR, df = df, p = p) )
+    } else {
+      return(p)
+    }}
 }
 
 
@@ -92,14 +109,13 @@ likelihoodJoint <- function(dat2) {
   X <- Rfast::which.is(dat2, "numeric")
   k <- length(X)
   
-  if (length(A)==0) {
+  if (length(A) == 0) {
     # no discrete variables
     logL <- Rfast::mvnorm.mle(Rfast::data.frame.to_matrix(dat2))$loglik
   } else {
     # at least one discrete variable
-    Sigma_all <- covm(dat2[X])
-    logL_cells <- by(dat2, dat2[A], likelihoodCell, X, N, Sigma_all, k,
-                     simplify=FALSE)
+    Sigma_all  <- covm(dat2[X])
+    logL_cells <- by(dat2, dat2[A], likelihoodCell, X, N, Sigma_all, k, simplify=FALSE)
     logL <- sum(unlist(logL_cells))
   }
   

@@ -32,6 +32,8 @@
 #' @param verbose If true, more detailed output is provided.
 #'
 #' @return See \code{pcalg::\link[pcalg]{fci}} for details.
+#' 
+#' @importFrom methods as new
 #' @export
 #' @examples
 #' 

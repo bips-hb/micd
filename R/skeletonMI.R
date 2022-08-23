@@ -1,7 +1,7 @@
 #' Estimate (Initial) Skeleton of a DAG using the PC Algorithm for multiple
 #' imputed data sets of continuous data
 #'
-#' This function is a modification of \code{pcalg::\link[pcalg]{skeleton}}
+#' This function is a modification of [pcalg::skeleton()]
 #' to be used for multiple imputation.
 #'
 #' @param data  An object of type mids, which stands for 'multiply imputed
@@ -13,14 +13,14 @@
 #'               labels are not, in which case labels is set to 1:p.
 #' @param method  Character string specifying method; the default, "stable"
 #'                provides an order-independent skeleton, see
-#'                \code{pcalg::\link[pcalg]{skeleton}} for details.
+#'                [pcalg::pc()] for details.
 #' @param m.max  Maximal size of the conditioning sets that are considered in
 #'               the conditional independence tests.
-#' @param fixedGaps Logical symmetric matrix of dimension p*p. If entry [i,j]
+#' @param fixedGaps Logical symmetric matrix of dimension p*p. If entry \[i,j\]
 #'                  is true, the edge i-j is removed before starting the
 #'                  algorithm. Therefore, this edge is guaranteed to be absent
 #'                  in the resulting graph.
-#' @param fixedEdges A logical symmetric matrix of dimension p*p. If entry [i,j]
+#' @param fixedEdges A logical symmetric matrix of dimension p*p. If entry \[i,j\]
 #'                   is true, the edge i-j is never considered for removal.
 #'                   Therefore, this edge is guaranteed to be present in the
 #'                   resulting graph.
@@ -28,9 +28,11 @@
 #'                 If it is true, the corresponding edge is deleted, otherwise not.
 #' @param verbose  If TRUE, detailed output is provided.
 #'
-#' @return See \code{pcalg::\link[pcalg]{skeleton}} for more details.
+#' @return See [pcalg::skeleton()] for more details.
+#' 
+#' @import pcalg
 #'
-#' @note This is a modified function of \code{pcalg::\link[pcalg]{skeleton}}
+#' @note This is a modified function of [pcalg::skeleton()]
 #'       from the package 'pcalg' (Kalisch et al., 2012;
 #'       http://www.jstatsoft.org/v47/i11/).
 #'
@@ -44,8 +46,6 @@
 #' ## estimate Skeleton
 #' data_mids <- mice(gmG8$x)
 #' (skel.fit <- skeletonMI(data = data_mids, alpha = 0.01, labels = V, verbose = FALSE))
-
-
 
 skeletonMI <- function (data, alpha, labels, p,
                         method = c("stable", "original"),
@@ -132,6 +132,7 @@ skeletonMI <- function (data, alpha, labels, p,
 
               repeat {
                 n.edgetests[ord1] <- n.edgetests[ord1] + 1
+# Ronja
                 pval <- gaussCItestMI(x, y, nbrs[S], data)
 
                 if (verbose){

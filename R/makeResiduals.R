@@ -6,6 +6,8 @@
 #' @param scaled whether the variables should be scaled; default is TRUE
 #' @param method default method 'res' uses residuals, 'cc' uses complete cases
 #'               and 'pd' uses pairwise deletion                            
+#'               
+#' @importFrom stats na.omit as.formula lm
 #'
 #' @export
 #'

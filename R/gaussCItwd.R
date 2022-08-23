@@ -18,6 +18,8 @@
 #' 
 #' @return A p-value.
 #' 
+#' @importFrom stats cor pnorm
+#' 
 #' @seealso \code{pcalg::\link[pcalg:condIndFisherZ]{gaussCItest}} for complete data, 
 #' \code{\link{gaussCItestMI}} for multiply imputed data
 #' 
@@ -34,9 +36,11 @@
 #' # complete data:
 #' suffcomplete <- getSuff(windspeed, test="gaussCItest")
 #' gaussCItest(1, 2, c(4,5), suffStat = suffcomplete)
-#' # test-wise deletion:
+#' 
+#' # test-wise deletion: ==========
 #' gaussCItwd(1, 2, c(4,5), suffStat = dat)
-#' # list-wise deletion:
+#' 
+#' # list-wise deletion: ==========
 #' sufflwd <- getSuff(dat[complete.cases(dat), ], test="gaussCItest")
 #' gaussCItest(1, 2, c(4,5), suffStat = sufflwd)
 #' 
@@ -45,9 +49,6 @@
 #' pc.fit
 #' 
 #' @export
-
-
-
 gaussCItwd <- function(x, y, S=NULL, suffStat) {
   
   miss <- apply(suffStat[ ,c(x,y,S)], 1, anyNA)

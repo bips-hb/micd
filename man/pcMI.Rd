@@ -35,12 +35,12 @@ Typically preferred to specifying p.}
 \item{p}{(Optional) number of variables (or nodes). May be specified if
 labels are not, in which case labels is set to 1:p.}
 
-\item{fixedGaps}{A logical matrix of dimension p*p. If entry \link{i,j} or \link{j,i}
+\item{fixedGaps}{A logical matrix of dimension p*p. If entry \code{[i,j]} or \code{[j,i]}
 (or both) are TRUE, the edge i-j is removed before starting
 the algorithm. Therefore, this edge is guaranteed to be
 absent in the resulting graph.}
 
-\item{fixedEdges}{A logical matrix of dimension p*p. If entry \link{i,j} or \link{j,i}
+\item{fixedEdges}{A logical matrix of dimension p*p. If entry \code{[i,j]} or \code{[j,i]}
 (or both) are TRUE, the edge i-j is never considered for
 removal. Therefore, this edge is guaranteed to be present
 in the resulting graph}
@@ -57,25 +57,25 @@ information when trying to orient edges (see details below).}
 
 \item{skel.method}{Character string specifying method; the default, "stable"
 provides an order-independent skeleton, see
-\code{pcalg::\link[pcalg]{skeleton}} for details.}
+\code{\link[pcalg:skeleton]{pcalg::skeleton()}} for details.}
 
 \item{conservative}{Logical indicating if the conservative PC is used. See
-\code{pcalg::\link[pcalg]{pc}} for details.}
+\code{\link[pcalg:pc]{pcalg::pc()}} for details.}
 
 \item{maj.rule}{Logical indicating that the triples shall be checked for
 ambiguity using a majority rule idea, which is less strict
 than the conservative PC algorithm. For more information, see
-\code{pcalg::\link[pcalg]{pc}}.}
+\code{\link[pcalg:pc]{pcalg::pc()}}.}
 
-\item{solve.confl}{See \code{pcalg::\link[pcalg]{pc}} for more details.}
+\item{solve.confl}{See \code{\link[pcalg:pc]{pcalg::pc()}} for more details.}
 
 \item{verbose}{If TRUE, detailed output is provided.}
 }
 \value{
-See \code{pcalg::\link[pcalg]{pc}} for more details.
+See \code{\link[pcalg:pc]{pcalg::pc()}} for more details.
 }
 \description{
-This function is a modification of \code{pcalg::\link[pcalg]{pc}}
+This function is a modification of \code{\link[pcalg:pc]{pcalg::pc()}}
 to be used for multiple imputation.
 }
 \details{
@@ -83,7 +83,7 @@ An object of class "pcAlgo" (see pcAlgo) containing an estimate of
 the equivalence class of the underlying DAG.
 }
 \note{
-This is a modified function of \code{pcalg::\link[pcalg]{pc}}
+This is a modified function of \code{\link[pcalg:pc]{pcalg::pc()}}
 from the package 'pcalg' (Kalisch et al., 2012;
 http://www.jstatsoft.org/v47/i11/).
 }

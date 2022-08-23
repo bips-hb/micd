@@ -12,15 +12,15 @@ Maintainer: Ronja Foraita <foraita@leibniz-bips.de>
 Description: Modified functions of the package pcalg to run the PC and the FCI 
             algorithm for constraint-based causal discovery in incomplete and 
             multiply imputed datasets.
-Depends: R (>= 3.0.2),
-         pcalg, mice, Rfast, graph
-Imports: stats, graphics, utils, methods, abind, RBGL, igraph, ggm, 
-         corpcor, robustbase, vcd, Rcpp, bdsmatrix, sfsmisc, fastICA, clue
-Suggests: MASS, Matrix, Rgraphviz, mvtnorm, huge, dagitty
-License: GPL-3
+Depends: R (>= 3.0.2), pcalg, mice
+Imports: methods, RBGL, Rfast, stats, utils
+Suggests: nnet, ranger, testthat (>= 3.0.0)
+License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.1
+RoxygenNote: 7.2.0
+usethis: :use_github("https://github.com/bips-hb/micd")       
 URL: https://github.com/bips-hb/micd
 BugReports: https://github.com/bips-hb/micd/issues
+Config/testthat/edition: 3

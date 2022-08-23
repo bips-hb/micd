@@ -21,9 +21,10 @@ object using \code{mice::\link[mice:complete.mids]{complete}} with argument
 A p-value.
 }
 \description{
-A modified version of \code{pcalg::\link[pcalg]{disCItest}}, to be used within 
-\code{pcalg::\link[pcalg]{skeleton}}, \code{pcalg::\link[pcalg]{pc}} or 
-\code{pcalg::\link[pcalg]{fci}} when multiply imputed data sets are available. 
+A modified version of \code{pcalg::\link[pcalg]{disCItest}}, to be used within
+\code{pcalg::\link[pcalg]{skeleton}}, \code{pcalg::\link[pcalg]{pc}} or
+\code{pcalg::\link[pcalg]{fci}} when multiply imputed data sets are available.
+Note that in contrast to \code{pcalg::\link[pcalg]{disCItest}}, the variables must
 here be coded as factors.
 }
 \details{
@@ -47,8 +48,8 @@ dat[sample(1:200, 40), 3] <- NA
 
 ## impute missing values under model with two-way interactions
 form <- make.formulas.saturated(dat, d = 2)
-imp <- mice(dat, formulas = form)
-imp <- complete(imp, action = "all")
+imp <- mice::mice(dat, formulas = form)
+imp <- mice::complete(imp, action = "all")
 
 ## analyse imputed data
 disMItest(1, 3, NULL, suffStat = imp)
@@ -63,7 +64,8 @@ Meng X.-L., Rubin D.B. (1992): Performing likelihood ratio tests with multiply
 imputed data sets. \emph{Biometrika} 79(1):103-111.
 }
 \seealso{
-\code{pcalg::\link[pcalg]{disCItest}} for complete data, \code{\link{disCItwd}} for test-wise deletion
+\code{pcalg::\link[pcalg]{disCItest}} for complete data,
+\code{\link{disCItwd}} for test-wise deletion
 }
 \author{
 Janine Witte

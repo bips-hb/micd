@@ -36,12 +36,14 @@ set.seed(123)
 dat[sample(400, 20), 2] <- NA
 dat[sample(400, 30), 4] <- NA
 
-## analyse data
-# complete data:
+## analyse data 
+# complete data: ==========
 mixCItest(2, 3, 5, suffStat=toenail2[1:400, ])
-# test-wise deletion:
+
+# test-wise deletion: ==========
 mixCItwd(2, 3, 5, suffStat = dat)
-# list-wise deletion:
+
+# list-wise deletion: ==========
 dat2 <- dat[complete.cases(dat), ]
 mixCItest(2, 3, 5, suffStat = dat2)
 

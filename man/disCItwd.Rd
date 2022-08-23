@@ -15,12 +15,6 @@ are conditionally independent given the subset S of the remaining variables.}
 \code{"adaptDF"}; each corresponding to the above arguments.
 Can be obtained from a data.frame  of factor variables using
 the \code{suffStat} function (see example section)}
-
-\item{dm}{data matrix (rows: samples, columns: variables) with integer entries; the k levels for a given column must be coded by the integers 0,1,...,k-1. (see example)}
-
-\item{nlev}{optional vector with numbers of levels for each variable in \code{dm}.}
-
-\item{adaptDF}{logical specifying if the degrees of freedom should be lowered by one for each zero count. The value for the degrees of freedom cannot go below 1.}
 }
 \value{
 A p-value.
@@ -48,15 +42,16 @@ dat[sample(1:200, 40), 2] <- NA
 dat[sample(1:200, 40), 3] <- NA
 
 ## analyse incomplete data
-# test-wise deletion:
-sufftwd <- getSuff(dat, test = "disCItwd", adaptDF = FALSE)
+# test-wise deletion ==========
+sufftwd <- getSuff(dat, test = "disCItwd")
 disCItwd(1, 3, NULL, suffStat = sufftwd)
-# list-wise deletion:
+
+# list-wise deletion ==========
 dat2 <- dat[complete.cases(dat), ]
 suffStat2 <- getSuff(dat2, test = "disCItest", adaptDF = FALSE)
 disCItest(1, 3, NULL, suffStat = suffStat2)
 
-## use disCItwd within pcalg::pc
+## use disCItwd within pcalg::pc ==========
 pc.fit <- pc(suffStat = sufftwd, indepTest = disCItwd, alpha = 0.1, p = 5)
 pc.fit
 

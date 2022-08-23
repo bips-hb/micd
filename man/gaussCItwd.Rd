@@ -41,9 +41,11 @@ dat[sample(1:length(dat), 260)] <- NA
 # complete data:
 suffcomplete <- getSuff(windspeed, test="gaussCItest")
 gaussCItest(1, 2, c(4,5), suffStat = suffcomplete)
-# test-wise deletion:
+
+# test-wise deletion: ==========
 gaussCItwd(1, 2, c(4,5), suffStat = dat)
-# list-wise deletion:
+
+# list-wise deletion: ==========
 sufflwd <- getSuff(dat[complete.cases(dat), ], test="gaussCItest")
 gaussCItest(1, 2, c(4,5), suffStat = sufflwd)
 

@@ -1,10 +1,10 @@
 #' Estimate Final Skeleton in the FCI-MI algorithm for multiple imputed
 #' data sets of continuous data
 #'
-#' This function is a modification of \code{pcalg::\link[pcalg]{pdsep}}
+#' This function is a modification of [pcalg::pdsep()]
 #' to be used for multiple imputation.
 #'
-#' @param skel Graph object returned by [functioname(micd::skeletonMI)]
+#' @param skel Graph object returned by [skeletonMI())]
 #' @param data An object of type mids, which stands for 'multiply imputed
 #'              data set', typically created by a call to function mice()
 #' @param p Number of variables.
@@ -19,6 +19,10 @@
 #' @param verbose Logical indicating that detailed output is to be provided.
 #'
 #' @return See \code{pcalg::\link[pcalg]{pdsep}} for more details.
+#' 
+#' @importFrom RBGL biConnComp
+#' @importFrom utils combn
+#' 
 #' @export
 #'
 pdsepMI <- function (skel, data, p, sepset, alpha, pMax,

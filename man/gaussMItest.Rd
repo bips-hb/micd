@@ -16,10 +16,10 @@ respectively, in the adjacency matrix.
 It is tested, whether X and Y are conditionally independent
 given the subset S of the remaining nodes.}
 
-\item{suffStat}{A list of length m+1, where m is the number of imputations; 
- the first m elements are the covariance matrices of the m
- imputed data sets, the m-th element is the sample size. Can
- be obtained from a mids object by
+\item{suffStat}{A list of length m+1, where m is the number of imputations;
+the first m elements are the covariance matrices of the m
+imputed data sets, the m-th element is the sample size. Can
+be obtained from a mids object by
 getSuff(mids, test="gaussMItest")}
 
 \item{data}{An object of type mids, which stands for 'multiply imputed
@@ -29,7 +29,7 @@ data set', typically created by a call to function mice()}
 Returns the p-value of the test
 }
 \description{
-A modified version of \code{pcalg::\link[pcalg:condIndFisherZ]{gaussCItest}}, 
+A modified version of \code{pcalg::\link[pcalg:condIndFisherZ]{gaussCItest}},
 to be used within
 \code{pcalg::\link[pcalg]{skeleton}}, \code{pcalg::\link[pcalg]{pc}} or
 \code{pcalg::\link[pcalg]{fci}} when multiply imputated data sets are available.
