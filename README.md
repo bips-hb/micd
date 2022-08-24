@@ -16,9 +16,12 @@ devtools::install_github("bips-hb/micd")
 
 ### References
 
-Ronja Foraita, Juliane Friemel, Kathrin Günther, Thomas Behrens, Jörn Bullerdiek, Rolf Nimzyk, Wolfgang Ahrens, Vanessa Didelez (2020). Causal discovery of gene regulation with incomplete data. Journal of the Royal Statistical Society: Series A (Statistics in Society), 183(4), 1747-1775. URL https://rss.onlinelibrary.wiley.com/doi/10.1111/rssa.12565.
+Foraita R, Friemel J, Günther K, Behrens T, Bullerdiek J, Nimzyk R, Ahrens W, Didelez V (2020). Causal discovery of gene regulation with incomplete data. Journal of the Royal Statistical Society: Series A (Statistics in Society), 183(4), 1747-1775. URL https://rss.onlinelibrary.wiley.com/doi/10.1111/rssa.12565.
 
-Janine Witte, Ronja Foraita, Vanessa Didelez (2021). Multiple imputation and test-wise deletion for causal discovery with incomplete cohort data. arXiv preprint arXiv:2108.13331. URL www.arxiv.org/abs/2108.13331.
+Foraita R, Witte J, Börnhorst C, Gwozdz W, Pala V, Lissner L, Lauria F, Reisch L, Molnár D, De Henauw S, Moreno L, Veidebaum T, Tornaritis M, Pigeot I, Didelez V. A longitudinal causal graph analysis investigating modifiable risk factors and obesity in a European cohort of children and adolescents. 2022; medRxiv 2022.05.18.22275036
+
+Witte J, Foraita R, Didelez V (2022). Multiple imputation and test-wise deletion for causal discovery with incomplete cohort data. Statistics in Medicine, <https://doi.org/10.1002/sim.9535>.
+
 
 ### References for pcalg
 

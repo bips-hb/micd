@@ -5,7 +5,7 @@
 #'
 #'
 #' @param data   Data frame with missing values
-#' @param select variable of integers, indicating columns to select from a data frame;
+#' @param select Variable of integers, indicating columns to select from a data frame;
 #'               only continous variables can be included in the model selection
 #' @param method Character string specifying the algorithm for causal discovery
 #'               from the package 'pcalg'.
@@ -13,7 +13,7 @@
 #'               internally and should not be used!
 #' @param R      A positive integer number of bootstrap replications.
 #' @param m      Number of chains included in mice()`.
-#' @param args.residuals (optional) list containing vertices and confounders.
+#' @param args.residuals (Optional) list containing vertices and confounders.
 #'               May be specified when residuals for vertices should be calculated in each bootstrap
 #'               data set. See [makeResiduals()] for more information
 #' @param seed   A positive integer that is used as argument for set.seed().
@@ -31,11 +31,10 @@
 #' daten[sample(1:length(daten), 260)] <- NA
 #' daten <- matrix(daten, ncol = 6)
 #'
-#' boot.graph <- boot.graph(
-#'             data = daten,
-#'             method = "pcMI",
-#'             args = "solve.confl = TRUE, alpha = 0.05",
-#'             R = 10)
+#' bgraph <- boot.graph(data = daten,
+#'                      method = "pcMI",
+#'                      args = "solve.confl = TRUE, alpha = 0.05",
+#'                      R = 3)
 
 
 boot.graph <- function(data, select = NULL, method = c("pcMI", "fciMI"),
@@ -50,13 +49,14 @@ boot.graph <- function(data, select = NULL, method = c("pcMI", "fciMI"),
 
     for (r in 1:R) samples[[r]] <- sample(1:n, n, replace = TRUE)
     for (g in 1:R) {
+      cat(g, "of", R, "replications. \n")      
         if (!quickpred) {
-            data.imp <- mice::mice(data[samples[[g]], ], m = m)
+            data.imp <- mice::mice(data[samples[[g]], ], m = m, printFlag = FALSE)
         }
         else {
             predictors <- mice::quickpred(data)
             data.imp <- mice::mice(data[samples[[g]], ], m = m,
-                pred = predictors)
+                                   pred = predictors, printFlag = FALSE)
         }
         if (!is.null(select)) {
             data.imp <- getsubsetcol(data.imp, var = select)

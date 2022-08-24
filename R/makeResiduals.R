@@ -1,10 +1,10 @@
 #' Generate residuals based on variables in imputed data sets
 #'
-#' @param data a data frame
-#' @param v vector of integers referring to the location of the variable(s) in the data set
-#' @param confounder vector of integers referring to the location of the variable(s) 
+#' @param data A data.frame.
+#' @param v Vector of integers referring to the location of the variable(s) in the data set
+#' @param confounder Vector of integers referring to the location of the variable(s) 
 #' in the data set (confounders are not included in the network!)
-#' @param method default method 'res' uses residuals, 'cc' uses complete cases
+#' @param method Default method 'res' uses residuals, 'cc' uses complete cases
 #'               and 'pd' uses pairwise deletion   
 #'               
 #' @return A data matrix of residuals.                                       

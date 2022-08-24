@@ -7,7 +7,7 @@
 #' Note that in contrast to \code{pcalg::\link[pcalg]{disCItest}}, the variables must 
 #' here be coded as factors.
 #'
-#' @param x,y,S (integer) position of variable X, Y and set of variables S, 
+#' @param x,y,S (Integer) position of variable X, Y and set of variables S, 
 #' respectively, in \code{suffStat}. It is tested whether X and Y are conditionally 
 #' independent given the subset S of the remaining variables.
 #' @param suffStat A list of \code{data.frame}s containing the multiply imputed 
@@ -47,7 +47,7 @@
 #' 
 #' ## impute missing values under model with two-way interactions
 #' form <- make.formulas.saturated(dat, d = 2)
-#' imp <- mice::mice(dat, formulas = form)
+#' imp <- mice::mice(dat, formulas = form, printFlag = FALSE)
 #' imp <- mice::complete(imp, action = "all")
 #' 
 #' ## analyse imputed data

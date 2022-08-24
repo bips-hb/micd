@@ -2,8 +2,7 @@
 % Please edit documentation in R/fciMI.R
 \name{fciMI}
 \alias{fciMI}
-\title{Estimate a PAG by the FCI-MI Algorithm for multiple
-imputed data sets of continuous data}
+\title{Estimate a PAG by the FCI-MI Algorithm for Multiple Imputed Data Sets of Continuous Data}
 \usage{
 fciMI(
   data,
@@ -84,11 +83,15 @@ daten[sample(1:length(daten), 260)] <- NA
 daten <- matrix(daten, ncol = 6)
 
 ## Impute missing values
-imp <- mice(daten)
+imp <- mice(daten, printFlag = FALSE)
 fc.res <- fciMI(data = imp, label = colnames(imp$data), alpha = 0.01)
 
 if(require("Rgraphviz", character.only = TRUE, quietly = TRUE)){
 plot(fc.res)
 }
 
+}
+\author{
+Original code by Diego Colombo, Markus Kalisch, and  Joris Mooij.
+Modifications by Ronja Foraita.
 }

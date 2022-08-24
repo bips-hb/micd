@@ -15,7 +15,7 @@ citEntry(entry = "Article",
   volume       = "183",
   number       = "4",
   pages        = "1747--1775",
-
+  doi          = "10.1111/rssa.12565",
   textVersion  =
   paste("Ronja Foraita, Juliane Friemel, Kathrin Günther, Thomas Behrens, Jörn Bullerdiek, Rolf Nimzyk, Wolfgang Ahrens, Vanessa Didelez (2020).",
         "Causal discovery of gene regulation with incomplete data.",
@@ -30,9 +30,10 @@ citEntry(entry = "Article",
                    as.person("Vanessa Didelez")),
   journal      = "Statistics in Medicine",
   year         = "2022",
-
+   doi         = "10.1002/sim.9535",
   textVersion  =
   paste("Janine Witte, Ronja Foraita, Vanessa Didelez (2022).",
         "Multiple imputation and test-wise deletion for causal discovery from incomplete cohort data.",
-        "Statistics in Medicine, https://doi.org/10.1002/sim.9535")
+        "Statistics in Medicine", 
+        "https://doi.org/10.1002/sim.9535")
 )

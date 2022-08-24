@@ -1,5 +1,5 @@
-#' Estimate (Initial) Skeleton of a DAG using the PC Algorithm for multiple
-#' imputed data sets of continuous data
+#' Estimate (Initial) Skeleton of a DAG using the PC Algorithm for Multiple
+#' Imputed Data Sets of Continuous Data
 #'
 #' This function is a modification of [pcalg::skeleton()]
 #' to be used for multiple imputation.

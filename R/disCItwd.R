@@ -6,11 +6,11 @@
 #' Observations where at least one of the variables involved in the test is
 #' missing are deleted prior to performing the test (test-wise deletion).
 #'
-#' @param x,y,S  (integer) position of variable X, Y and set of variables S,
+#' @param x,y,S  (Integer) position of variable X, Y and set of variables S,
 #'               respectively, in \code{suffStat}. It is tested whether X and Y
 #'               are conditionally independent given the subset S of the remaining variables.
 #'
-#' @param suffStat   a list with three elements, \code{"dm"}, \code{"nlev"},
+#' @param suffStat   A list with three elements, \code{"dm"}, \code{"nlev"},
 #'                   \code{"adaptDF"}; each corresponding to the above arguments.
 #'                   Can be obtained from a data.frame  of factor variables using
 #'                   the \code{suffStat} function (see example section)

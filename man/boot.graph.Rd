@@ -20,7 +20,7 @@ boot.graph(
 \arguments{
 \item{data}{Data frame with missing values}
 
-\item{select}{variable of integers, indicating columns to select from a data frame;
+\item{select}{Variable of integers, indicating columns to select from a data frame;
 only continous variables can be included in the model selection}
 
 \item{method}{Character string specifying the algorithm for causal discovery
@@ -33,7 +33,7 @@ internally and should not be used!}
 
 \item{m}{Number of chains included in mice()`.}
 
-\item{args.residuals}{(optional) list containing vertices and confounders.
+\item{args.residuals}{(Optional) list containing vertices and confounders.
 May be specified when residuals for vertices should be calculated in each bootstrap
 data set. See \code{\link[=makeResiduals]{makeResiduals()}} for more information}
 
@@ -58,9 +58,8 @@ for(i in 2:ncol(windspeed)) daten <- c(daten, windspeed[,i])
 daten[sample(1:length(daten), 260)] <- NA
 daten <- matrix(daten, ncol = 6)
 
-boot.graph <- boot.graph(
-            data = daten,
-            method = "pcMI",
-            args = "solve.confl = TRUE, alpha = 0.05",
-            R = 10)
+bgraph <- boot.graph(data = daten,
+                     method = "pcMI",
+                     args = "solve.confl = TRUE, alpha = 0.05",
+                     R = 3)
 }

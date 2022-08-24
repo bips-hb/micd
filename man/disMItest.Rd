@@ -8,7 +8,7 @@ Multiple Imputation}
 disMItest(x, y, S = NULL, suffStat)
 }
 \arguments{
-\item{x, y, S}{(integer) position of variable X, Y and set of variables S,
+\item{x, y, S}{(Integer) position of variable X, Y and set of variables S,
 respectively, in \code{suffStat}. It is tested whether X and Y are conditionally
 independent given the subset S of the remaining variables.}
 
@@ -48,7 +48,7 @@ dat[sample(1:1000, 40), 3] <- NA
 
 ## impute missing values under model with two-way interactions
 form <- make.formulas.saturated(dat, d = 2)
-imp <- mice::mice(dat, formulas = form)
+imp <- mice::mice(dat, formulas = form, printFlag = FALSE)
 imp <- mice::complete(imp, action = "all")
 
 ## analyse imputed data

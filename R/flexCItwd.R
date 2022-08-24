@@ -7,7 +7,7 @@
 #' variables are continuous, discrete or mixed, and automatically switches between \code{\link{gaussCItwd}} (continuous only),
 #' \code{link{disCItwd}} (discrete only) and \code{\link{mixCItwd}} (mixed).
 #'
-#' @param x,y,S (integer) position of variable X, Y and set of variables S, 
+#' @param x,y,S (Integer) position of variable X, Y and set of variables S, 
 #' respectively, in each correlation matrix in \code{suffStat}. It is tested 
 #' whether X and Y are conditionally independent given the subset S of the 
 #' remaining variables.

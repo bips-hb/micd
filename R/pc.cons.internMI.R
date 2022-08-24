@@ -1,5 +1,5 @@
-#' Utility for conservative and majority rule in PC-MI and FCI-MI
-#' applied for multiple imputed data sets of continuous data
+#' Utility for Conservative and Majority Rule in PC-MI and FCI-MI
+#' Applied for Multiple Imputed Data Sets
 #'
 #' This function is a modification of \code{pcalg::\link[pcalg]{pc}}
 #' to be used for multiple imputation.
@@ -71,7 +71,7 @@ pc.cons.internMI <- function (sk, data, alpha, version.unf = c(NA, NA),
                     "\n")
                 }
 
-                r.abc <- micd:::checkTripleMI(a, b, c, nbrsA, nbrsC, data = data,
+                r.abc <- checkTripleMI(a, b, c, nbrsA, nbrsC, data = data,
                                        sepsetA = sk@sepset[[a]][[c]],
                                        sepsetC = sk@sepset[[c]][[a]],
                                        alpha = alpha,

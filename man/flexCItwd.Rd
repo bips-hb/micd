@@ -7,7 +7,7 @@
 flexCItwd(x, y, S = NULL, data)
 }
 \arguments{
-\item{x, y, S}{(integer) position of variable X, Y and set of variables S,
+\item{x, y, S}{(Integer) position of variable X, Y and set of variables S,
 respectively, in each correlation matrix in \code{suffStat}. It is tested
 whether X and Y are conditionally independent given the subset S of the
 remaining variables.}

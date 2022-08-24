@@ -63,8 +63,6 @@
 #' @export
 
 
-
-
 mixMItest <- function(x, y, S = NULL, suffStat, moreOutput = FALSE) {
   # suffStat is a list of completed data sets
   

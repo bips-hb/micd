@@ -2,8 +2,8 @@
 % Please edit documentation in R/skeletonMI.R
 \name{skeletonMI}
 \alias{skeletonMI}
-\title{Estimate (Initial) Skeleton of a DAG using the PC Algorithm for multiple
-imputed data sets of continuous data}
+\title{Estimate (Initial) Skeleton of a DAG using the PC Algorithm for Multiple
+Imputed Data Sets of Continuous Data}
 \usage{
 skeletonMI(
   data,
@@ -72,4 +72,8 @@ V <- colnames(gmG8$x) # labels aka node names
 ## estimate Skeleton
 data_mids <- mice(gmG8$x)
 (skel.fit <- skeletonMI(data = data_mids, alpha = 0.01, labels = V, verbose = FALSE))
+}
+\author{
+Original code by Markus Kalisch, Martin Maechler, Alain Hauser, and Diego Colombo.
+Modifications by Ronja Foraita.
 }

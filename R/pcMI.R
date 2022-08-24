@@ -1,5 +1,5 @@
-#' Estimate the Equivalence Class of a DAG using the PC-MI algorithm for multiple
-#' imputed data sets of continuous data
+#' Estimate the Equivalence Class of a DAG Using the PC-MI Algorithm for Multiple
+#' Imputed Data Sets
 #'
 #' @description This function is a modification of [pcalg::pc()]
 #' to be used for multiple imputation.
@@ -55,11 +55,8 @@
 #'
 #' @examples
 #' 
-#' daten <- windspeed[,1]
-#' for(i in 2:ncol(windspeed)) daten <- c(daten, windspeed[,i])
-#' daten[sample(1:length(daten), 260)] <- NA
-#' daten <- matrix(daten, ncol = 6)
-#'
+#' daten <- mice::ampute(windspeed)$amp
+#' 
 #' ## Impute missing values
 #' imp <- mice(daten)
 #' pcMI(data = imp, label = colnames(imp$data), alpha = 0.01)
@@ -113,7 +110,7 @@ pcMI <- function (data, alpha, labels, p, fixedGaps = NULL,
                 solve.confl = solve.confl))
     }
     else {
-        pc. <- micd:::pc.cons.internMI(skel, data, alpha, version.unf = c(2, 1),
+        pc. <- pc.cons.internMI(skel, data, alpha, version.unf = c(2, 1),
                               maj.rule = maj.rule, verbose = verbose)
         pcalg::udag2pdagRelaxed(pc.$sk, verbose = verbose, unfVect = pc.$unfTripl,
             solve.confl = solve.confl)

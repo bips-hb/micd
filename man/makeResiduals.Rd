@@ -7,14 +7,14 @@
 makeResiduals(data, v, confounder, method = c("res", "cc", "pd"))
 }
 \arguments{
-\item{data}{a data frame}
+\item{data}{A data.frame.}
 
-\item{v}{vector of integers referring to the location of the variable(s) in the data set}
+\item{v}{Vector of integers referring to the location of the variable(s) in the data set}
 
-\item{confounder}{vector of integers referring to the location of the variable(s)
+\item{confounder}{Vector of integers referring to the location of the variable(s)
 in the data set (confounders are not included in the network!)}
 
-\item{method}{default method 'res' uses residuals, 'cc' uses complete cases
+\item{method}{Default method 'res' uses residuals, 'cc' uses complete cases
 and 'pd' uses pairwise deletion}
 }
 \value{

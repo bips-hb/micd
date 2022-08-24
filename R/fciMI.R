@@ -1,5 +1,4 @@
-#' Estimate a PAG by the FCI-MI Algorithm for multiple
-#' imputed data sets of continuous data
+#' Estimate a PAG by the FCI-MI Algorithm for Multiple Imputed Data Sets of Continuous Data
 #'
 #' This function is a modification of [pcalg::fci()]
 #' to be used for multiple imputation.
@@ -46,7 +45,7 @@
 #' daten <- matrix(daten, ncol = 6)
 #'
 #' ## Impute missing values
-#' imp <- mice(daten)
+#' imp <- mice(daten, printFlag = FALSE)
 #' fc.res <- fciMI(data = imp, label = colnames(imp$data), alpha = 0.01)
 #' 
 #' if(require("Rgraphviz", character.only = TRUE, quietly = TRUE)){
@@ -103,10 +102,10 @@ fciMI <- function (data, alpha, labels, p, skel.method = c("stable",
         if (verbose)
             cat("\nCompute PDSEP\n=============\n")
 
-        pc.ci <- micd:::pc.cons.internMI(skel, data, alpha = alpha,
+        pc.ci <- pc.cons.internMI(skel, data, alpha = alpha,
             version.unf = c(1, 1), maj.rule = FALSE, verbose = verbose)
 
-        pdsepRes <- micd:::pdsepMI(skel@graph, data, p = p,
+        pdsepRes <- pdsepMI(skel@graph, data, p = p,
                       sepset = pc.ci$sk@sepset, alpha = alpha, pMax = pMax,
                       m.max = if (type == "adaptive")
                 max.ordSKEL
@@ -126,7 +125,7 @@ fciMI <- function (data, alpha, labels, p, skel.method = c("stable",
                 n.edgetests = n.edgetestsSKEL, sepset = sepset,
                 pMax = pMax, zMin = matrix(NA, 1, 1))
 
-            sk. <- micd:::pc.cons.internMI(tmp.pdsep, data, alpha, verbose = verbose,
+            sk. <- pc.cons.internMI(tmp.pdsep, data, alpha, verbose = verbose,
                     version.unf = c(1, 1), maj.rule = maj.rule)
             tripleList <- sk.$unfTripl
             sepset <- sk.$sk@sepset
@@ -140,7 +139,7 @@ fciMI <- function (data, alpha, labels, p, skel.method = c("stable",
             if (verbose)
                 cat("\nCheck v-structures conservatively\n=================================\n")
 
-            nopdsep <- micd:::pc.cons.internMI(skel, data, alpha, verbose = verbose,
+            nopdsep <- pc.cons.internMI(skel, data, alpha, verbose = verbose,
                          version.unf = c(2,1), maj.rule = maj.rule)
             tripleList <- nopdsep$unfTripl
             sepset <- nopdsep$sk@sepset

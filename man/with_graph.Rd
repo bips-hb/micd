@@ -2,7 +2,7 @@
 % Please edit documentation in R/with_graph.R
 \name{with_graph}
 \alias{with_graph}
-\title{Evaluate causal graph discovery algorithm in multiple imputed datasets}
+\title{Evaluate Causal Graph Discovery Algorithm in Multiple Imputed Data sets}
 \usage{
 with_graph(data, algo = c("pc", "fci", "fciPlus", "ges"), args, score = FALSE)
 }
@@ -23,9 +23,10 @@ algorithm is applied.}
 A list object of S3 class \code{mice::\link[mice]{mira-class}}.
 }
 \description{
-Evaluate causal graph discovery algorithm in multiple imputed datasets
+Evaluate Causal Graph Discovery Algorithm in Multiple Imputed Data sets
 }
 \examples{
+data(windspeed)
 dat <- as.matrix(windspeed)
 
 ## delete some observations
@@ -33,23 +34,18 @@ set.seed(123)
 dat[sample(1:length(dat), 260)] <- NA
 
 ## Impute missing values under normal model
-imp <- mice(dat, method = "norm")
-
-out.pc <- with_graph(data = imp, 
-                     algo = "pc", 
-                     args = ", indepTest = gaussCItest, solve.confl = TRUE,
-                     labels = names(imp$imp), alpha = 0.05")
+imp <- mice(dat, method = "norm", printFlag = FALSE)
 
 out.fci <- with_graph(data = imp, 
                       algo = "fciPlus", 
-                      args = ", indepTest = gaussCItest,
+                      args = ", indepTest = gaussCItest, verbose = FALSE,
                       labels = names(imp$imp), alpha = 0.01")
                           
  out.ges <- with_graph(data = imp, algo = "ges", arg = NULL, score = TRUE)
  
+ 
 if(require("Rgraphviz", character.only = TRUE, quietly = TRUE)){
- par(mfrow = c(1,3))
- plot(out.pc$res[[1]])
+ par(mfrow = c(1,2))
  plot(out.fci$res[[1]])
  plot(out.ges$res[[1]]$essgraph)
  par(mfrow = c(1,1))

@@ -1,5 +1,4 @@
-#' Estimate final skeleton in the FCI-MI algorithm for multiple imputed
-#' data sets of continuous data
+#' Estimate Final Skeleton in the FCI-MI algorithm for Multiple Imputed Data Sets 
 #'
 #' This function is a modification of [pcalg::pdsep()]
 #' to be used for multiple imputation.

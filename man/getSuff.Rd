@@ -13,8 +13,8 @@ getSuff(
 )
 }
 \arguments{
-\item{X}{for \strong{test="xxxCItest"}: a \strong{data.frame} or \strong{matrix};
-for \strong{test="xxxMItest"}: an object of class \code{mice::\link[mice:mids-class]{mids}},
+\item{X}{For 'test=xxxCItest': a data.frame or matrix;
+for 'test=xxxMItest': an object of class \code{mice::\link[mice:mids-class]{mids}},
 or a list of data.frames containing the multiply imputed data sets.}
 
 \item{test}{one of \code{\link[=gaussCItest]{gaussCItest()}}, \code{\link[=gaussMItest]{gaussMItest()}}, \code{\link[=disCItest]{disCItest()}},
@@ -34,7 +34,7 @@ An R object that can be used as input to the specified conditional independence 
 \description{
 A convenience function for transforming a multiply imputed data set into the 'suffStat' required
 by \code{\link[pcalg:condIndFisherZ]{pcalg::gaussCItest()}}, \code{\link[pcalg:disCItest]{pcalg::disCItest()}}, \code{\link[=mixCItest]{mixCItest()}}, \code{\link[=flexCItest]{flexCItest()}}, \code{\link[=gaussMItest]{gaussMItest()}},
-\code{\link[=disMItest]{disMItest()}}, \code{\link[=mixMItest]{mixMItest()}} or \code{\link[=flexMItest]{flexMItest()}}.
+\code{\link[=disMItest]{disMItest()}}, \code{\link[=mixMItest]{mixMItest()}} and \code{\link[=flexMItest]{flexMItest()}}.
 }
 \examples{
 
@@ -97,7 +97,7 @@ dat4[sample(400, 20), 2] <- NA
 dat4[sample(400, 30), 4] <- NA
 
 ## impute missing values using random forests
-imp4 <- mice(dat4, method="rf")
+imp4 <- mice(dat4, method="rf", printFlag = FALSE)
 mixMItest(2, 3, 5, suffStat = getSuff(imp4, test="mixMItest"))
 mixMItest(2, 3, 5, suffStat = mice::complete(imp4, action="all"))
 flexMItest(2, 3, 5, suffStat = getSuff(imp4, test="flexMItest"))

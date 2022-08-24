@@ -3,15 +3,15 @@
 \name{gaussMItest}
 \alias{gaussMItest}
 \alias{gaussCItestMI}
-\title{Test Conditional Independence of Gaussians via Fisher's Z using
-multiple imputations}
+\title{Test Conditional Independence of Gaussians via Fisher's Z Using
+Multiple Imputations}
 \usage{
 gaussMItest(x, y, S, suffStat)
 
 gaussCItestMI(x, y, S = NULL, data)
 }
 \arguments{
-\item{x, y, S}{(integer) position of variable X, Y and set of variables S,
+\item{x, y, S}{(Integer) position of variable X, Y and set of variables S,
 respectively, in the adjacency matrix.
 It is tested, whether X and Y are conditionally independent
 given the subset S of the remaining nodes.}
@@ -46,7 +46,7 @@ set.seed(123)
 dat[sample(1:length(dat), 260)] <- NA
 
 ## Impute missing values under normal model
-imp <- mice(dat, method = "norm")
+imp <- mice(dat, method = "norm", printFlag = FALSE)
 
 ## analyse data
 # complete data:

@@ -2,8 +2,8 @@
 % Please edit documentation in R/pcMI.R
 \name{pcMI}
 \alias{pcMI}
-\title{Estimate the Equivalence Class of a DAG using the PC-MI algorithm for multiple
-imputed data sets of continuous data}
+\title{Estimate the Equivalence Class of a DAG Using the PC-MI Algorithm for Multiple
+Imputed Data Sets}
 \usage{
 pcMI(
   data,
@@ -89,14 +89,15 @@ http://www.jstatsoft.org/v47/i11/).
 }
 \examples{
 
-daten <- windspeed[,1]
-for(i in 2:ncol(windspeed)) daten <- c(daten, windspeed[,i])
-daten[sample(1:length(daten), 260)] <- NA
-daten <- matrix(daten, ncol = 6)
+daten <- mice::ampute(windspeed)$amp
 
 ## Impute missing values
 imp <- mice(daten)
 pcMI(data = imp, label = colnames(imp$data), alpha = 0.01)
 
 
+}
+\author{
+Original code by Markus Kalisch, Martin Maechler, and Diego Colombo.
+Modifications by Ronja Foraita.
 }

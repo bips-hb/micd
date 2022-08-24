@@ -2,10 +2,10 @@
 #'
 #' A convenience function for transforming a multiply imputed data set into the 'suffStat' required
 #' by [pcalg::gaussCItest()], [pcalg::disCItest()], [mixCItest()], [flexCItest()], [gaussMItest()], 
-#' [disMItest()], [mixMItest()] or [flexMItest()].
+#' [disMItest()], [mixMItest()] and [flexMItest()].
 #'
-#' @param X  for __test="xxxCItest"__: a __data.frame__ or __matrix__;
-#' for __test="xxxMItest"__: an object of class \code{mice::\link[mice:mids-class]{mids}},
+#' @param X  For 'test=xxxCItest': a data.frame or matrix;
+#' for 'test=xxxMItest': an object of class \code{mice::\link[mice:mids-class]{mids}},
 #' or a list of data.frames containing the multiply imputed data sets.
 #' @param test one of [gaussCItest()], [gaussMItest()], [disCItest()],
 #' [disMItest()], [mixCItest()], [mixMItest()], [flexCItest()],
@@ -83,7 +83,7 @@
 #' dat4[sample(400, 30), 4] <- NA
 #'
 #' ## impute missing values using random forests
-#' imp4 <- mice(dat4, method="rf")
+#' imp4 <- mice(dat4, method="rf", printFlag = FALSE)
 #' mixMItest(2, 3, 5, suffStat = getSuff(imp4, test="mixMItest"))
 #' mixMItest(2, 3, 5, suffStat = mice::complete(imp4, action="all"))
 #' flexMItest(2, 3, 5, suffStat = getSuff(imp4, test="flexMItest"))

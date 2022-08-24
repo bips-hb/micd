@@ -1,12 +1,12 @@
-#' Test Conditional Independence of Gaussians via Fisher's Z using
-#' multiple imputations
+#' Test Conditional Independence of Gaussians via Fisher's Z Using
+#' Multiple Imputations
 #'
 #' A modified version of \code{pcalg::\link[pcalg:condIndFisherZ]{gaussCItest}}, 
 #' to be used within
 #' \code{pcalg::\link[pcalg]{skeleton}}, \code{pcalg::\link[pcalg]{pc}} or
 #' \code{pcalg::\link[pcalg]{fci}} when multiply imputated data sets are available.
 #'
-#' @param x,y,S (integer) position of variable X, Y and set of variables S,
+#' @param x,y,S (Integer) position of variable X, Y and set of variables S,
 #'              respectively, in the adjacency matrix.
 #'              It is tested, whether X and Y are conditionally independent
 #'              given the subset S of the remaining nodes.
@@ -34,7 +34,7 @@
 #' dat[sample(1:length(dat), 260)] <- NA
 #' 
 #' ## Impute missing values under normal model
-#' imp <- mice(dat, method = "norm")
+#' imp <- mice(dat, method = "norm", printFlag = FALSE)
 #' 
 #' ## analyse data
 #' # complete data:

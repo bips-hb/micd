@@ -9,11 +9,10 @@
 #' are multivariate Gaussian. Each multivariate Gaussian distribution is
 #' allowed to have its own mean vector and covariance matrix.
 #'
-#' @param x,y,S    (integer) position of variable X, Y and set of variables S, 
+#' @param x,y,S (Integer) position of variable X, Y and set of variables S, 
 #' respectively, in \code{suffStat}. It is tested whether X and Y are
 #' conditionally independent given the subset S of the remaining variables.
-#' @param suffStat  \code{data.frame}. Discrete variables must be coded as
-#' factors.
+#' @param suffStat  A \code{data.frame}. Discrete variables must be coded as factors.
 #' @param moreOutput If \code{TRUE}, the test statistic and the degrees of
 #' freedom are returned in addition to the p-value (only for mixed variables). 
 #' Defaults to \code{FALSE}.
@@ -45,17 +44,17 @@
 #' http://www.phil.cmu.edu/tetrad/index.html
 #'
 #' @examples 
-#' ## load data (numeric and factor variables)
-#' dat <- toenail2
+#' # load data (numeric and factor variables)
+#' dat <- toenail2[,-1]
 #' 
-#' ## analyse data
-#' mixCItest(5, 2, NULL, suffStat = dat)
-#' mixCItest(2, 3, 4, suffStat = dat)
+#' # analyse data
+#' mixCItest(4, 1, NULL, suffStat = dat)
+#' mixCItest(1, 2, 3, suffStat = dat)
 #' 
-#' ## use mixCItest within pcalg::pc
+#' ## use mixCItest within pcalg::fci
+#' fci.fit <- fci(suffStat = dat, indepTest = mixCItest, alpha = 0.01, p = 4)
 #' if(require("Rgraphviz", character.only = TRUE, quietly = TRUE)){
-#' (pc.fit <- pc(suffStat = dat, indepTest = mixCItest, alpha = 0.01, p = 5,
-#'               maj.rule = TRUE))
+#'  plot(fci.fit)
 #' }
 #' @export
 
