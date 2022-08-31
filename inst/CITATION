@@ -19,7 +19,8 @@ citEntry(entry = "Article",
   textVersion  =
   paste("Ronja Foraita, Juliane Friemel, Kathrin Günther, Thomas Behrens, Jörn Bullerdiek, Rolf Nimzyk, Wolfgang Ahrens, Vanessa Didelez (2020).",
         "Causal discovery of gene regulation with incomplete data.",
-        "Journal of the Royal Statistical Society: Series A (Statistics in Society), 183(4), 1747-1775.")
+        "Journal of the Royal Statistical Society: Series A (Statistics in Society), 183(4), 1747-1775,
+        https://doi.org/10.1111/rssa.12565")
 )
 
 
@@ -34,6 +35,5 @@ citEntry(entry = "Article",
   textVersion  =
   paste("Janine Witte, Ronja Foraita, Vanessa Didelez (2022).",
         "Multiple imputation and test-wise deletion for causal discovery from incomplete cohort data.",
-        "Statistics in Medicine", 
-        "https://doi.org/10.1002/sim.9535")
+        "Statistics in Medicine, https://doi.org/10.1002/sim.9535")
 )

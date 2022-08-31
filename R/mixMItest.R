@@ -32,8 +32,9 @@
 #' with multiply imputed data sets. \emph{Biometrika} 79(1):103-111.
 #'
 #' @examples
-#'
+#' 
 #' ## load data (numeric and factor variables)
+#' data(toenail2)
 #' dat <- toenail2[1:1000, ]
 #'
 #' ## delete some observations
@@ -41,12 +42,12 @@
 #' dat[sample(1000, 20), 2] <- NA
 #' dat[sample(1000, 30), 4] <- NA
 #'
-#' ## impute missing values using random forests
-#' imp <- mice(dat, method = "rf")
+#' ## impute missing values using random forests (because of run time we just impute 2 chains)
+#' imp <- mice(dat, method = "rf", m = 2, printFlag = FALSE)
 #'
 #' ## analyse data
 #' # complete data:
-#' mixCItest(2, 3, 5, suffStat = toenail2[1:400, ])
+#' mixCItest(2, 3, 5, suffStat = toenail2[1:1000, ])
 #' # multiple imputation:
 #' suffMI <- complete(imp, action = "all")
 #' mixMItest(2, 3, 5, suffStat =  suffMI)
@@ -57,9 +58,11 @@
 #' mixCItest(2, 3, 5, suffStat = sufflwd)
 #' 
 #' ## use mixMItest within pcalg::pc
+#' \dontrun{
 #' pc.fit <- pc(suffStat =  suffMI, indepTest = mixMItest, alpha = 0.01, p = 5)
 #' pc.fit
-#'
+#' }
+#' 
 #' @export
 
 

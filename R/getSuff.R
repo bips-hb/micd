@@ -24,9 +24,8 @@
 #'
 #' @examples
 #'
-#' ## Example 1: continuous variables, no missing values =====================
-#' ## load data
-#' library(mice)
+#' # Example 1: continuous variables, no missing values =====================
+#' data(windspeed)
 #' dat1 <- as.matrix(windspeed)
 #'
 #' ## analyse data
@@ -34,15 +33,13 @@
 #' mixCItest(1, 2, NULL, suffStat = windspeed)
 #'
 #' ## Example 2: continuous variables, multiple imputation ===================
-#' ## load data
-#' dat2 <- as.matrix(windspeed)
+#' dat2 <- mice::ampute(windspeed)$amp
 #'
 #' ## delete some observations
 #' set.seed(123)
-#' dat2[sample(1:length(dat2), 260)] <- NA
 #'
 #' ## Impute missing values under normal model
-#' imp2 <- mice(dat2, method = "norm")
+#' imp2 <- mice(dat2, method = "norm", printFlag = FALSE)
 #'
 #' ## analyse imputed data
 #' gaussMItest(1, 2, c(4,5), suffStat = getSuff(imp2, test="gaussMItest"))
@@ -53,7 +50,7 @@
 #' ## Example 3: discrete variables, multiple imputation =====================
 #' ## simulate factor variables
 #' n <- 200
-#' set.seed(123)
+#' set.seed(789)
 #' x <- factor(sample(0:2, n, TRUE)) # factor, 3 levels
 #' y <- factor(sample(0:3, n, TRUE)) # factor, 4 levels
 #' z <- factor(sample(0:1, n, TRUE)) # factor, 2 levels
@@ -64,26 +61,23 @@
 #'
 #' ## impute missing values under saturated model
 #' form <- make.formulas.saturated(dat3)
-#' imp3 <- mice::mice(dat3, method = "logreg", formulas = form)
+#' imp3 <- mice::mice(dat3, method = "logreg", formulas = form, printFlag = FALSE)
 #'
 #' ## analyse imputed data
-#' disMItest(1, 3, NULL, suffStat = getSuff(imp3, test="disMItest"))
-#' disMItest(1, 3, NULL, suffStat = mice::complete(imp3, action = "all"))
-#' mixMItest(1, 3, NULL, suffStat = getSuff(imp3, test="mixMItest"))
-#' mixMItest(1, 3, NULL, suffStat = mice::complete(imp3, action = "all"))
-#' flexMItest(1, 3, NULL, suffStat = getSuff(imp3, test="flexMItest"))
+#' disMItest(1, 3, 2, suffStat = getSuff(imp3, test="disMItest"))
+#' disMItest(1, 3, 2, suffStat = mice::complete(imp3, action = "all"))
+#' mixMItest(1, 3, 2, suffStat = getSuff(imp3, test="mixMItest"))
+#' mixMItest(1, 3, 2, suffStat = mice::complete(imp3, action = "all"))
+#' flexMItest(1, 3, 2, suffStat = getSuff(imp3, test="flexMItest"))
 #'
-#' ## Example 4: mixed variables, multiple imputation =========================
-#' ## load data (numeric and factor variables)
+#' # Example 4: mixed variables, multiple imputation =========================
 #' dat4 <- toenail2[1:400, ]
-#'
-#' ## delete some observations
 #' set.seed(123)
 #' dat4[sample(400, 20), 2] <- NA
 #' dat4[sample(400, 30), 4] <- NA
 #'
 #' ## impute missing values using random forests
-#' imp4 <- mice(dat4, method="rf", printFlag = FALSE)
+#' imp4 <- mice(dat4, method="rf", m = 3, printFlag = FALSE)
 #' mixMItest(2, 3, 5, suffStat = getSuff(imp4, test="mixMItest"))
 #' mixMItest(2, 3, 5, suffStat = mice::complete(imp4, action="all"))
 #' flexMItest(2, 3, 5, suffStat = getSuff(imp4, test="flexMItest"))

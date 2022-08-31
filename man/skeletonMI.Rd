@@ -70,7 +70,7 @@ data(gmG)
 n <- nrow(gmG8$x)
 V <- colnames(gmG8$x) # labels aka node names
 ## estimate Skeleton
-data_mids <- mice(gmG8$x)
+data_mids <- mice(gmG8$x, printFlag = FALSE)
 (skel.fit <- skeletonMI(data = data_mids, alpha = 0.01, labels = V, verbose = FALSE))
 }
 \author{

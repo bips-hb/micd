@@ -8,6 +8,7 @@ boot.graph(
   data,
   select = NULL,
   method = c("pcMI", "fciMI"),
+  method.mice = NULL,
   args,
   R,
   m = 10,
@@ -18,13 +19,16 @@ boot.graph(
 )
 }
 \arguments{
-\item{data}{Data frame with missing values}
+\item{data}{Data.frame with missing values}
 
 \item{select}{Variable of integers, indicating columns to select from a data frame;
-only continous variables can be included in the model selection}
+only continuous variables can be included in the model selection}
 
 \item{method}{Character string specifying the algorithm for causal discovery
 from the package 'pcalg'.}
+
+\item{method.mice}{Character string specifying imputation method; see \code{\link[mice:mice]{mice::mice()}} for
+more information.}
 
 \item{args}{Arguments passed to \code{method}. NOTE: argument \code{labels} is set
 internally and should not be used!}
@@ -53,13 +57,12 @@ missing values.
 }
 \examples{
 data(windspeed)
-daten <- windspeed[,1]
-for(i in 2:ncol(windspeed)) daten <- c(daten, windspeed[,i])
-daten[sample(1:length(daten), 260)] <- NA
-daten <- matrix(daten, ncol = 6)
+daten <- mice::ampute(windspeed)$amp
 
+\dontrun{
 bgraph <- boot.graph(data = daten,
                      method = "pcMI",
                      args = "solve.confl = TRUE, alpha = 0.05",
-                     R = 3)
+                     R = 5)
+}
 }

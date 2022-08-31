@@ -48,7 +48,7 @@ for (i in 1:imp$m){
 pc.res <- pcMI(data = residuals, p = length(knoten), alpha = 0.05)
 fci.res <- fciMI(data = imp, p = length(knoten), alpha = 0.05)
 
-if(require("Rgraphviz", character.only = TRUE, quietly = TRUE)){
+if (requireNamespace("Rgraphviz", quietly = TRUE)){
 par(mfrow = c(1,2))
   plot(pc.res)
   plot(fci.res)

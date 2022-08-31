@@ -86,9 +86,9 @@ daten <- matrix(daten, ncol = 6)
 imp <- mice(daten, printFlag = FALSE)
 fc.res <- fciMI(data = imp, label = colnames(imp$data), alpha = 0.01)
 
-if(require("Rgraphviz", character.only = TRUE, quietly = TRUE)){
+if (requireNamespace("Rgraphviz", quietly = TRUE))
 plot(fc.res)
-}
+
 
 }
 \author{

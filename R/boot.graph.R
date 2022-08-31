@@ -4,11 +4,13 @@
 #' missing values.
 #'
 #'
-#' @param data   Data frame with missing values
+#' @param data   Data.frame with missing values
 #' @param select Variable of integers, indicating columns to select from a data frame;
-#'               only continous variables can be included in the model selection
+#'               only continuous variables can be included in the model selection
 #' @param method Character string specifying the algorithm for causal discovery
 #'               from the package 'pcalg'.
+#' @param method.mice Character string specifying imputation method; see [mice::mice()] for 
+#'               more information.              
 #' @param args   Arguments passed to `method`. NOTE: argument `labels` is set
 #'               internally and should not be used!
 #' @param R      A positive integer number of bootstrap replications.
@@ -26,23 +28,26 @@
 #' @export
 #' @examples
 #' data(windspeed)
-#' daten <- windspeed[,1]
-#' for(i in 2:ncol(windspeed)) daten <- c(daten, windspeed[,i])
-#' daten[sample(1:length(daten), 260)] <- NA
-#' daten <- matrix(daten, ncol = 6)
+#' daten <- mice::ampute(windspeed)$amp
 #'
+#' \dontrun{
 #' bgraph <- boot.graph(data = daten,
 #'                      method = "pcMI",
 #'                      args = "solve.confl = TRUE, alpha = 0.05",
-#'                      R = 3)
-
+#'                      R = 5)
+#' }
 
 boot.graph <- function(data, select = NULL, method = c("pcMI", "fciMI"),
+                       method.mice = NULL,
                        args, R, m = 10, args.residuals = NULL,
                        seed = NA, quickpred = FALSE, ...)
 {
-    if (!is.na(seed))
-        set.seed(seed)
+  
+    if(!is.data.frame(data)) stop("Data must be a data.frame object.")
+    if (!is.na(seed)) set.seed(seed)
+    if(R < 1) stop("R must be larger than 0.")
+    call <- match.call()
+  
     n <- nrow(data)
     samples <- vector(mode = "list", length = R)
     graphs <- vector(mode = "list", length = R)
@@ -51,11 +56,12 @@ boot.graph <- function(data, select = NULL, method = c("pcMI", "fciMI"),
     for (g in 1:R) {
       cat(g, "of", R, "replications. \n")      
         if (!quickpred) {
-            data.imp <- mice::mice(data[samples[[g]], ], m = m, printFlag = FALSE)
+            data.imp <- mice::mice(data[samples[[g]], ], method = method.mice, 
+                                   m = m, printFlag = FALSE)
         }
         else {
             predictors <- mice::quickpred(data)
-            data.imp <- mice::mice(data[samples[[g]], ], m = m,
+            data.imp <- mice::mice(data[samples[[g]], ], m = m, method = method.mice,
                                    pred = predictors, printFlag = FALSE)
         }
         if (!is.null(select)) {
@@ -63,8 +69,9 @@ boot.graph <- function(data, select = NULL, method = c("pcMI", "fciMI"),
         }
         if (!is.null(args.residuals) == TRUE) {
             data.compl <- mice::complete(data.imp, "all", include = TRUE)
-            data.res <- list(data = list(), original = data.compl[[1]],
-                m = m)
+            data.res <- list(data = list(), 
+                             original = data.compl[[1]],
+                             m = m)
             for (ketten in 1:m) {
                 data.res$data[[ketten]] <- makeResiduals(data.compl[[ketten +
                   1]], v = args.residuals$v, confounder = args.residuals$conf)
@@ -74,9 +81,8 @@ boot.graph <- function(data, select = NULL, method = c("pcMI", "fciMI"),
                 sep = "")))
         }
         else {
-            GE.imp <- getsubsetcol(data.imp, var = c(1:5))
-            graphs[[g]] <- eval(parse(text = paste(method, "(data = GE.imp,",
-                args, ",\n                       labels = names(GE.imp$imp))",
+            graphs[[g]] <- eval(parse(text = paste(method, "(data = data.imp,",
+                args, ",\n                       labels = names(data.imp$imp))",
                 sep = "")))
         }
     }

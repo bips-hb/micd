@@ -53,9 +53,9 @@
 #' 
 #' ## use mixCItest within pcalg::fci
 #' fci.fit <- fci(suffStat = dat, indepTest = mixCItest, alpha = 0.01, p = 4)
-#' if(require("Rgraphviz", character.only = TRUE, quietly = TRUE)){
+#' if (requireNamespace("Rgraphviz", quietly = TRUE))
 #'  plot(fci.fit)
-#' }
+#' 
 #' @export
 
 

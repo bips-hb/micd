@@ -55,9 +55,8 @@ disCItest(1, 3, NULL, suffStat = suffStat2)
 pc.fit <- pc(suffStat = sufftwd, indepTest = disCItwd, alpha = 0.1, p = 5)
 pc.fit
 
-if(require("Rgraphviz", character.only = TRUE, quietly = TRUE)){
+if (requireNamespace("Rgraphviz", quietly = TRUE))
 plot(pc.fit)
-}
 
 }
 \seealso{
