@@ -44,10 +44,10 @@ out.fci <- with_graph(data = imp,
  out.ges <- with_graph(data = imp, algo = "ges", arg = NULL, score = TRUE)
  
 if (requireNamespace("Rgraphviz", quietly = TRUE)){
- par(mfrow = c(1,2))
- plot(out.fci$res[[1]])
- plot(out.ges$res[[1]]$essgraph)
- par(mfrow = c(1,1))
+ oldpar <- par(mfrow = c(1,2)) 
+   plot(out.fci$res[[1]])
+   plot(out.ges$res[[1]]$essgraph)
+ par(oldpar)
  }
                                      
 }

@@ -13,6 +13,8 @@ Maintainer: Ronja Foraita <foraita@leibniz-bips.de>
 Description: Modified functions of the package 'pcalg' and some additional functions
             to run the PC and the FCI (Fast Causal Inference) algorithm for constraint-based 
             causal discovery in incomplete and multiply imputed datasets.
+            Foraita R, Friemel J, Günther K, Behrens T, Bullerdiek J, Nimzyk R, Ahrens W, Didelez V (2020) <doi:10.1111/rssa.12565>;
+            Andrews RM, Foraita R, Didelez V, Witte J (2021) <arXiv:2108.13395>; Witte J, Foraita R, Didelez V (2022) <doi:10.1002/sim.9535>.
 Depends: R (>= 3.0.2), pcalg, mice
 Imports: RBGL, Rfast, methods, stats, utils
 Suggests: nnet, ranger, Rgraphviz, testthat (>= 3.0.0)

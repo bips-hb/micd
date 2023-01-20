@@ -39,10 +39,10 @@
 #' fci.res <- fciMI(data = imp, p = length(knoten), alpha = 0.05)
 #'
 #' if (requireNamespace("Rgraphviz", quietly = TRUE)){
-#' par(mfrow = c(1,2))
+#' oldpar <- par(mfrow = c(1,2)) 
 #'   plot(pc.res)
 #'   plot(fci.res)
-#' par(mfrow = c(1,1))
+#' par(oldpar)
 #' }
 #'
 makeResiduals <- function (data, v, confounder, method = c("res","cc", "pd"))

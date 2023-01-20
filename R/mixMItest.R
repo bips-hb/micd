@@ -58,7 +58,7 @@
 #' mixCItest(2, 3, 5, suffStat = sufflwd)
 #' 
 #' ## use mixMItest within pcalg::pc
-#' \dontrun{
+#' \donttest{
 #' pc.fit <- pc(suffStat =  suffMI, indepTest = mixMItest, alpha = 0.01, p = 5)
 #' pc.fit
 #' }

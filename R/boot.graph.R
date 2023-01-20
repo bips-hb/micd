@@ -30,7 +30,7 @@
 #' data(windspeed)
 #' daten <- mice::ampute(windspeed)$amp
 #'
-#' \dontrun{
+#' \donttest{
 #' bgraph <- boot.graph(data = daten,
 #'                      method = "pcMI",
 #'                      args = "solve.confl = TRUE, alpha = 0.05",

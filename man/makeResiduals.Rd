@@ -49,10 +49,10 @@ pc.res <- pcMI(data = residuals, p = length(knoten), alpha = 0.05)
 fci.res <- fciMI(data = imp, p = length(knoten), alpha = 0.05)
 
 if (requireNamespace("Rgraphviz", quietly = TRUE)){
-par(mfrow = c(1,2))
+oldpar <- par(mfrow = c(1,2)) 
   plot(pc.res)
   plot(fci.res)
-par(mfrow = c(1,1))
+par(oldpar)
 }
 
 }

@@ -24,6 +24,27 @@ citEntry(entry = "Article",
 )
 
 
+citEntry(entry  = "Article",
+  title         = "A practical guide to causal discovery with cohort data",
+  author        = personList(as.person("Ryan M. Andrews"),
+                   as.person("Ronja Foraita"),
+                   as.person("Vanessa Didelez"),
+                   as.person("Janine Witte")),
+  year          = "2022",                   
+  journal       = "pre-print",
+  archivePrefix = "arXiv",
+  primaryClass  = "stat.AP",
+  arxivId       = "2108.13395",
+  eprint        = "2108.13395",
+  url           = "https://arxiv.org/abs/2108.13395",
+  textVersion   =
+  paste("Ryan M. Andrews, Ronja Foraita, Vanessa Didelez, Janine Witte (2021).",
+        "A practical guide to causal discovery with cohort data.",
+        "arXiv. Retrieved from https://arxiv.org/abs/2108.13395.")
+)
+
+
+
 citEntry(entry = "Article",
   title        = "Multiple imputation and test-wise deletion for causal discovery from incomplete cohort data",
   author       = personList(as.person("Janine Witte"),
