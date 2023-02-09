@@ -2,7 +2,7 @@
 % Please edit documentation in R/flexCItest.R
 \name{flexCItest}
 \alias{flexCItest}
-\title{Wrapper for gaussMItest, disMItest and mixMItest}
+\title{Wrapper for gaussCItest, disCItest and mixCItest}
 \usage{
 flexCItest(x, y, S = NULL, suffStat)
 }
@@ -18,9 +18,9 @@ A p-value.
 }
 \description{
 A plug-in conditional independence test for \code{\link[pcalg:skeleton]{pcalg::skeleton()}}, \code{\link[pcalg:pc]{pcalg::pc()}} or
-\code{\link[pcalg:fci]{pcalg::fci()}} when multiply imputed data sets are available. \code{\link[=flexMItest]{flexMItest()}} detects whether
-variables are continuous, discrete or mixed, and automatically switches between \code{\link[=gaussMItest]{gaussMItest()}} (continuous only),
-\code{\link[=disMItest]{disMItest()}} (discrete only) and \code{\link[=mixMItest]{mixMItest()}} (mixed variables).
+\code{\link[pcalg:fci]{pcalg::fci()}} when multiply imputed data sets are available. \code{\link[=flexCItest]{flexCItest()}} detects whether
+variables are continuous, discrete or mixed, and automatically switches between \code{\link[=gaussCItest]{gaussCItest()}} (continuous only),
+\code{\link[=disCItest]{disCItest()}} (discrete only) and \code{\link[=mixCItest]{mixCItest()}} (mixed variables).
 }
 \details{
 \code{suffStat} needs to be a list with four elements named \code{datlist}, \code{corlist},
@@ -35,12 +35,12 @@ the (M+1)-the element is the number of rows in each imputed dataset.
 # load data (numeric and factor variables)
 dat <- toenail2[1:400, ]
 
-# obtain correct input 'suffStat' for 'flexMItest'
+# obtain correct input 'suffStat' for 'flexCItest'
 suff <- getSuff(dat, test="flexCItest")
 
 flexCItest(2,3,NULL, suffStat = suff)
 
 }
 \seealso{
-\code{\link[=gaussMItest]{gaussMItest()}}, \code{\link[=disMItest]{disMItest()}} and \code{\link[=mixMItest]{mixMItest()}}.
+\code{\link[=gaussCItest]{gaussCItest()}}, \code{\link[=disCItest]{disCItest()}} and \code{\link[=mixCItest]{mixCItest()}}.
 }

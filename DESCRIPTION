@@ -1,13 +1,13 @@
 Package: micd
 Type: Package
 Title: Multiple Imputation in Causal Graph Discovery
-Version: 1.1.0
-Date: 2022-08-23
+Version: 1.1.1
+Date: 2023-02-09
 Authors@R: c(
-      person(given = "Ronja", family = "Foraita", middle = NULL,
+      person(given = "Ronja", family = "Foraita", 
              email = "foraita@leibniz-bips.de", role = c("aut", "cph", "cre"),
              comment = c(ORCID = "0000-0003-2216-6653")),
-      person(given = "Janine", family = "Witte", middle = NULL,
+      person(given = "Janine", family = "Witte",
              email = "witte@leibniz-bips.de", role = "aut"))
 Maintainer: Ronja Foraita <foraita@leibniz-bips.de>
 Description: Modified functions of the package 'pcalg' and some additional functions
@@ -21,7 +21,7 @@ Suggests: nnet, ranger, Rgraphviz, testthat (>= 3.0.0)
 License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.3
 URL: https://github.com/bips-hb/micd
 BugReports: https://github.com/bips-hb/micd/issues
 Config/testthat/edition: 3

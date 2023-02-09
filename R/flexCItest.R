@@ -1,9 +1,9 @@
-#' Wrapper for gaussMItest, disMItest and mixMItest
+#' Wrapper for gaussCItest, disCItest and mixCItest
 #'
 #' A plug-in conditional independence test for [pcalg::skeleton()], [pcalg::pc()] or
-#' [pcalg::fci()] when multiply imputed data sets are available. [flexMItest()] detects whether
-#' variables are continuous, discrete or mixed, and automatically switches between [gaussMItest()] (continuous only),
-#' [disMItest()] (discrete only) and [mixMItest()] (mixed variables).
+#' [pcalg::fci()] when multiply imputed data sets are available. [flexCItest()] detects whether
+#' variables are continuous, discrete or mixed, and automatically switches between [gaussCItest()] (continuous only),
+#' [disCItest()] (discrete only) and [mixCItest()] (mixed variables).
 #'
 #' @param x,y,S (integer) position of variable X, Y and set of variables S,
 #' respectively, in the dataset. It is tested whether X and Y are conditionally
@@ -21,13 +21,13 @@
 #'
 #' @return A p-value.
 #'
-#' @seealso [gaussMItest()], [disMItest()] and [mixMItest()].
+#' @seealso [gaussCItest()], [disCItest()] and [mixCItest()].
 #'
 #' @examples
 #' # load data (numeric and factor variables)
 #' dat <- toenail2[1:400, ]
 #'
-#' # obtain correct input 'suffStat' for 'flexMItest'
+#' # obtain correct input 'suffStat' for 'flexCItest'
 #' suff <- getSuff(dat, test="flexCItest")
 #' 
 #' flexCItest(2,3,NULL, suffStat = suff)
