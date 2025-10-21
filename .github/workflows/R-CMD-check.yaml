@@ -6,9 +6,9 @@
 # usethis::use_github_action("check-standard") will install it.
 on:
   push:
-    branches: [version_1.1.1]
+    branches: [master, version_1.1.2]
   pull_request:
-    branches: [version_1.1.1]
+    branches: [master, version_1.1.2]
   schedule:
     - cron: "0 0 1 * *"
   # Allow manually triggering the workflow via GitHub website, gh CLI tool etc.
