@@ -17,7 +17,7 @@ getSuff(
 for 'test=xxxMItest': an object of class \code{mice::\link[mice:mids-class]{mids}},
 or a list of data.frames containing the multiply imputed data sets.}
 
-\item{test}{one of \code{\link[=gaussCItest]{gaussCItest()}}, \code{\link[=gaussMItest]{gaussMItest()}}, \code{\link[=disCItest]{disCItest()}},
+\item{test}{one of \code{\link[pcalg:condIndFisherZ]{pcalg::gaussCItest()}}, \code{\link[=gaussMItest]{gaussMItest()}}, \code{\link[pcalg:disCItest]{pcalg::disCItest()}},
 \code{\link[=disMItest]{disMItest()}}, \code{\link[=mixCItest]{mixCItest()}}, \code{\link[=mixMItest]{mixMItest()}}, \code{\link[=flexCItest]{flexCItest()}},
 \code{\link[=flexMItest]{flexMItest()}}.}
 

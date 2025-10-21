@@ -22,8 +22,8 @@ A plug-in conditional independence test for \code{pcalg::\link[pcalg]{skeleton}}
 \code{pcalg::\link[pcalg]{fci}} when the data contain missing values. Observations
 where at least one of the variables involved in the test is missing are
 deleted prior to performing the test (test-wise deletion). The function \code{flexCItwd} detects whether
-variables are continuous, discrete or mixed, and automatically switches between \code{\link{gaussCItwd}} (continuous only),
-\code{link{disCItwd}} (discrete only) and \code{\link{mixCItwd}} (mixed).
+variables are continuous, discrete or mixed, and automatically switches between \code{\link[micd]{gaussCItwd}} (continuous only),
+\code{link{disCItwd}} (discrete only) and \code{\link[micd]{mixCItwd}} (mixed).
 }
 \examples{
 ## load data (numeric and factor variables)

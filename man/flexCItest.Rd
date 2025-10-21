@@ -19,8 +19,8 @@ A p-value.
 \description{
 A plug-in conditional independence test for \code{\link[pcalg:skeleton]{pcalg::skeleton()}}, \code{\link[pcalg:pc]{pcalg::pc()}} or
 \code{\link[pcalg:fci]{pcalg::fci()}} when multiply imputed data sets are available. \code{\link[=flexCItest]{flexCItest()}} detects whether
-variables are continuous, discrete or mixed, and automatically switches between \code{\link[=gaussCItest]{gaussCItest()}} (continuous only),
-\code{\link[=disCItest]{disCItest()}} (discrete only) and \code{\link[=mixCItest]{mixCItest()}} (mixed variables).
+variables are continuous, discrete or mixed, and automatically switches between \code{\link[pcalg:condIndFisherZ]{pcalg::gaussCItest()}} (continuous only),
+\code{\link[pcalg:disCItest]{pcalg::disCItest()}} (discrete only) and \code{\link[=mixCItest]{mixCItest()}} (mixed variables).
 }
 \details{
 \code{suffStat} needs to be a list with four elements named \code{datlist}, \code{corlist},
@@ -42,5 +42,5 @@ flexCItest(2,3,NULL, suffStat = suff)
 
 }
 \seealso{
-\code{\link[=gaussCItest]{gaussCItest()}}, \code{\link[=disCItest]{disCItest()}} and \code{\link[=mixCItest]{mixCItest()}}.
+\code{\link[pcalg:condIndFisherZ]{pcalg::gaussCItest()}}, \code{\link[pcalg:disCItest]{pcalg::disCItest()}} and \code{\link[=mixCItest]{mixCItest()}}.
 }

@@ -60,6 +60,6 @@ plot(pc.fit)
 
 }
 \seealso{
-\code{pcalg::\link[pcalg]{disCItest}} for complete data, \code{\link{disMItest}}
+\code{pcalg::\link[pcalg]{disCItest}} for complete data, \code{\link[micd]{disMItest}}
 for multiply imputed data
 }

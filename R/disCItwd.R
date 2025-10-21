@@ -21,7 +21,7 @@
 #'
 #' @return A p-value.
 #'
-#' @seealso \code{pcalg::\link[pcalg]{disCItest}} for complete data, \code{\link{disMItest}}
+#' @seealso \code{pcalg::\link[pcalg]{disCItest}} for complete data, \code{\link[micd]{disMItest}}
 #' for multiply imputed data
 #'
 #' @examples
