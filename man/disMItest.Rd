@@ -15,7 +15,7 @@ independent given the subset S of the remaining variables.}
 \item{suffStat}{A list of \code{data.frame}s containing the multiply imputed
 data sets. Usually obtained from a \code{mice::\link[mice:mids-class]{mids}}
 object using \code{mice::\link[mice:complete.mids]{complete}} with argument
-\code{action="all"}. All variables must be coded as \code{\link{factor}s}. NO warning is issued if the variables are not coded as factors!}
+\code{action="all"}. All variables must be coded as \code{factors}. NO warning is issued if the variables are not coded as factors!}
 }
 \value{
 A p-value.
@@ -69,7 +69,7 @@ imputed data sets. \emph{Biometrika} 79(1):103-111.
 }
 \seealso{
 \code{pcalg::\link[pcalg]{disCItest}} for complete data,
-\code{\link{disCItwd}} for test-wise deletion
+\code{\link[micd]{disCItwd}} for test-wise deletion
 }
 \author{
 Janine Witte

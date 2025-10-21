@@ -1,7 +1,7 @@
 #' Likelihood Ratio Test for (Conditional) Independence between Mixed Variables
 #' after Multiple Imputation
 #'
-#' A modified version of \code{\link{mixCItest}}, to be used within \code{pcalg::\link[pcalg]{skeleton}},
+#' A modified version of \code{\link[micd]{mixCItest}}, to be used within \code{pcalg::\link[pcalg]{skeleton}},
 #' \code{pcalg::\link[pcalg]{pc}} or \code{pcalg::\link[pcalg]{fci}} when multiply imputed data sets are available.
 #'
 #' @param x,y,S    (integer) position of variable X, Y and set of variables S,
@@ -16,7 +16,7 @@
 #'  the degrees of freedom are returned in addition to the p-value. Defaults to
 #'  \code{FALSE}.
 #'
-#' @details See \code{\link{mixCItest}} for details on the assumptions of the
+#' @details See \code{\link[micd]{mixCItest}} for details on the assumptions of the
 #' Conditional Gaussian likelihood ratio test. \code{CGtestMI} applies this test
 #' to each \code{data.frame} in \code{suffStat}, then combines the results using
 #' the rules in Meng & Rubin (1992).

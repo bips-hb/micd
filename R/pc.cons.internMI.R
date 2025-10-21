@@ -4,7 +4,7 @@
 #' This function is a modification of \code{pcalg::\link[pcalg]{pc}}
 #' to be used for multiple imputation.
 #'
-#' @param sk A skeleton object as returned from \code{\link{skeletonMI}}
+#' @param sk A skeleton object as returned from \code{\link[micd]{skeletonMI}}
 #' @param data An object of type mids, which stands for 'multiply imputed
 #'             data set', typically created by a call to function mice().
 #' @param alpha Significance level for the conditional independence test.

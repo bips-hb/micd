@@ -11,7 +11,7 @@ flexMItest(x, y, S = NULL, suffStat)
 respectively, in the dataset. It is tested whether X and Y are conditionally
 independent given the subset S of the remaining variables.}
 
-\item{suffStat}{a list generated using \code{\link{getSuff}} with \code{test="flexMItest"}. See below for details.}
+\item{suffStat}{a list generated using \code{\link[micd]{getSuff}} with \code{test="flexMItest"}. See below for details.}
 }
 \value{
 A p-value.
@@ -19,8 +19,8 @@ A p-value.
 \description{
 A plug-in conditional independence test for \code{pcalg::\link[pcalg]{skeleton}}, \code{pcalg::\link[pcalg]{pc}} or
 \code{pcalg::\link[pcalg]{fci}} when multiply imputed data sets are available. \code{flexMItest} detects whether
-variables are continuous, discrete or mixed, and automatically switches between \code{\link{gaussMItest}} (continuous only),
-\code{link{disMItest}} (discrete only) and \code{\link{mixMItest}} (mixed).
+variables are continuous, discrete or mixed, and automatically switches between \code{\link[micd]{gaussMItest}} (continuous only),
+\code{link{disMItest}} (discrete only) and \code{\link[micd]{mixMItest}} (mixed).
 }
 \details{
 \code{suffStat} needs to be a list with four elements named \code{datlist}, \code{corlist},
@@ -67,5 +67,5 @@ flexCItwd(2,3,4, dat)
 
 }
 \seealso{
-\code{\link{gaussMItest}}, \code{\link{disMItest}} and \code{\link{mixMItest}}
+\code{\link[micd]{gaussMItest}}, \code{\link[micd]{disMItest}} and \code{\link[micd]{mixMItest}}
 }

@@ -27,11 +27,11 @@ A p-value. If \code{moreOutput=TRUE}, the test statistic, its main
 components and the degrees of freedom are returned as well.
 }
 \description{
-A modified version of \code{\link{mixCItest}}, to be used within \code{pcalg::\link[pcalg]{skeleton}},
+A modified version of \code{\link[micd]{mixCItest}}, to be used within \code{pcalg::\link[pcalg]{skeleton}},
 \code{pcalg::\link[pcalg]{pc}} or \code{pcalg::\link[pcalg]{fci}} when multiply imputed data sets are available.
 }
 \details{
-See \code{\link{mixCItest}} for details on the assumptions of the
+See \code{\link[micd]{mixCItest}} for details on the assumptions of the
 Conditional Gaussian likelihood ratio test. \code{CGtestMI} applies this test
 to each \code{data.frame} in \code{suffStat}, then combines the results using
 the rules in Meng & Rubin (1992).
