@@ -27,7 +27,6 @@
 #'
 #' @examples
 #' ## load data (numeric and factor variables)
-#' library(ranger)
 #' dat <- toenail2[1:400, ]
 #'
 #' ## delete some observations
@@ -36,7 +35,8 @@
 #' dat[sample(400, 30), 4] <- NA
 #'
 #' ## impute missing values using random forests
-#' imp <- mice::mice(dat, method = "rf", m = 3, printFlag = FALSE)
+#' #imp <- mice::mice(dat, method = "rf", m = 3, printFlag = FALSE)
+#' imp <- mice::mice(dat, m = 3, printFlag = FALSE)
 #'
 #' ## obtain correct input 'suffStat' for 'flexMItest'
 #' suff <- getSuff(imp, test="flexMItest")
