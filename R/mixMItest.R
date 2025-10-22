@@ -46,7 +46,7 @@
 #' if (requireNamespace("ranger", quietly = TRUE)) {
 #' suppressWarnings(imp <- mice(dat, method = "rf", m = 2, printFlag = FALSE))
 #' } else {
-#' suppressWarnings(mp <- mice(dat, m = 2, printFlag = FALSE))
+#' suppressWarnings(imp <- mice(dat, m = 2, printFlag = FALSE))
 #' }
 #' ## analyse data
 #' # complete data:
