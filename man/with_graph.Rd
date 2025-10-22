@@ -35,11 +35,10 @@ dat[sample(1:length(dat), 260)] <- NA
 
 ## Impute missing values under normal model
 imp <- mice(dat, method = "norm", printFlag = FALSE)
-mylabels <- names(imp$imp)
 out.fci <- with_graph(data = imp, 
                       algo = "fciPlus", 
                       args = ", indepTest = gaussCItest, verbose = FALSE,
-                      labels = mylabels, alpha = 0.01")
+                      labels = names(imp$imp), alpha = 0.01")
                           
  out.ges <- with_graph(data = imp, algo = "ges", arg = NULL, score = TRUE)
  

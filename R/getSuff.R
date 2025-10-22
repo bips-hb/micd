@@ -77,10 +77,12 @@
 #' dat4[sample(400, 30), 4] <- NA
 #'
 #' ## impute missing values using random forests
+#' if (requireNamespace("ranger", quietly = TRUE)) {
 #' imp4 <- mice(dat4, method="rf", m = 3, printFlag = FALSE)
 #' mixMItest(2, 3, 5, suffStat = getSuff(imp4, test="mixMItest"))
 #' mixMItest(2, 3, 5, suffStat = mice::complete(imp4, action="all"))
 #' flexMItest(2, 3, 5, suffStat = getSuff(imp4, test="flexMItest"))
+#' }
 #'
 #' @export
 getSuff <- function(X, test = c("gaussCItest", "gaussMItest", "disCItest", "disMItest",

@@ -43,8 +43,11 @@
 #' dat[sample(1000, 30), 4] <- NA
 #'
 #' ## impute missing values using random forests (because of run time we just impute 2 chains)
-#' imp <- mice(dat, method = "rf", m = 2, printFlag = FALSE)
-#'
+#' if (requireNamespace("ranger", quietly = TRUE)) {
+#' suppressWarnings(imp <- mice(dat, method = "rf", m = 2, printFlag = FALSE))
+#' } else {
+#' suppressWarnings(mp <- mice(dat, m = 2, printFlag = FALSE))
+#' }
 #' ## analyse data
 #' # complete data:
 #' mixCItest(2, 3, 5, suffStat = toenail2[1:1000, ])
