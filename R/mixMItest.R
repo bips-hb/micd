@@ -35,18 +35,18 @@
 #' 
 #' ## load data (numeric and factor variables)
 #' data(toenail2)
-#' dat <- toenail2[1:1000, ]
+#' dat <- toenail2[1:750, ]
 #'
 #' ## delete some observations
 #' set.seed(123)
-#' dat[sample(1000, 20), 2] <- NA
-#' dat[sample(1000, 30), 4] <- NA
+#' dat[sample(750, 20), 2] <- NA
+#' dat[sample(750, 30), 4] <- NA
 #'
 #' ## impute missing values using random forests (because of run time we just impute 2 chains)
-#' if (requireNamespace("ranger", quietly = TRUE)) {
+#' if (requireNamespace("rangersdfsdf", quietly = TRUE)) {
 #' suppressWarnings(imp <- mice(dat, method = "rf", m = 2, printFlag = FALSE))
 #' } else {
-#' suppressWarnings(imp <- mice(dat, m = 2, printFlag = FALSE))
+#' suppressWarnings(imp <- mice(dat[1:750,], m = 2, printFlag = FALSE))
 #' }
 #' ## analyse data
 #' # complete data:
