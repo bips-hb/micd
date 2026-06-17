@@ -105,7 +105,7 @@ getSuff <- function(X, test = c("gaussCItest", "gaussMItest", "disCItest", "disM
     if (is.null(adaptDF)) { stop("'adaptDF' needs to be specified. See ?pcalg::disCItest") }
     if (!is.null(nlev)) { if (length(nlev) != ncol(X)) {stop("Something is wrong with nlev. Check ?pcalg::disCItest")} }
     for (i in 1:ncol(X)) {
-      X[ ,i] <- as.numeric(X[ ,i]) - 1
+      X[[i]] <- as.numeric(X[[i]]) - 1
     }
 
     if(is.null(adaptDF)) adaptDF = TRUE
